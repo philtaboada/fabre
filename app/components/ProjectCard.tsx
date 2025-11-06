@@ -80,7 +80,7 @@ export default function ProjectCard({
           </span>
           {status === "Pre-venta" && (
             <span className="px-2 py-1 text-xs font-semibold rounded-full bg-red-500 text-white animate-pulse-soft shadow-lg">
-              🔥 Últimas unidades
+              Últimas unidades
             </span>
           )}
         </div>

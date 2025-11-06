@@ -48,39 +48,6 @@ const ALL_PROJECTS: Project[] = [
     image: "https://images.unsplash.com/photo-1507089947368-19c1da9775ae?q=80&w=1600&auto=format&fit=crop",
     bedrooms: 2,
     bathrooms: 1,
-  },
-  {
-    id: "4",
-    title: "Costa Verde Premium",
-    district: "Barranco",
-    area: 85,
-    price: 220000,
-    status: "Pre-venta",
-    image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=1600&auto=format&fit=crop",
-    bedrooms: 3,
-    bathrooms: 2,
-  },
-  {
-    id: "5",
-    title: "Jardines del Sol",
-    district: "La Molina",
-    area: 95,
-    price: 280000,
-    status: "En construcción",
-    image: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?q=80&w=1600&auto=format&fit=crop",
-    bedrooms: 3,
-    bathrooms: 3,
-  },
-  {
-    id: "6",
-    title: "Puente Piedra Gardens",
-    district: "Puente Piedra",
-    area: 65,
-    price: 140000,
-    status: "Entregado",
-    image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1600&auto=format&fit=crop",
-    bedrooms: 2,
-    bathrooms: 1,
   }
 ];
 
@@ -123,10 +90,24 @@ export default function Catalog() {
 
         <div className="space-y-8">
           <Filters onChange={onFiltersChange} />
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-            {filtered.map((p) => (
-              <ProjectCard key={p.id} {...p} />
-            ))}
+          <div className="space-y-6 lg:space-y-8">
+            {/* Proyecto destacado (primero) */}
+            {filtered.length > 0 && (
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
+                <div className="lg:col-span-2">
+                  <ProjectCard {...filtered[0]} />
+                </div>
+              </div>
+            )}
+
+            {/* Grid de proyectos restantes */}
+            {filtered.length > 1 && (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+                {filtered.slice(1).map((p) => (
+                  <ProjectCard key={p.id} {...p} />
+                ))}
+              </div>
+            )}
           </div>
 
           {filtered.length === 0 && (

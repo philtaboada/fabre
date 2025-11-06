@@ -2,7 +2,7 @@ export default function AmenitiesShowcase() {
   const amenities = [
     {
       category: "Espacios Comunes",
-      icon: "🏢",
+      icon: "building",
       items: [
         { name: "Piscina infinity", description: "Disfruta de momentos relajantes con vista panorámica" },
         { name: "Gimnasio equipado", description: "Mantente en forma con máquinas de última generación" },
@@ -14,7 +14,7 @@ export default function AmenitiesShowcase() {
     },
     {
       category: "Seguridad & Confort",
-      icon: "🔒",
+      icon: "security",
       items: [
         { name: "Seguridad 24/7", description: "Vigilancia constante con sistema de cámaras HD" },
         { name: "Acceso biométrico", description: "Tecnología avanzada para mayor seguridad" },
@@ -26,7 +26,7 @@ export default function AmenitiesShowcase() {
     },
     {
       category: "Diseño & Calidad",
-      icon: "✨",
+      icon: "luxury",
       items: [
         { name: "Acabados premium", description: "Materiales de primera calidad en cada detalle" },
         { name: "Iluminación LED", description: "Eficiencia energética y ambientes acogedores" },
@@ -55,7 +55,7 @@ export default function AmenitiesShowcase() {
       <div className="container-page">
         <div className="text-center mb-12">
           <span className="inline-block px-4 py-2 bg-accent text-white text-sm font-medium rounded-full mb-4">
-            🏠 Comodidades
+            Comodidades
           </span>
           <h2 className="text-3xl lg:text-4xl font-bold text-primary mb-4">
             Vive con estilo y comodidad

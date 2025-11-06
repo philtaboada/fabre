@@ -74,7 +74,7 @@ export default function HeroCarousel() {
   const nextSlide = useCallback(() => {
     setCurrentSlide(prev => {
       const newIndex = (prev + 1) % heroSlides.length;
-      console.log("🔵 NEXT SLIDE - Prev:", prev, "→ New:", newIndex);
+      console.log(" NEXT SLIDE - Prev:", prev, "→ New:", newIndex);
       return newIndex;
     });
     pauseAutoPlay();
@@ -84,7 +84,7 @@ export default function HeroCarousel() {
   const prevSlide = useCallback(() => {
     setCurrentSlide(prev => {
       const newIndex = (prev - 1 + heroSlides.length) % heroSlides.length;
-      console.log("🟠 PREV SLIDE - Prev:", prev, "→ New:", newIndex);
+      console.log(" PREV SLIDE - Prev:", prev, "→ New:", newIndex);
       return newIndex;
     });
     pauseAutoPlay();
@@ -94,10 +94,10 @@ export default function HeroCarousel() {
   const goToSlide = useCallback((index: number) => {
     setCurrentSlide(prev => {
       if (index === prev) {
-        console.log("🟢 GO TO SLIDE - Mismo slide, no cambia:", index);
+        console.log(" GO TO SLIDE - Mismo slide, no cambia:", index);
         return prev;
       }
-      console.log("🟢 GO TO SLIDE - Prev:", prev, "→ New:", index);
+      console.log(" GO TO SLIDE - Prev:", prev, "→ New:", index);
       return index;
     });
     pauseAutoPlay();
@@ -106,7 +106,7 @@ export default function HeroCarousel() {
 
   // Auto-play effect
   useEffect(() => {
-    console.log("🔄 Auto-play effect ejecutado");
+    console.log(" Auto-play effect ejecutado");
     startAutoPlay();
     return () => {
       if (autoPlayTimerRef.current) {
@@ -117,7 +117,7 @@ export default function HeroCarousel() {
 
   // Log para cambios de estado
   useEffect(() => {
-    console.log("📊 Estado currentSlide cambió a:", currentSlide);
+    console.log(" Estado currentSlide cambió a:", currentSlide);
   }, [currentSlide]);
 
   // Keyboard navigation
@@ -139,7 +139,7 @@ export default function HeroCarousel() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [prevSlide, nextSlide, goToSlide, heroSlides.length]);
 
-  console.log("🎨 Renderizando carousel - Current slide:", currentSlide);
+  console.log(" Renderizando carousel - Current slide:", currentSlide);
 
   return (
     <section id="inicio" className="relative min-h-screen overflow-hidden">
@@ -209,7 +209,7 @@ export default function HeroCarousel() {
       {/* Navigation Arrows */}
       <button
         onClick={() => {
-          console.log("🖱️ Botón PREV clickeado");
+          console.log(" Botón PREV clickeado");
           prevSlide();
         }}
         onMouseEnter={pauseAutoPlay}
@@ -224,7 +224,7 @@ export default function HeroCarousel() {
 
       <button
         onClick={() => {
-          console.log("🖱️ Botón NEXT clickeado");
+          console.log(" Botón NEXT clickeado");
           nextSlide();
         }}
         onMouseEnter={pauseAutoPlay}
@@ -243,7 +243,7 @@ export default function HeroCarousel() {
           <button
             key={index}
             onClick={() => {
-              console.log(`🖱️ Indicador ${index} clickeado`);
+              console.log(` Indicador ${index} clickeado`);
               goToSlide(index);
             }}
             onMouseEnter={pauseAutoPlay}
@@ -259,11 +259,24 @@ export default function HeroCarousel() {
       </div>
 
       {/* Scroll Indicator */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 animate-bounce z-30">
-        <svg className="w-6 h-6 text-white/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-        </svg>
-      </div>
+      <Link
+        href="#proyectos"
+        className="absolute bottom-16 left-1/2 -translate-x-1/2 animate-bounce z-30 group"
+        aria-label="Ir a proyectos"
+      >
+        <div className="flex flex-col items-center gap-2">
+          <div className="flex flex-col items-center gap-1">
+            <span className="text-xs text-white/60 group-hover:text-white/90 transition-colors duration-300 font-medium">
+              Ver proyectos
+            </span>
+            <div className="w-8 h-8 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center group-hover:bg-white/20 transition-all duration-300 hover-lift">
+              <svg className="w-4 h-4 text-white/70 group-hover:text-white transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </Link>
     </section>
   );
 }

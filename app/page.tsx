@@ -19,14 +19,14 @@ export default function HomePage() {
     <main className="min-h-screen">
       <Header />
       <HeroCarousel />
-      <AboutSection />
-      <AwardsSection />
       <Catalog />
+      <AboutSection />
+      {/* <AwardsSection /> */}
       <UrgencyBanner />
-      <AmenitiesShowcase />
-      <FinancingSection />
+      {/* <AmenitiesShowcase /> */}
+      {/* <FinancingSection /> */}
       <TestimonialsSection />
-      <CertificationsShowcase />
+      {/* <CertificationsShowcase /> */}
       <BlogSection />
       <ContactForm />
       <Footer />

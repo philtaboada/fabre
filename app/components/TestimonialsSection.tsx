@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import { useState } from "react";
 
 const testimonials = [
   {
@@ -62,12 +65,31 @@ const testimonials = [
 ];
 
 export default function TestimonialsSection() {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const testimonialsPerView = 2; // Mostrar 2 testimonials en desktop
+  const totalGroups = Math.ceil(testimonials.length / testimonialsPerView);
+
+  const nextGroup = () => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex === totalGroups - 1 ? 0 : prevIndex + 1
+    );
+  };
+
+  const prevGroup = () => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex === 0 ? totalGroups - 1 : prevIndex - 1
+    );
+  };
+
+  const startIndex = currentIndex * testimonialsPerView;
+  const currentTestimonials = testimonials.slice(startIndex, startIndex + testimonialsPerView);
+
   return (
     <section className="py-16 lg:py-24 bg-gradient-to-br from-accent-light to-white">
       <div className="container-page">
         <div className="text-center mb-12 animate-fade-in-up">
           <span className="inline-block px-4 py-2 bg-accent text-white text-sm font-medium rounded-full mb-4">
-            ⭐ Historias de éxito
+            Historias de éxito
           </span>
           <h2 className="text-3xl lg:text-4xl font-bold text-primary mb-4">
             Familias que encontraron su hogar ideal
@@ -78,58 +100,37 @@ export default function TestimonialsSection() {
           </p>
         </div>
 
-        <div className="space-y-8 mb-12">
-          {testimonials.map((testimonial, index) => (
-            <article
-              key={testimonial.id}
-              className={`card p-6 hover-lift animate-scale-in ${
-                index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'
-              } flex-col lg:flex gap-6`}
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
-              {/* Media Content - Before/After or Video */}
-              {(testimonial.beforeAfter || testimonial.video) && (
-                <div className="lg:w-1/3">
-                  {testimonial.beforeAfter ? (
-                    <div className="space-y-3">
-                      <div className="relative aspect-video rounded-lg overflow-hidden">
-                        <Image
-                          src={testimonial.beforeAfter.before}
-                          alt="Antes"
-                          fill
-                          className="object-cover"
-                        />
-                        <div className="absolute top-2 left-2 bg-red-500 text-white px-2 py-1 rounded text-xs font-medium">
-                          ANTES
-                        </div>
-                      </div>
-                      <div className="relative aspect-video rounded-lg overflow-hidden">
-                        <Image
-                          src={testimonial.beforeAfter.after}
-                          alt="Después"
-                          fill
-                          className="object-cover"
-                        />
-                        <div className="absolute top-2 left-2 bg-green-500 text-white px-2 py-1 rounded text-xs font-medium">
-                          DESPUÉS
-                        </div>
-                      </div>
-                    </div>
-                  ) : testimonial.video ? (
-                    <div className="relative aspect-video rounded-lg overflow-hidden bg-gradient-to-br from-accent to-accent-light flex items-center justify-center cursor-pointer hover-lift">
-                      <svg className="w-16 h-16 text-white drop-shadow-lg" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M8 5v14l11-7z"/>
-                      </svg>
-                      <div className="absolute bottom-2 left-2 bg-black/70 text-white px-2 py-1 rounded text-xs">
-                        Ver testimonio completo
-                      </div>
-                    </div>
-                  ) : null}
-                </div>
-              )}
+        {/* Carousel Container */}
+        <div className="relative max-w-6xl mx-auto mb-12">
+          {/* Navigation Arrows */}
+          <button
+            onClick={prevGroup}
+            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-white rounded-full p-3 shadow-lg transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-accent"
+            aria-label="Grupo anterior"
+          >
+            <svg className="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
 
-              {/* Testimonial Content */}
-              <div className={`${testimonial.beforeAfter || testimonial.video ? 'lg:w-2/3' : 'w-full'}`}>
+          <button
+            onClick={nextGroup}
+            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-white rounded-full p-3 shadow-lg transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-accent"
+            aria-label="Siguiente grupo"
+          >
+            <svg className="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+
+          {/* Testimonials Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
+            {currentTestimonials.map((testimonial, index) => (
+              <article
+                key={testimonial.id}
+                className="card p-6 lg:p-8 hover-lift animate-fade-in-up"
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
                 {/* Rating and Header */}
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex items-center gap-1">
@@ -165,36 +166,52 @@ export default function TestimonialsSection() {
                     alt={testimonial.name}
                     width={60}
                     height={60}
-                    className="rounded-full object-cover border-2 border-accent-light"
+                    className="rounded-full object-cover border-2 border-accent-light flex-shrink-0"
                   />
-                  <div>
-                    <div className="font-bold text-primary text-lg">{testimonial.name}</div>
+                  <div className="min-w-0 flex-1">
+                    <div className="font-bold text-primary text-lg mb-1">{testimonial.name}</div>
                     <div className="text-sm text-secondary mb-1">{testimonial.role}</div>
                     <div className="text-sm text-accent font-semibold">{testimonial.project}</div>
                     <div className="text-xs text-secondary">{testimonial.location}</div>
                   </div>
                 </div>
-              </div>
-            </article>
-          ))}
+              </article>
+            ))}
+          </div>
+
+          {/* Indicators */}
+          <div className="flex justify-center gap-2 mt-8">
+            {Array.from({ length: totalGroups }).map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentIndex(index)}
+                className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                  index === currentIndex
+                    ? 'bg-accent scale-125'
+                    : 'bg-accent-light hover:bg-accent/70'
+                }`}
+                aria-label={`Ir al grupo ${index + 1}`}
+              />
+            ))}
+          </div>
         </div>
 
         {/* Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-          <div className="text-center animate-fade-in-up hover-lift">
-            <div className="text-3xl lg:text-4xl font-bold text-accent mb-2 animate-pulse-soft">+1,200</div>
+          <div className="text-center animate-fade-in-up">
+            <div className="text-3xl lg:text-4xl font-bold text-accent mb-2 animate-pulse-soft hover:scale-110 transition-transform duration-300">+1,200</div>
             <div className="text-secondary font-medium">Familias satisfechas</div>
           </div>
-          <div className="text-center animate-fade-in-up hover-lift" style={{ animationDelay: "0.1s" }}>
-            <div className="text-3xl lg:text-4xl font-bold text-accent mb-2 animate-pulse-soft">4.9/5</div>
+          <div className="text-center animate-fade-in-up" style={{ animationDelay: "0.1s" }}>
+            <div className="text-3xl lg:text-4xl font-bold text-accent mb-2 animate-pulse-soft hover:scale-110 transition-transform duration-300">4.9/5</div>
             <div className="text-secondary font-medium">Calificación promedio</div>
           </div>
-          <div className="text-center animate-fade-in-up hover-lift" style={{ animationDelay: "0.2s" }}>
-            <div className="text-3xl lg:text-4xl font-bold text-accent mb-2 animate-pulse-soft">98%</div>
+          <div className="text-center animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
+            <div className="text-3xl lg:text-4xl font-bold text-accent mb-2 animate-pulse-soft hover:scale-110 transition-transform duration-300">98%</div>
             <div className="text-secondary font-medium">Entregas puntuales</div>
           </div>
-          <div className="text-center animate-fade-in-up hover-lift" style={{ animationDelay: "0.3s" }}>
-            <div className="text-3xl lg:text-4xl font-bold text-accent mb-2 animate-pulse-soft">24/7</div>
+          <div className="text-center animate-fade-in-up" style={{ animationDelay: "0.3s" }}>
+            <div className="text-3xl lg:text-4xl font-bold text-accent mb-2 animate-pulse-soft hover:scale-110 transition-transform duration-300">24/7</div>
             <div className="text-secondary font-medium">Atención al cliente</div>
           </div>
         </div>

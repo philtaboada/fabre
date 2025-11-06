@@ -21,19 +21,19 @@ export default function CertificationsShowcase() {
     {
       name: "Registro Único de Constructores",
       description: "Registro Nacional",
-      logo: "📋",
+      logo: "certification",
       details: "Inscritos en el Registro Único de Constructores con calificación A1 - máxima categoría."
     },
     {
       name: "Certificación Antisísmica",
       description: "Resistencia Sísmica",
-      logo: "🏗️",
+      logo: "construction",
       details: "Todos nuestros proyectos cumplen con las normas sísmicas más exigentes del país."
     },
     {
       name: "Garantía Decenal",
       description: "Garantía de Construcción",
-      logo: "🛡️",
+      logo: "shield",
       details: "Garantía de 10 años por defectos constructivos según Ley General de Vivienda."
     }
   ];
@@ -42,32 +42,32 @@ export default function CertificationsShowcase() {
     {
       title: "Inspección Diaria",
       description: "Equipo técnico especializado supervisa cada etapa de construcción",
-      icon: "👁️"
+      icon: "inspection"
     },
     {
       title: "Control de Calidad",
       description: "Laboratorio propio para pruebas de materiales y acabados",
-      icon: "🔬"
+      icon: "laboratory"
     },
     {
       title: "Certificación BIM",
       description: "Modelado de Información para Construcción para mayor precisión",
-      icon: "💻"
+      icon: "monitoring"
     },
     {
       title: "Auditorías Externas",
       description: "Auditorías trimestrales por firmas certificadoras independientes",
-      icon: "📊"
+      icon: "audit"
     },
     {
       title: "Seguro de Construcción",
       description: "Cobertura integral durante todo el proceso constructivo",
-      icon: "🛟"
+      icon: "insurance"
     },
     {
       title: "Post-Venta 24/7",
       description: "Soporte técnico y mantenimiento por 2 años adicionales",
-      icon: "🔧"
+      icon: "support"
     }
   ];
 
@@ -104,7 +104,7 @@ export default function CertificationsShowcase() {
         {/* Header */}
         <div className="text-center mb-16 animate-fade-in-up">
           <span className="inline-block px-4 py-2 bg-accent text-white text-sm font-medium rounded-full mb-4">
-            🛡️ Calidad Garantizada
+            Calidad Garantizada
           </span>
           <h2 className="text-3xl lg:text-4xl font-bold text-primary mb-4">
             Por qué confiar en Fabre Inmobiliaria
