@@ -4,6 +4,7 @@ import Link from "next/link";
 type Status = "Pre-venta" | "En construcción" | "Entregado";
 
 export default function ProjectCard({
+  id,
   title,
   district,
   area,
@@ -12,7 +13,9 @@ export default function ProjectCard({
   image,
   bedrooms,
   bathrooms,
+  featured = false,
 }: {
+  id: string;
   title: string;
   district: string;
   area: number; // m²
@@ -21,6 +24,7 @@ export default function ProjectCard({
   image: string;
   bedrooms?: number;
   bathrooms?: number;
+  featured?: boolean;
 }) {
   const priceLabel = new Intl.NumberFormat("es-PE", {
     style: "currency",
@@ -30,6 +34,9 @@ export default function ProjectCard({
 
   // Calcular cuota mensual aproximada (precio / 120 meses con interés del 8%)
   const monthlyPayment = Math.round((price * 1.08) / 120);
+  const monthlyPaymentLabel = new Intl.NumberFormat("es-PE", {
+    maximumFractionDigits: 0,
+  }).format(monthlyPayment);
 
   const getStatusConfig = (status: Status) => {
     switch (status) {
@@ -63,8 +70,9 @@ export default function ProjectCard({
   const statusConfig = getStatusConfig(status);
 
   return (
-    <article className="card overflow-hidden group hover-lift animate-fade-in-up relative">
-      <div className="relative aspect-[4/3] overflow-hidden">
+    <article className={`card overflow-hidden group hover-lift animate-fade-in-up relative ${featured ? 'lg:col-span-2' : ''}`}>
+      <Link href={`/proyectos/${id}`} className="block">
+        <div className={`relative ${featured ? 'aspect-[21/9] lg:aspect-[16/7]' : 'aspect-[4/3]'} overflow-hidden`}>
         <Image
           src={image}
           alt={title}
@@ -102,11 +110,12 @@ export default function ProjectCard({
             </div>
           </div>
         )}
-      </div>
+        </div>
+      </Link>
 
-      <div className="p-5">
+      <div className={`p-5 ${featured ? 'lg:p-8' : ''}`}>
         <div className="mb-3">
-          <h3 className="font-bold text-xl text-primary group-hover:text-accent transition-colors mb-1">
+          <h3 className={`font-bold ${featured ? 'text-2xl lg:text-3xl' : 'text-xl'} text-primary group-hover:text-accent transition-colors mb-1`}>
             {title}
           </h3>
           <div className="flex items-center gap-2">
@@ -158,27 +167,30 @@ export default function ProjectCard({
             <div className="text-xs text-secondary">desde</div>
           </div>
           <div className="text-sm text-secondary">
-            Cuota mensual: <span className="font-semibold text-primary">S/ {monthlyPayment.toLocaleString()}</span>
+            Cuota mensual: <span className="font-semibold text-primary">S/ {monthlyPaymentLabel}</span>
             <span className="text-xs"> (aprox.)</span>
           </div>
         </div>
 
         {/* Botones de acción */}
-        <div className="flex gap-2">
+        <div className={`flex gap-2 ${featured ? 'lg:flex-row lg:gap-4' : ''}`}>
           <Link
-            href="#contacto"
-            className="flex-1 btn-primary text-center justify-center text-sm py-2.5"
+            href={`/proyectos/${id}`}
+            className={`flex-1 btn-primary text-center justify-center ${featured ? 'text-base py-3 lg:py-4' : 'text-sm py-2.5'}`}
           >
-            Cotizar ahora
+            Ver detalles
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>
           </Link>
-          <button className="px-3 py-2.5 border-2 border-accent text-accent rounded-lg hover:bg-accent hover:text-white transition-all duration-300 text-sm font-medium">
+          <Link
+            href="#contacto"
+            className={`${featured ? 'px-6 py-3 lg:py-4' : 'px-3 py-2.5'} border-2 border-accent text-accent rounded-lg hover:bg-accent hover:text-white transition-all duration-300 font-medium flex items-center justify-center`}
+          >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
             </svg>
-          </button>
+          </Link>
         </div>
       </div>
     </article>

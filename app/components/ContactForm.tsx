@@ -1,12 +1,12 @@
 "use client";
 import { useState, useEffect } from "react";
+import { ALL_PROJECTS } from "../lib/projects";
 
-const projects = [
-  { id: "1", name: "Malec", district: "San Carlos" },
-  { id: "2", name: "Parque Central", district: "San Isidro" },
-  { id: "3", name: "Los Fresnos", district: "Surco" },
-
-];
+const projects = ALL_PROJECTS.map(p => ({
+  id: p.id,
+  name: p.title,
+  district: p.district,
+}));
 
 const bedrooms = [
   { value: "", label: "Seleccionar" },
@@ -27,13 +27,17 @@ interface FormErrors {
   general?: string;
 }
 
-export default function ContactForm() {
+interface ContactFormProps {
+  defaultProjectId?: string;
+}
+
+export default function ContactForm({ defaultProjectId }: ContactFormProps = {}) {
   const [formData, setFormData] = useState({
     name: "",
     lastname: "",
     email: "",
     phone: "",
-    project: "",
+    project: defaultProjectId || "",
     bedrooms: "",
     message: "",
     privacy: false,

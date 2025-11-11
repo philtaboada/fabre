@@ -9,7 +9,7 @@ const heroSlides = [
     title: "Aquí empieza tu historia",
     subtitle: "Departamentos modernos en Huancayo",
     description: "Descubre nuestros proyectos inmobiliarios diseñados para tu comodidad y estilo de vida.",
-    image: "https://images.unsplash.com/photo-1505691938895-1758d7feb511?q=80&w=1600&auto=format&fit=crop",
+    image: "/building/build1-3.png",
     cta: "Ver proyectos",
     ctaLink: "#proyectos"
   },
@@ -18,7 +18,7 @@ const heroSlides = [
     title: "Viviendas que inspiran",
     subtitle: "Construyendo sueños desde 1999",
     description: "Más de 20 años creando espacios que mejoran la calidad de vida de nuestras familias.",
-    image: "https://images.unsplash.com/photo-1494526585095-c41746248156?q=80&w=1600&auto=format&fit=crop",
+    image: "/building/build1-4.jpg",
     cta: "Conoce nuestra historia",
     ctaLink: "#nosotros"
   },
@@ -27,7 +27,7 @@ const heroSlides = [
     title: "Calidad y confianza",
     subtitle: "Proyectos certificados y garantizados",
     description: "Cada proyecto cuenta con las mejores certificaciones y procesos de construcción.",
-    image: "https://images.unsplash.com/photo-1507089947368-19c1da9775ae?q=80&w=1600&auto=format&fit=crop",
+    image: "/building/build1-5.jpg",
     cta: "Ver certificaciones",
     ctaLink: "#reconocimientos"
   }
@@ -165,9 +165,9 @@ export default function HeroCarousel() {
       </div>
 
       {/* Content */}
-      <div className="absolute inset-0 z-20 flex items-center justify-center">
+      <div className="absolute inset-0 z-20 flex items-center">
         <div className="container-page">
-          <div className="max-w-4xl mx-auto text-center">
+          <div className="max-w-4xl text-left">
             {heroSlides.map((slide, index) => (
               <div
                 key={slide.id}
@@ -180,26 +180,13 @@ export default function HeroCarousel() {
                   display: index === currentSlide ? 'block' : 'none',
                 }}
               >
-                <span className="inline-block px-4 py-2 bg-accent text-white text-sm font-medium rounded-full mb-6 drop-shadow-md">
-                  {slide.subtitle}
-                </span>
-                  <h1 className="text-5xl lg:text-7xl font-bold text-white mb-6 leading-tight drop-shadow-lg">
+                
+                  <h1 className="text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight drop-shadow-lg">
                     {slide.title}
                   </h1>
-                  <p className="text-xl text-white/90 mb-8 max-w-2xl leading-relaxed mx-auto drop-shadow-md">
+                  <p className="text-xl text-white/90 mb-8 max-w-2xl leading-relaxed drop-shadow-md">
                     {slide.description}
                   </p>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Link href={slide.ctaLink} className="btn-primary text-lg px-8 py-4 hover-lift">
-                    {slide.cta}
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                    </svg>
-                  </Link>
-                  <Link href="#contacto" className="btn-secondary text-lg px-8 py-4 hover-lift">
-                    Contáctanos
-                  </Link>
-                </div>
               </div>
             ))}
           </div>

@@ -1,6 +1,6 @@
 export default function UrgencyBanner() {
   return (
-    <section className="relative py-6 lg:py-8 bg-gradient-to-r from-accent via-accent to-accent-light">
+    <section className="relative py-6 lg:py-8 bg-gradient-to-r from-accent via-accent to-accent-light overflow-hidden">
       <div className="container-page">
         <div className="flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-8">
           {/* Contenido izquierdo */}
@@ -50,7 +50,7 @@ export default function UrgencyBanner() {
       </div>
 
       {/* Elemento decorativo sutil */}
-      <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full blur-2xl transform translate-x-16 -translate-y-16"></div>
+      <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full blur-2xl transform -translate-y-16"></div>
     </section>
   );
 }
