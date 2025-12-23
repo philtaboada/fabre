@@ -1,56 +1,64 @@
+"use client";
+
+import { motion } from "framer-motion";
+import { MapPin, Sparkles, Phone, ArrowRight } from "lucide-react";
+
 export default function UrgencyBanner() {
   return (
-    <section className="relative py-6 lg:py-8 bg-gradient-to-r from-accent via-accent to-accent-light overflow-hidden">
-      <div className="container-page">
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-8">
-          {/* Contenido izquierdo */}
-          <div className="flex-1 text-center lg:text-left">
-            <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm text-white px-4 py-2 rounded-full text-sm font-semibold mb-4 animate-pulse">
+    <section className="relative py-8 lg:py-12 bg-gradient-to-r from-accent via-accent to-accent-light overflow-hidden">
+      <div className="container-page relative z-10">
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-12">
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="flex-1 text-center lg:text-left"
+          >
+            <motion.div
+              animate={{ opacity: [0.5, 1, 0.5] }}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+              className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm text-white px-4 py-2 rounded-full text-sm font-semibold mb-6"
+            >
+              <Sparkles className="w-4 h-4" />
               ¡Oferta especial!
-            </div>
-
-            <h2 className="text-2xl lg:text-4xl font-bold text-white mb-3">
-              Proyectos exclusivos
-              <span className="block text-accent-light lg:inline lg:ml-2">disponibles ahora</span>
+            </motion.div>
+            <h2 className="text-3xl lg:text-5xl font-bold text-white mb-4 tracking-tight">
+              Aprovecha hoy el <span className="text-black bg-white px-3 py-1 rounded-xl">Bono MiVivienda</span>
             </h2>
-
-            <p className="text-white/90 text-base lg:text-lg mb-6 max-w-lg">
-              Descubre nuestros proyectos más demandados con descuentos únicos.
+            <p className="text-white/90 text-lg lg:text-xl max-w-2xl font-medium">
+              Últimas unidades con descuentos exclusivos hasta agotar stock.
             </p>
+          </motion.div>
 
-            <div className="flex flex-wrap gap-3 justify-center lg:justify-start text-sm">
-              <span className="bg-white/15 px-3 py-1 rounded-full text-white"> Precios especiales</span>
-              <span className="bg-white/15 px-3 py-1 rounded-full text-white"> Ubicaciones premium</span>
-              <span className="bg-white/15 px-3 py-1 rounded-full text-white"> Financiamiento</span>
-            </div>
-          </div>
-
-          {/* Botones de acción */}
-          <div className="flex flex-col sm:flex-row gap-3 lg:gap-4">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="flex flex-col sm:flex-row gap-4 lg:gap-6"
+          >
             <a
               href="#proyectos"
-              className="group bg-white text-accent px-6 lg:px-8 py-3 lg:py-4 rounded-lg font-bold hover:bg-accent-light hover:text-white transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
+              className="group bg-white text-accent px-8 lg:px-10 py-4 rounded-2xl font-bold hover:bg-white/90 transition-all duration-300 shadow-xl hover:shadow-2xl flex items-center justify-center gap-2"
             >
               Ver proyectos
-              <svg className="w-5 h-5 inline ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </a>
             <a
               href="#contacto"
-              className="group border-2 border-white text-white px-6 lg:px-8 py-3 lg:py-4 rounded-lg font-bold hover:bg-white hover:text-accent transition-all duration-300"
+              className="group border-2 border-white/30 text-white px-8 lg:px-10 py-4 rounded-2xl font-bold hover:bg-white hover:text-accent transition-all duration-300 flex items-center justify-center gap-2"
             >
-              <svg className="w-5 h-5 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-              </svg>
+              <Phone className="w-5 h-5" />
               Contactar
             </a>
-          </div>
+          </motion.div>
         </div>
       </div>
 
-      {/* Elemento decorativo sutil */}
-      <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full blur-2xl transform -translate-y-16"></div>
+      {/* Decoración */}
+      <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+      <div className="absolute bottom-0 left-0 w-48 h-48 bg-accent-dark/20 rounded-full blur-2xl translate-y-1/2 -translate-x-1/2"></div>
     </section>
   );
 }

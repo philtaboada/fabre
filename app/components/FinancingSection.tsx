@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { formatNumber } from "../lib/utils";
 
 export default function FinancingSection() {
   const [loanAmount, setLoanAmount] = useState(200000);
@@ -39,7 +40,7 @@ export default function FinancingSection() {
               {/* Monto del préstamo */}
               <div>
                 <label className="block text-sm font-medium text-primary mb-2">
-                  Monto del préstamo: <span className="font-bold text-accent">S/ {loanAmount.toLocaleString()}</span>
+                  Monto del préstamo: <span className="font-bold text-accent">S/ {formatNumber(loanAmount)}</span>
                 </label>
                 <input
                   type="range"
@@ -81,13 +82,13 @@ export default function FinancingSection() {
                 <div className="grid grid-cols-2 gap-4 text-center">
                   <div>
                     <div className="text-2xl font-bold text-accent">
-                      S/ {monthlyPayment.toLocaleString(undefined, { maximumFractionDigits: 0 })}
+                      S/ {formatNumber(monthlyPayment)}
                     </div>
                     <div className="text-sm text-secondary">Cuota mensual</div>
                   </div>
                   <div>
                     <div className="text-2xl font-bold text-accent">
-                      S/ {totalInterest.toLocaleString(undefined, { maximumFractionDigits: 0 })}
+                      S/ {formatNumber(totalInterest)}
                     </div>
                     <div className="text-sm text-secondary">Interés total</div>
                   </div>

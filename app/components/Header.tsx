@@ -20,29 +20,28 @@ export default function Header() {
   }, []);
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-      isScrolled 
-        ? "bg-white/95 backdrop-blur-md border-b border-neutral-200/50" 
-        : "bg-transparent"
-    }`}>
+    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
+      ? "bg-white/95 backdrop-blur-md border-b border-neutral-200/50"
+      : "bg-transparent"
+      }`}>
       <div className="container-page flex items-center justify-between h-16 lg:h-20">
         {/* Logo */}
         <Link href="/" className="font-bold text-2xl lg:text-3xl tracking-tight text-primary hover:text-accent transition-colors">
-          <Image 
-            src={isScrolled ? "/LOGO-LETRAS-NEGRAS.png" : "/LOGO - LETRAS BLANCAS (1).png"} 
-            alt="Fabre" 
-            width={200} 
-            height={200} 
+          <Image
+            src={isScrolled ? "/LOGO-LETRAS-NEGRAS.png" : "/LOGO - LETRAS BLANCAS (1).png"}
+            alt="Fabre"
+            width={200}
+            height={200}
           />
         </Link>
 
         {/* Desktop Navigation */}
         <nav className="hidden lg:flex items-center gap-8">
           <Link href="#inicio" className={`text-lg font-medium hover:text-accent transition-colors ${isScrolled ? "text-neutral-900" : "text-white"}`}>Inicio</Link>
-          <Link href="#proyectos" className={`text-lg font-medium hover:text-accent transition-colors ${isScrolled ? "text-neutral-900" : "text-white"}`}>Proyectos</Link>
+          <Link href="#departamentos" className={`text-lg font-medium hover:text-accent transition-colors ${isScrolled ? "text-neutral-900" : "text-white"}`}>Departamentos</Link>
           <Link href="#nosotros" className={`text-lg font-medium hover:text-accent transition-colors ${isScrolled ? "text-neutral-900" : "text-white"}`}>Nosotros</Link>
-          <Link href="#reconocimientos" className={`text-lg font-medium hover:text-accent transition-colors ${isScrolled ? "text-neutral-900" : "text-white"}`}>Reconocimientos</Link>
-          <Link href="#blog" className={`text-lg font-medium hover:text-accent transition-colors ${isScrolled ? "text-neutral-900" : "text-white"}`}>Blog</Link>
+          <Link href="/financiamiento" className={`text-lg font-medium hover:text-accent transition-colors ${isScrolled ? "text-neutral-900" : "text-white"}`}>Financiamiento</Link>
+          <Link href="/ayuda-social" className={`text-lg font-medium hover:text-accent transition-colors ${isScrolled ? "text-neutral-900" : "text-white"}`}>Ayuda Social</Link>
           <Link href="#contacto" className={`text-lg font-medium hover:text-accent transition-colors ${isScrolled ? "text-neutral-900" : "text-white"}`}>Contacto</Link>
         </nav>
 
@@ -77,10 +76,10 @@ export default function Header() {
         <div className="lg:hidden border-t border-neutral-200/50 bg-white">
           <div className="container-page py-4 space-y-2">
             <Link href="#inicio" onClick={() => setIsMenuOpen(false)} className="block py-3 px-4 text-sm font-medium hover:bg-accent-light rounded-lg">Inicio</Link>
-            <Link href="#proyectos" onClick={() => setIsMenuOpen(false)} className="block py-3 px-4 text-sm font-medium hover:bg-accent-light rounded-lg">Proyectos</Link>
+            <Link href="#departamentos" onClick={() => setIsMenuOpen(false)} className="block py-3 px-4 text-sm font-medium hover:bg-accent-light rounded-lg">Departamentos</Link>
             <Link href="#nosotros" onClick={() => setIsMenuOpen(false)} className="block py-3 px-4 text-sm font-medium hover:bg-accent-light rounded-lg">Nosotros</Link>
-            <Link href="#reconocimientos" onClick={() => setIsMenuOpen(false)} className="block py-3 px-4 text-sm font-medium hover:bg-accent-light rounded-lg">Reconocimientos</Link>
-            <Link href="#blog" onClick={() => setIsMenuOpen(false)} className="block py-3 px-4 text-sm font-medium hover:bg-accent-light rounded-lg">Blog</Link>
+            <Link href="/financiamiento" onClick={() => setIsMenuOpen(false)} className="block py-3 px-4 text-sm font-medium hover:bg-accent-light rounded-lg">Financiamiento</Link>
+            <Link href="/ayuda-social" onClick={() => setIsMenuOpen(false)} className="block py-3 px-4 text-sm font-medium hover:bg-accent-light rounded-lg">Ayuda Social</Link>
             <Link href="#contacto" onClick={() => setIsMenuOpen(false)} className="block py-3 px-4 text-sm font-medium hover:bg-accent-light rounded-lg">Contacto</Link>
             <div className="pt-4 border-t border-neutral-200/50">
               <button className="btn-primary w-full justify-center">

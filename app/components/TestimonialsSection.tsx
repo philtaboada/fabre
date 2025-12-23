@@ -2,217 +2,197 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Star, ChevronLeft, ChevronRight, Quote, TrendingUp, CheckCircle } from "lucide-react";
 
 const testimonials = [
   {
     id: 1,
-    name: "Carla Rodríguez",
-    location: "Miraflores",
-    project: "Malecón Vista Mar",
+    name: "Carlos Mendoza",
+    role: "Proprietario en Brindizi",
+    content: "La calidad de los acabados superó mis expectativas. El proceso de compra fue transparente y el equipo de Fabre siempre estuvo dispuesto a ayudar.",
     rating: 5,
-    text: "Compramos nuestro departamento en preventa y la experiencia superó todas nuestras expectativas. El diseño moderno, los acabados premium y la vista al mar hacen que cada día se sienta como unas vacaciones. El equipo de Fabre nos mantuvo informados durante toda la construcción.",
-    image: "https://picsum.photos/seed/carla/80",
-    role: "Profesional independiente",
-    beforeAfter: {
-      before: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?q=80&w=400&auto=format&fit=crop",
-      after: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=400&auto=format&fit=crop"
-    },
-    purchaseTime: "Hace 2 años",
-    savings: "Ahorramos S/ 50,000 comprando en preventa"
+    avatar: "/images/testimonials/user-1.jpg",
+    verified: true
   },
   {
     id: 2,
-    name: "Luis Mendoza",
-    location: "San Isidro",
-    project: "Parque Central",
+    name: "Ana Lucía Ortiz",
+    role: "Inversionista",
+    content: "He comprado dos departamentos con Fabre para inversión. La puntualidad en la entrega y la valorización de las zonas donde construyen es increíble.",
     rating: 5,
-    text: "Como inversionista, busco propiedades que generen valor. Parque Central no solo se revalorizó un 35% en el último año, sino que la gestión post-venta es excepcional. Los amenities como la piscina y gimnasio están siempre impecables.",
-    image: "https://picsum.photos/seed/luis/80",
-    role: "Empresario",
-    video: true,
-    purchaseTime: "Hace 18 meses",
-    investment: "Valorización del 35% en 18 meses"
+    avatar: "/images/testimonials/user-2.jpg",
+    verified: true
   },
   {
     id: 3,
-    name: "Familia García",
-    location: "Surco",
-    project: "Los Fresnos",
+    name: "Roberto Sánchez",
+    role: "Propietario en Miraflores",
+    content: "Lo que más valoro es la atención post-venta. Tuvieron un detalle con una grifería y lo solucionaron en 24 horas. Muy recomendados.",
     rating: 5,
-    text: "Buscábamos un hogar seguro y cómodo para criar a nuestros hijos. Los Fresnos ofrece exactamente eso: áreas verdes, seguridad 24/7 y una comunidad maravillosa. Nuestros hijos tienen amigos en el edificio y se sienten en casa.",
-    image: "https://picsum.photos/seed/familia/80",
-    role: "Familia con 2 hijos",
-    beforeAfter: {
-      before: "https://images.unsplash.com/photo-1554995207-c18c203602cb?q=80&w=400&auto=format&fit=crop",
-      after: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=400&auto=format&fit=crop"
-    },
-    purchaseTime: "Hace 1 año",
-    highlight: "Comunidad segura para niños"
-  },
-  {
-    id: 4,
-    name: "Roberto Silva",
-    location: "Barranco",
-    project: "Costa Verde Premium",
-    rating: 5,
-    text: "Después de vivir 10 años en un departamento antiguo, Costa Verde Premium es como vivir en un hotel de lujo todos los días. La terraza con vista al mar, el diseño contemporáneo y la tranquilidad del barrio hacen que valga cada sol invertido.",
-    image: "https://picsum.photos/seed/roberto/80",
-    role: "Médico",
-    video: true,
-    purchaseTime: "Hace 6 meses",
-    testimonial: "De un departamento antiguo a un hogar de lujo"
+    avatar: "/images/testimonials/user-3.jpg",
+    verified: true
   }
 ];
 
 export default function TestimonialsSection() {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const testimonialsPerView = 2; // Mostrar 2 testimonials en desktop
-  const totalGroups = Math.ceil(testimonials.length / testimonialsPerView);
+  const [direction, setDirection] = useState(0);
 
-  const nextGroup = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === totalGroups - 1 ? 0 : prevIndex + 1
-    );
+  const testimonialsPerView = 2;
+  const maxIndex = Math.ceil(testimonials.length / testimonialsPerView) - 1;
+
+  const next = () => {
+    setDirection(1);
+    setCurrentIndex((prev) => (prev === maxIndex ? 0 : prev + 1));
   };
 
-  const prevGroup = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? totalGroups - 1 : prevIndex - 1
-    );
+  const prev = () => {
+    setDirection(-1);
+    setCurrentIndex((prev) => (prev === 0 ? maxIndex : prev - 1));
   };
 
-  const startIndex = currentIndex * testimonialsPerView;
-  const currentTestimonials = testimonials.slice(startIndex, startIndex + testimonialsPerView);
+  const variants = {
+    enter: (direction: number) => ({
+      x: direction > 0 ? 100 : -100,
+      opacity: 0
+    }),
+    center: {
+      zIndex: 1,
+      x: 0,
+      opacity: 1
+    },
+    exit: (direction: number) => ({
+      zIndex: 0,
+      x: direction < 0 ? 100 : -100,
+      opacity: 0
+    })
+  };
+
+  // En versión móvil o tablets pequeñas mostramos solo 1
+  // Para simplificar esta demo, usaremos slice básico
+  const currentTestimonials = testimonials.slice(
+    currentIndex * testimonialsPerView,
+    (currentIndex + 1) * testimonialsPerView
+  );
 
   return (
-    <section className="py-16 lg:py-24 bg-gradient-to-br from-accent-light to-white">
+    <section className="py-16 lg:py-24 bg-neutral-50 overflow-hidden">
       <div className="container-page">
-        <div className="text-center mb-12 animate-fade-in-up">
-          <span className="inline-block px-4 py-2 bg-accent text-white text-sm font-medium rounded-full mb-4">
-            Historias de éxito
-          </span>
-          <h2 className="text-3xl lg:text-4xl font-bold text-primary mb-4">
-            Familias que encontraron su hogar ideal
-          </h2>
-          <p className="text-secondary text-lg max-w-2xl mx-auto">
-            Descubre cómo nuestros proyectos han transformado la vida de más de 1,200 familias.
-            Historias reales de personas que confiaron en nosotros.
-          </p>
+        <div className="text-center max-w-3xl mx-auto mb-16 px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="flex items-center justify-center gap-2 text-accent font-bold tracking-widest uppercase text-sm mb-4"
+          >
+            <TrendingUp className="w-4 h-4" />
+            Casos de Éxito
+          </motion.div>
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="text-4xl lg:text-6xl font-bold text-primary mb-6"
+          >
+            Confianza que <br />
+            <span className="text-accent underline decoration-accent-light underline-offset-8">construye hogares</span>
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            className="text-secondary text-lg lg:text-xl leading-relaxed"
+          >
+            Más de 500 familias ya disfrutan de su nuevo hogar con la garantía de calidad Fabre.
+          </motion.p>
         </div>
 
-        {/* Carousel Container */}
-        <div className="relative max-w-6xl mx-auto mb-12">
-          {/* Navigation Arrows */}
-          <button
-            onClick={prevGroup}
-            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-white rounded-full p-3 shadow-lg transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-accent"
-            aria-label="Grupo anterior"
-          >
-            <svg className="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-            </svg>
-          </button>
-
-          <button
-            onClick={nextGroup}
-            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-white rounded-full p-3 shadow-lg transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-accent"
-            aria-label="Siguiente grupo"
-          >
-            <svg className="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-          </button>
-
-          {/* Testimonials Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
-            {currentTestimonials.map((testimonial, index) => (
-              <article
-                key={testimonial.id}
-                className="card p-6 lg:p-8 hover-lift animate-fade-in-up"
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                {/* Rating and Header */}
-                <div className="flex items-start justify-between mb-4">
-                  <div className="flex items-center gap-1">
-                    {[...Array(testimonial.rating)].map((_, i) => (
-                      <svg key={i} className="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 24 24">
-                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                      </svg>
-                    ))}
-                  </div>
-                  <div className="text-right">
-                    <div className="text-sm font-medium text-accent">{testimonial.purchaseTime}</div>
-                    {testimonial.savings && (
-                      <div className="text-xs text-green-600 font-medium">{testimonial.savings}</div>
-                    )}
-                    {testimonial.investment && (
-                      <div className="text-xs text-blue-600 font-medium">{testimonial.investment}</div>
-                    )}
-                    {testimonial.highlight && (
-                      <div className="text-xs text-purple-600 font-medium">{testimonial.highlight}</div>
-                    )}
-                  </div>
-                </div>
-
-                {/* Testimonial Text */}
-                <blockquote className="text-secondary mb-6 leading-relaxed text-lg">
-                  &ldquo;{testimonial.text}&rdquo;
-                </blockquote>
-
-                {/* Author */}
-                <div className="flex items-center gap-4">
-                  <Image
-                    src={testimonial.image}
-                    alt={testimonial.name}
-                    width={60}
-                    height={60}
-                    className="rounded-full object-cover border-2 border-accent-light flex-shrink-0"
-                  />
-                  <div className="min-w-0 flex-1">
-                    <div className="font-bold text-primary text-lg mb-1">{testimonial.name}</div>
-                    <div className="text-sm text-secondary mb-1">{testimonial.role}</div>
-                    <div className="text-sm text-accent font-semibold">{testimonial.project}</div>
-                    <div className="text-xs text-secondary">{testimonial.location}</div>
-                  </div>
-                </div>
-              </article>
-            ))}
+        <div className="relative max-w-7xl mx-auto px-4 lg:px-12">
+          {/* Navegación */}
+          <div className="absolute top-1/2 -translate-y-1/2 left-0 right-0 flex justify-between pointer-events-none z-20">
+            <button
+              onClick={prev}
+              className="pointer-events-auto bg-white hover:bg-accent hover:text-white text-accent w-12 h-12 rounded-full shadow-xl flex items-center justify-center transition-all duration-300 transform -translate-x-1/2 focus:outline-none"
+            >
+              <ChevronLeft className="w-6 h-6" />
+            </button>
+            <button
+              onClick={next}
+              className="pointer-events-auto bg-white hover:bg-accent hover:text-white text-accent w-12 h-12 rounded-full shadow-xl flex items-center justify-center transition-all duration-300 transform translate-x-1/2 focus:outline-none"
+            >
+              <ChevronRight className="w-6 h-6" />
+            </button>
           </div>
 
-          {/* Indicators */}
-          <div className="flex justify-center gap-2 mt-8">
-            {Array.from({ length: totalGroups }).map((_, index) => (
+          <div className="min-h-[400px] relative">
+            <AnimatePresence initial={false} custom={direction} mode="wait">
+              <motion.div
+                key={currentIndex}
+                custom={direction}
+                variants={variants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                transition={{
+                  x: { type: "spring", stiffness: 300, damping: 30 },
+                  opacity: { duration: 0.2 }
+                }}
+                className="grid grid-cols-1 md:grid-cols-2 gap-8"
+              >
+                {currentTestimonials.map((testimonial) => (
+                  <article
+                    key={testimonial.id}
+                    className="bg-white p-8 lg:p-10 rounded-[2.5rem] shadow-sm border border-neutral-100 relative group hover:shadow-xl transition-shadow duration-500"
+                  >
+                    <Quote className="absolute top-8 right-8 w-12 h-12 text-accent/5 group-hover:text-accent/10 transition-colors" />
+
+                    <div className="flex items-center gap-1 mb-6">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} className={`w-5 h-5 ${i < testimonial.rating ? "text-yellow-400 fill-yellow-400" : "text-neutral-200"}`} />
+                      ))}
+                    </div>
+
+                    <p className="text-primary text-xl font-medium mb-8 leading-relaxed italic">
+                      "{testimonial.content}"
+                    </p>
+
+                    <div className="flex items-center gap-4">
+                      <div className="w-14 h-14 rounded-2xl bg-neutral-100 relative overflow-hidden flex-shrink-0">
+                        <div className="absolute inset-0 bg-accent/10 flex items-center justify-center text-accent font-bold text-xl uppercase">
+                          {testimonial.name.charAt(0)}
+                        </div>
+                      </div>
+                      <div>
+                        <div className="flex items-center gap-2">
+                          <h4 className="font-bold text-primary">{testimonial.name}</h4>
+                          {testimonial.verified && (
+                            <CheckCircle className="w-4 h-4 text-green-500" />
+                          )}
+                        </div>
+                        <p className="text-secondary text-sm">{testimonial.role}</p>
+                      </div>
+                    </div>
+                  </article>
+                ))}
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+          {/* Indicadores */}
+          <div className="flex justify-center gap-3 mt-12">
+            {[...Array(maxIndex + 1)].map((_, i) => (
               <button
-                key={index}
-                onClick={() => setCurrentIndex(index)}
-                className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                  index === currentIndex
-                    ? 'bg-accent scale-125'
-                    : 'bg-accent-light hover:bg-accent/70'
-                }`}
-                aria-label={`Ir al grupo ${index + 1}`}
+                key={i}
+                onClick={() => {
+                  setDirection(i > currentIndex ? 1 : -1);
+                  setCurrentIndex(i);
+                }}
+                className={`h-2 rounded-full transition-all duration-300 ${i === currentIndex ? "w-12 bg-accent" : "w-2 bg-neutral-300 hover:bg-neutral-400"}`}
               />
             ))}
-          </div>
-        </div>
-
-        {/* Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-          <div className="text-center animate-fade-in-up">
-            <div className="text-3xl lg:text-4xl font-bold text-accent mb-2 animate-pulse-soft hover:scale-110 transition-transform duration-300">+1,200</div>
-            <div className="text-secondary font-medium">Familias satisfechas</div>
-          </div>
-          <div className="text-center animate-fade-in-up" style={{ animationDelay: "0.1s" }}>
-            <div className="text-3xl lg:text-4xl font-bold text-accent mb-2 animate-pulse-soft hover:scale-110 transition-transform duration-300">4.9/5</div>
-            <div className="text-secondary font-medium">Calificación promedio</div>
-          </div>
-          <div className="text-center animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
-            <div className="text-3xl lg:text-4xl font-bold text-accent mb-2 animate-pulse-soft hover:scale-110 transition-transform duration-300">98%</div>
-            <div className="text-secondary font-medium">Entregas puntuales</div>
-          </div>
-          <div className="text-center animate-fade-in-up" style={{ animationDelay: "0.3s" }}>
-            <div className="text-3xl lg:text-4xl font-bold text-accent mb-2 animate-pulse-soft hover:scale-110 transition-transform duration-300">24/7</div>
-            <div className="text-secondary font-medium">Atención al cliente</div>
           </div>
         </div>
       </div>
