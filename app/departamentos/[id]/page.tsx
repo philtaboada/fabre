@@ -17,7 +17,7 @@ import ImageGallery from "../../components/ImageGallery";
 
 // Helper for dynamic icons
 const Icon = ({ name, className }: { name: string; className?: string }) => {
-    // @ts-ignore
+    // @ts-expect-error Dynamic access
     const LucideIcon = LucideIcons[name];
     if (!LucideIcon) return <LucideIcons.HelpCircle className={className} size={20} />;
     return <LucideIcon className={className} size={20} />;

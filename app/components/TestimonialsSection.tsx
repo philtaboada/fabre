@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Star, ChevronLeft, ChevronRight, Quote, TrendingUp, CheckCircle } from "lucide-react";
@@ -156,7 +155,7 @@ export default function TestimonialsSection() {
                     </div>
 
                     <p className="text-primary text-xl font-medium mb-8 leading-relaxed italic">
-                      "{testimonial.content}"
+                      &quot;{testimonial.content}&quot;
                     </p>
 
                     <div className="flex items-center gap-4">

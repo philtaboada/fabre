@@ -1,11 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Send,
   CheckCircle2,
-  AlertCircle,
   Phone,
   Mail,
   MapPin,

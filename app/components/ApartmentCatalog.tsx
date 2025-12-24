@@ -8,6 +8,7 @@ import { formatNumber } from "../lib/utils";
 
 // Dynamic Icon Component
 const Icon = ({ name, className }: { name: string; className?: string }) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const LucideIcon = (LucideIcons as any)[name];
     if (!LucideIcon) return null;
     return <LucideIcon className={className} size={20} />;
@@ -146,7 +147,7 @@ export default function ApartmentCatalog() {
                     variants={containerVariants}
                     className="grid md:grid-cols-2 gap-8 lg:gap-10"
                 >
-                    {building.apartments.map((apartment, index) => (
+                    {building.apartments.map((apartment) => (
                         <motion.div
                             key={apartment.id}
                             variants={itemVariants}

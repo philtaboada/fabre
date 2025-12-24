@@ -2,7 +2,7 @@
 import { useMemo, useState } from "react";
 import Filters from "./Filters";
 import ProjectCard from "./ProjectCard";
-import { ALL_PROJECTS, type Project } from "../lib/projects";
+import { ALL_PROJECTS } from "../lib/projects";
 
 export default function Catalog() {
   const [priceMax, setPriceMax] = useState<number | undefined>(undefined);
@@ -117,7 +117,7 @@ export default function Catalog() {
                 </div>
                 <h3 className="text-2xl font-bold text-primary mb-3">No se encontraron proyectos</h3>
                 <p className="text-secondary text-lg mb-6">
-                  No hay proyectos que coincidan con los filtros seleccionados. 
+                  No hay proyectos que coincidan con los filtros seleccionados.
                   Intenta ajustar tus criterios de búsqueda.
                 </p>
                 <button
