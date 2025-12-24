@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 export default function WhatsAppButton() {
   const [isVisible, setIsVisible] = useState(false);
-  const phone = "+51978724704";
+  const phone = "+51964247545";
   const message = encodeURIComponent("Hola, estoy interesado en sus proyectos inmobiliarios. ¿Podrían darme más información?");
   const href = `https://wa.me/${phone}?text=${message}`;
 

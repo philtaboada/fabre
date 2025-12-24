@@ -92,7 +92,7 @@ export default function ContactForm() {
                 </div>
                 <div>
                   <h4 className="font-bold text-primary">Teléfono</h4>
-                  <p className="text-blue-600 font-medium">+51 978 724 604</p>
+                  <p className="text-blue-600 font-medium">+51 964 247 545</p>
                 </div>
               </div>
 
@@ -102,7 +102,7 @@ export default function ContactForm() {
                 </div>
                 <div>
                   <h4 className="font-bold text-primary">Correo</h4>
-                  <p className="text-blue-600 font-medium">ventas@fabre.pe</p>
+                  <p className="text-blue-600 font-medium">gerencia@inmobiliariafabre.com</p>
                 </div>
               </div>
 
@@ -112,7 +112,17 @@ export default function ContactForm() {
                 </div>
                 <div>
                   <h4 className="font-bold text-primary">Oficina</h4>
-                  <p className="text-blue-600 font-medium">Calle Jose Gálvez N°690, Miraflores</p>
+                  <p className="text-blue-600 font-medium">San Judas Tadeo 421, Huancayo</p>
+                </div>
+              </div>
+
+              <div className="flex gap-6 group">
+                <div className="w-14 h-14 bg-white rounded-2xl shadow-sm border border-neutral-100 flex items-center justify-center text-accent group-hover:bg-accent group-hover:text-white transition-all duration-500">
+                  <Clock className="w-6 h-6" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-primary">Horario de Atención</h4>
+                  <p className="text-blue-600 font-medium">Lun - Dom: 9am - 7pm</p>
                 </div>
               </div>
             </div>

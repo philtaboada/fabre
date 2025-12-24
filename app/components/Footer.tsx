@@ -5,13 +5,30 @@ import Link from "next/link";
 import {
   Facebook,
   Instagram,
-  Linkedin,
   Mail,
   Phone,
   MapPin,
   ChevronRight,
-  ExternalLink
+  Clock // Added Clock icon
 } from "lucide-react";
+
+// TikTok Icon Component since it's not in Lucide by default or we want a specific look
+const TiktokIcon = ({ className }: { className?: string }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+  >
+    <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" />
+  </svg>
+);
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -19,7 +36,7 @@ export default function Footer() {
   const socialLinks = [
     { icon: Facebook, href: "https://www.facebook.com/InmobiliariaFabre", label: "Facebook" },
     { icon: Instagram, href: "https://www.instagram.com/inmobiliariafabre/", label: "Instagram" },
-    { icon: Linkedin, href: "https://www.linkedin.com/company/fabreinmobiliaria", label: "LinkedIn" },
+    { icon: TiktokIcon, href: "https://www.tiktok.com/@inmobiliariafabre", label: "TikTok" },
   ];
 
   const quickLinks = [
@@ -113,23 +130,29 @@ export default function Footer() {
               Contacto
             </h4>
             <div className="space-y-4">
-              <a href="tel:+51978724604" className="flex items-center justify-center md:justify-start gap-3 text-blue-100/70 hover:text-accent transition-colors group">
+              <a href="tel:+51964247545" className="flex items-center justify-center md:justify-start gap-3 text-blue-100/70 hover:text-accent transition-colors group">
                 <div className="w-10 h-10 bg-white/5 rounded-xl flex items-center justify-center group-hover:bg-accent/10">
                   <Phone className="w-5 h-5 text-accent" />
                 </div>
-                <span>+51 978 724 604</span>
+                <span>+51 964 247 545</span>
               </a>
-              <a href="mailto:atencionalcliente@fabre.pe" className="flex items-center justify-center md:justify-start gap-3 text-blue-100/70 hover:text-accent transition-colors group">
+              <a href="mailto:gerencia@inmobiliariafabre.com" className="flex items-center justify-center md:justify-start gap-3 text-blue-100/70 hover:text-accent transition-colors group">
                 <div className="w-10 h-10 bg-white/5 rounded-xl flex items-center justify-center group-hover:bg-accent/10">
                   <Mail className="w-5 h-5 text-accent" />
                 </div>
-                <span>ventas@fabre.pe</span>
+                <span>gerencia@inmobiliariafabre.com</span>
               </a>
               <div className="flex items-start justify-center md:justify-start gap-3 text-blue-100/70 group">
                 <div className="w-10 h-10 bg-white/5 rounded-xl flex items-center justify-center group-hover:bg-accent/10 mt-1">
                   <MapPin className="w-5 h-5 text-accent" />
                 </div>
-                <span className="text-sm text-left">Calle Jose Gálvez N°690<br />Ofic. 402, Miraflores</span>
+                <span className="text-sm text-left">San Judas Tadeo 421,<br />Huancayo</span>
+              </div>
+              <div className="flex items-start justify-center md:justify-start gap-3 text-blue-100/70 group">
+                <div className="w-10 h-10 bg-white/5 rounded-xl flex items-center justify-center group-hover:bg-accent/10 mt-1">
+                  <Clock className="w-5 h-5 text-accent" />
+                </div>
+                <span className="text-sm text-left">Lun - Dom: 9am - 7pm</span>
               </div>
             </div>
           </div>

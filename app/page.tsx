@@ -1,6 +1,6 @@
 import Header from "./components/Header";
 import HeroCarousel from "./components/HeroCarousel";
-import AboutSection from "./components/AboutSection";
+
 import AwardsSection from "./components/AwardsSection";
 import ApartmentCatalog from "./components/ApartmentCatalog";
 import UrgencyBanner from "./components/UrgencyBanner";
@@ -20,7 +20,7 @@ export default function HomePage() {
       <Header />
       <HeroCarousel />
       <ApartmentCatalog />
-      <AboutSection />
+      {/* <AboutSection /> */}
       {/* <AwardsSection /> */}
       <UrgencyBanner />
       {/* <AmenitiesShowcase /> */}
