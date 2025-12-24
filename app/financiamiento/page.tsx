@@ -1,5 +1,7 @@
 "use client";
 import { useState } from "react";
+import { Phone, Mail, Clock } from "lucide-react";
+import { motion } from "framer-motion";
 import { formatNumber } from "../lib/utils";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -54,7 +56,12 @@ export default function FinanciamientoPage() {
             {/* Hero Section */}
             <section className="pt-24 pb-12 lg:pt-32 lg:pb-16 bg-gradient-to-br from-accent-light via-white to-sand">
                 <div className="container-page">
-                    <div className="text-center max-w-3xl mx-auto">
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6 }}
+                        className="text-center max-w-3xl mx-auto"
+                    >
                         <span className="inline-block px-4 py-2 bg-accent text-white text-sm font-medium rounded-full mb-4">
                             💰 Financiamiento
                         </span>
@@ -64,7 +71,7 @@ export default function FinanciamientoPage() {
                         <p className="text-secondary text-lg">
                             Utiliza nuestra calculadora para estimar tu cuota mensual y conoce las opciones de financiamiento disponibles para tu nuevo hogar.
                         </p>
-                    </div>
+                    </motion.div>
                 </div>
             </section>
 
@@ -73,7 +80,13 @@ export default function FinanciamientoPage() {
                     <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
 
                         {/* Calculator */}
-                        <div className="card p-6 lg:p-8">
+                        <motion.div
+                            initial={{ opacity: 0, x: -30 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.6 }}
+                            className="card p-6 lg:p-8"
+                        >
                             <h2 className="text-2xl font-bold text-primary mb-6 text-center">
                                 Calculadora de Crédito Hipotecario
                             </h2>
@@ -190,10 +203,16 @@ export default function FinanciamientoPage() {
                                     </p>
                                 </div>
                             </div>
-                        </div>
+                        </motion.div>
 
                         {/* Contact Form */}
-                        <div className="space-y-8">
+                        <motion.div
+                            initial={{ opacity: 0, x: 30 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.6 }}
+                            className="space-y-8"
+                        >
                             <div className="card p-6 lg:p-8">
                                 <h2 className="text-2xl font-bold text-primary mb-6 text-center">
                                     Solicita Asesoría Financiera
@@ -312,7 +331,14 @@ export default function FinanciamientoPage() {
                                     { icon: "✓", title: "Sin costos ocultos", desc: "Total transparencia en el proceso" },
                                     { icon: "✓", title: "Asesoría personalizada", desc: "Te acompañamos en todo momento" },
                                 ].map((item, idx) => (
-                                    <div key={idx} className="flex items-start gap-4 p-4 bg-accent-light rounded-lg">
+                                    <motion.div
+                                        key={idx}
+                                        initial={{ opacity: 0, y: 10 }}
+                                        whileInView={{ opacity: 1, y: 0 }}
+                                        viewport={{ once: true }}
+                                        transition={{ delay: idx * 0.1, duration: 0.5 }}
+                                        className="flex items-start gap-4 p-4 bg-accent-light rounded-lg"
+                                    >
                                         <div className="w-8 h-8 bg-accent rounded-full flex items-center justify-center text-white font-bold flex-shrink-0">
                                             {item.icon}
                                         </div>
@@ -320,10 +346,48 @@ export default function FinanciamientoPage() {
                                             <h4 className="font-semibold text-primary">{item.title}</h4>
                                             <p className="text-sm text-secondary">{item.desc}</p>
                                         </div>
-                                    </div>
+                                    </motion.div>
                                 ))}
                             </div>
-                        </div>
+
+                            {/* Contact Info Block */}
+                            <motion.div
+                                initial={{ opacity: 0, scale: 0.95 }}
+                                whileInView={{ opacity: 1, scale: 1 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: 0.2 }}
+                                className="bg-sand/30 rounded-xl p-6 space-y-4"
+                            >
+                                <h3 className="font-bold text-primary mb-4">Información de Contacto</h3>
+                                <div className="flex items-center gap-3">
+                                    <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center text-accent shadow-sm">
+                                        <Phone className="w-5 h-5" />
+                                    </div>
+                                    <div>
+                                        <p className="text-xs text-secondary font-medium">Llámanos</p>
+                                        <a href="tel:+51964247545" className="text-primary font-bold hover:text-accent transition-colors">+51 964 247 545</a>
+                                    </div>
+                                </div>
+                                <div className="flex items-center gap-3">
+                                    <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center text-accent shadow-sm">
+                                        <Mail className="w-5 h-5" />
+                                    </div>
+                                    <div>
+                                        <p className="text-xs text-secondary font-medium">Escríbenos</p>
+                                        <a href="mailto:gerencia@inmobiliariafabre.com" className="text-primary font-bold hover:text-accent transition-colors">gerencia@inmobiliariafabre.com</a>
+                                    </div>
+                                </div>
+                                <div className="flex items-center gap-3">
+                                    <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center text-accent shadow-sm">
+                                        <Clock className="w-5 h-5" />
+                                    </div>
+                                    <div>
+                                        <p className="text-xs text-secondary font-medium">Horario</p>
+                                        <p className="text-primary font-bold">Lun - Dom: 9am - 7pm</p>
+                                    </div>
+                                </div>
+                            </motion.div>
+                        </motion.div>
                     </div>
                 </div>
             </section>

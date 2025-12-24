@@ -184,10 +184,10 @@ export default function FinancingSection() {
                 </svg>
               </a>
               <a
-                href="tel:+51978724704"
+                href="tel:+51964247545"
                 className="btn-secondary text-lg px-8 py-4"
               >
-                Llamar ahora: +51 978 724 604
+                Llamar ahora: +51 964 247 545
               </a>
             </div>
           </div>

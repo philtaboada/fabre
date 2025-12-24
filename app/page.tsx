@@ -1,14 +1,9 @@
 import Header from "./components/Header";
 import HeroCarousel from "./components/HeroCarousel";
 
-import AwardsSection from "./components/AwardsSection";
 import ApartmentCatalog from "./components/ApartmentCatalog";
 import UrgencyBanner from "./components/UrgencyBanner";
-import AmenitiesShowcase from "./components/AmenitiesShowcase";
-import FinancingSection from "./components/FinancingSection";
 import TestimonialsSection from "./components/TestimonialsSection";
-import CertificationsShowcase from "./components/CertificationsShowcase";
-import BlogSection from "./components/BlogSection";
 import ContactForm from "./components/ContactForm";
 import Footer from "./components/Footer";
 import WhatsAppButton from "./components/WhatsAppButton";
@@ -20,14 +15,8 @@ export default function HomePage() {
       <Header />
       <HeroCarousel />
       <ApartmentCatalog />
-      {/* <AboutSection /> */}
-      {/* <AwardsSection /> */}
       <UrgencyBanner />
-      {/* <AmenitiesShowcase /> */}
-      {/* <FinancingSection /> */}
       <TestimonialsSection />
-      {/* <CertificationsShowcase /> */}
-      <BlogSection />
       <ContactForm />
       <Footer />
       <WhatsAppButton />
