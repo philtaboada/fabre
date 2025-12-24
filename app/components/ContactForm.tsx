@@ -18,12 +18,16 @@ import {
   Award
 } from "lucide-react";
 
-export default function ContactForm() {
+interface ContactFormProps {
+  defaultProjectId?: string;
+}
+
+export default function ContactForm({ defaultProjectId = "" }: ContactFormProps) {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
-    project: "",
+    project: defaultProjectId,
     message: ""
   });
 
