@@ -80,12 +80,12 @@ export default function Header() {
 
         {/* CTA Button */}
         <div className="hidden lg:flex items-center gap-4">
-          <button className="btn-primary">
+          <Link href="#contacto" className="btn-primary">
             Cotizar ahora
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>
-          </button>
+          </Link>
         </div>
 
         {/* Mobile Menu Button */}
@@ -114,9 +114,9 @@ export default function Header() {
             <Link href="/financiamiento" onClick={() => setIsMenuOpen(false)} className="block py-3 px-4 text-base font-medium text-primary hover:bg-accent/5 hover:text-accent rounded-lg transition-colors">Financiamiento</Link>
             <Link href="#contacto" onClick={() => setIsMenuOpen(false)} className="block py-3 px-4 text-base font-medium text-primary hover:bg-accent/5 hover:text-accent rounded-lg transition-colors">Contacto</Link>
             <div className="pt-4 border-t border-neutral-100">
-              <button className="btn-primary w-full justify-center">
+              <Link href="#contacto" onClick={() => setIsMenuOpen(false)} className="btn-primary w-full justify-center">
                 Cotizar ahora
-              </button>
+              </Link>
             </div>
           </div>
         </div>

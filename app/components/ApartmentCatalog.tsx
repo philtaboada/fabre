@@ -207,7 +207,10 @@ export default function ApartmentCatalog() {
 
                                 {/* Features */}
                                 <div className="flex flex-wrap gap-2 mb-10">
-                                    {apartment.features.slice(0, 3).map((feature, idx) => (
+                                    <span className="px-4 py-1.5 bg-accent/10 text-accent text-[10px] font-bold uppercase tracking-wider rounded-lg border border-accent/20">
+                                        Vista a la calle
+                                    </span>
+                                    {apartment.features.slice(1, 5).map((feature, idx) => (
                                         <span key={idx} className="px-4 py-1.5 bg-neutral-50 text-neutral-500 text-[10px] font-bold uppercase tracking-wider rounded-lg border border-neutral-100 group-hover:bg-accent/5 group-hover:text-accent group-hover:border-accent/10 transition-colors duration-300">
                                             {feature}
                                         </span>
@@ -219,7 +222,7 @@ export default function ApartmentCatalog() {
                                     <div>
                                         <div className="text-[10px] text-neutral-400 uppercase font-black tracking-widest mb-1">Inversión desde</div>
                                         <div className="text-3xl font-bold text-accent">
-                                            $ {formatNumber(apartment.price)}
+                                            S/ {formatNumber(apartment.price)}
                                         </div>
                                     </div>
                                     <Link
@@ -240,22 +243,38 @@ export default function ApartmentCatalog() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.8 }}
-                    className="mt-24 lg:mt-32 relative group"
+                    className="mt-24 lg:mt-32"
                 >
-                    <div className="absolute inset-0 bg-accent/5 rounded-[3rem] -rotate-1 group-hover:rotate-0 transition-transform duration-700"></div>
-                    <div className="relative bg-white p-10 lg:p-20 rounded-[3rem] border border-neutral-100 shadow-xl overflow-hidden">
-                        <div className="flex flex-col lg:flex-row items-center gap-12">
-                            <div className="lg:w-1/3">
-                                <h3 className="text-3xl font-bold text-primary mb-4">Espacios Diseñados</h3>
-                                <p className="text-secondary font-light">Cada rincón ha sido pensado para elevar tu experiencia de vida diaria.</p>
+                    <div className="relative bg-white rounded-[3rem] border border-neutral-100 shadow-xl overflow-hidden">
+                        <div className="grid lg:grid-cols-2">
+                            {/* Left Side: Text and Items */}
+                            <div className="p-10 lg:p-20 flex flex-col justify-center">
+                                <h3 className="text-3xl lg:text-4xl font-bold text-primary mb-6">Amenidades Exclusivas</h3>
+                                <p className="text-secondary font-light text-lg mb-10 leading-relaxed">
+                                    Disfruta de espacios diseñados para elevar tu calidad de vida, combinando modernidad, confort y recreación en un solo lugar.
+                                </p>
+                                <div className="space-y-6">
+                                    {building.commonAreas.map((area, idx) => (
+                                        <div key={idx} className="flex items-center gap-4 group/area">
+                                            <div className="w-12 h-12 rounded-2xl bg-accent text-white flex items-center justify-center shadow-lg shadow-accent/20 transition-transform group-hover/area:scale-110">
+                                                <LucideIcons.CheckCircle2 className="w-6 h-6" />
+                                            </div>
+                                            <div className="text-lg text-primary font-bold uppercase tracking-widest">{area}</div>
+                                        </div>
+                                    ))}
+                                </div>
                             </div>
-                            <div className="lg:w-2/3 grid grid-cols-2 md:grid-cols-3 gap-4 w-full">
-                                {building.commonAreas.map((area, idx) => (
-                                    <div key={idx} className="flex flex-col p-6 bg-neutral-50 rounded-2xl border border-transparent hover:border-accent/20 hover:bg-white transition-all duration-300 group/area">
-                                        <LucideIcons.CheckCircle2 className="text-accent mb-3 w-5 h-5 opacity-40 group-hover/area:opacity-100 transition-opacity" />
-                                        <div className="text-sm text-primary font-bold uppercase tracking-widest leading-tight">{area}</div>
-                                    </div>
-                                ))}
+
+                            {/* Right Side: Image */}
+                            <div className="relative min-h-[400px] lg:min-h-full overflow-hidden group">
+                                <Image
+                                    src="/building/common-areas.png"
+                                    alt="Espacios Comunes Brindizi"
+                                    fill
+                                    className="object-cover transition-transform duration-1000 group-hover:scale-110"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-l from-black/20 to-transparent"></div>
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
                             </div>
                         </div>
                     </div>

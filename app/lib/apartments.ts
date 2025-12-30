@@ -18,7 +18,7 @@ export type Building = {
     district: string;
     description: string;
     about: string;
-    status: "Pre-venta" | "En construcción" | "Entregado";
+    status: "Pre-venta" | "En construcción" | "Entregado" | "Entrega inmediata";
     deliveryDate?: string;
     floors: number;
     totalUnits: number;
@@ -51,16 +51,14 @@ export const BRINDIZI_BUILDING: Building = {
     district: "San Carlos, Huancayo",
     description: "Departamentos exclusivos en ubicación estratégica en San Carlos, cerca de la Universidad Continental y el Parque de la Identidad Wanka.",
     about: "El Edificio Brindizi ofrece una ubicación privilegiada a solo 3 cuadras de la Universidad Continental, cerca de la UPLA, Universidad Roosevelt, clínicas y centros comerciales como MAKRO. Destaca por su tecnología de seguridad avanzada con cerraduras inteligentes (huella, clave, tarjeta) y servicios modernos incluidos.",
-    status: "En construcción",
+    status: "Entrega inmediata",
     deliveryDate: "2025",
-    floors: 6,
+    floors: 7,
     totalUnits: 2,
     commonAreas: [
-        "Cerradura inteligente (Huella, Clave, Tarjeta)",
-        "Seguridad integrada",
-        "Cámaras de seguridad",
-        "Sistema de intercomunicador",
-        "Área de lavadero con termas Sole"
+        "Zona Pet Friendly",
+        "Gimnasio Equipado",
+        "Terraza Social & BBQ"
     ],
     buildingFeatures: [
         { name: "Cerradura Smart", iconName: "Lock" },
@@ -92,78 +90,48 @@ export const BRINDIZI_BUILDING: Building = {
     ],
     apartments: [
         {
-            id: "brindizi-2-dorm",
-            floor: 2,
-            area: 90,
-            price: 85000,
+            id: "brindizi-piso-5",
+            floor: 5,
+            area: 78,
+            price: 285000,
             bedrooms: 2,
             bathrooms: 2,
-            description: "Departamento funcional de 2 dormitorios diseñado para el equilibrio entre vida personal y trabajo. Cuenta con oficina independiente y balcón amplio.",
+            description: "Departamento exclusivo con vista a la calle, diseñado para maximizar la iluminación natural y el confort. Acabados de primera y distribución eficiente.",
             features: [
-                "2 Dormitorios amplios",
-                "2 Baños modernos",
-                "Área de estudios/oficina",
-                "Balcón con vista exterior",
-                "Cocina americana con barra",
-                "Lavadero con terma Sole",
+                "Vista a la calle",
+                "2 Dormitorios",
+                "2 Baños",
+                "Iluminación LED",
+                "Cocina americana",
+                "Lavadero independiente",
                 "Cerradura inteligente"
             ],
             images: [
                 "/dep-2/DSC05376-HDR.webp",
-                "/dep-2/DSC05377-HDR.webp",
-                "/dep-2/DSC05396-HDR.webp",
-                "/dep-2/DSC05416-HDR.webp",
-                "/dep-2/DSC05430-HDR.webp",
-                "/dep-2/DSC05438-HDR.webp",
-                "/dep-2/DSC05453-HDR.webp",
-                "/dep-2/DSC05459-HDR.webp",
-                "/dep-2/DSC05467-HDR.webp",
-                "/dep-2/DSC05474-HDR.webp",
-                "/dep-2/DSC05479-HDR.webp",
-                "/dep-2/DSC05494-HDR.webp",
-                "/dep-2/DSC05498-HDR.webp",
-                "/dep-2/DSC05523-HDR.webp",
-                "/dep-2/DSC05526-HDR.webp",
-                "/dep-2/DSC05536-HDR.webp",
-                "/dep-2/DSC05565-HDR.webp"
+                "/dep-2/DSC05377-HDR.webp"
             ],
             available: true
         },
         {
-            id: "brindizi-3-dorm",
-            floor: 3,
-            area: 110,
-            price: 110000,
-            bedrooms: 3,
+            id: "brindizi-piso-6",
+            floor: 6,
+            area: 78,
+            price: 290000,
+            bedrooms: 2,
             bathrooms: 2,
-            description: "Departamento de 3 dormitorios enfocado en la amplitud familiar. Posee sala/comedor con grandes ventanales y cocina equipada con fregadero multifuncional.",
+            description: "Elegante departamento en el piso 6 con impresionante vista a la calle. Espacios optimizados y tecnología smart de seguridad incluída.",
             features: [
-                "3 Dormitorios",
-                "2 Baños (Espejos LED)",
-                "Sala/Comedor panorámica",
-                "Cocina americana equipada",
-                "Fregadero multifuncional",
-                "Lavadero independiente",
-                "Grandes ventanales"
+                "Vista a la calle",
+                "2 Dormitorios",
+                "2 Baños",
+                "Balcón privado",
+                "Iluminación natural",
+                "Cerradura biométrica",
+                "Termas Sole instaladas"
             ],
             images: [
-                "/dep-2/DSC05376-HDR.webp",
-                "/dep-2/DSC05377-HDR.webp",
-                "/dep-2/DSC05396-HDR.webp",
-                "/dep-2/DSC05416-HDR.webp",
                 "/dep-2/DSC05430-HDR.webp",
-                "/dep-2/DSC05438-HDR.webp",
-                "/dep-2/DSC05453-HDR.webp",
-                "/dep-2/DSC05459-HDR.webp",
-                "/dep-2/DSC05467-HDR.webp",
-                "/dep-2/DSC05474-HDR.webp",
-                "/dep-2/DSC05479-HDR.webp",
-                "/dep-2/DSC05494-HDR.webp",
-                "/dep-2/DSC05498-HDR.webp",
-                "/dep-2/DSC05523-HDR.webp",
-                "/dep-2/DSC05526-HDR.webp",
-                "/dep-2/DSC05536-HDR.webp",
-                "/dep-2/DSC05565-HDR.webp"
+                "/dep-2/DSC05438-HDR.webp"
             ],
             available: true
         }

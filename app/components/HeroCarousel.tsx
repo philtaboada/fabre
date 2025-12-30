@@ -14,7 +14,7 @@ const heroSlides = [
     description: "Descubre nuestros proyectos inmobiliarios diseñados para tu comodidad y estilo de vida.",
     image: "/building/build1-3.png",
     cta: "Ver proyectos",
-    ctaLink: "#proyectos"
+    ctaLink: "#departamentos"
   },
   {
     id: 2,
@@ -23,7 +23,7 @@ const heroSlides = [
     description: "Más de 20 años creando espacios que mejoran la calidad de vida de nuestras familias.",
     image: "/building/build1-4.jpg",
     cta: "Conoce nuestra historia",
-    ctaLink: "#nosotros"
+    ctaLink: "/nosotros"
   },
   {
     id: 3,
@@ -32,7 +32,7 @@ const heroSlides = [
     description: "Cada proyecto cuenta con las mejores certificaciones y procesos de construcción.",
     image: "/building/build1-5.jpg",
     cta: "Ver certificaciones",
-    ctaLink: "#reconocimientos"
+    ctaLink: "/nosotros#reconocimientos"
   }
 ];
 

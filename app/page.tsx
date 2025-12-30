@@ -8,6 +8,7 @@ import ContactForm from "./components/ContactForm";
 import Footer from "./components/Footer";
 import WhatsAppButton from "./components/WhatsAppButton";
 import FloatingCTA from "./components/FloatingCTA";
+import MarketingBonus from "./components/MarketingBonus";
 
 export default function HomePage() {
   return (
@@ -21,6 +22,7 @@ export default function HomePage() {
       <Footer />
       <WhatsAppButton />
       <FloatingCTA />
+      <MarketingBonus />
     </main>
   );
 }

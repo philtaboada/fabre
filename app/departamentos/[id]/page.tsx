@@ -11,6 +11,7 @@ import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import WhatsAppButton from "../../components/WhatsAppButton";
 import FloatingCTA from "../../components/FloatingCTA";
+import MarketingBonus from "../../components/MarketingBonus";
 import { getApartmentById, BRINDIZI_BUILDING } from "../../lib/apartments";
 import { formatNumber } from "../../lib/utils";
 import ImageGallery from "../../components/ImageGallery";
@@ -262,15 +263,15 @@ export default function ApartmentDetailPage({ params }: { params: Promise<{ id: 
                                     <div className="text-center mb-8">
                                         <p className="text-secondary text-sm font-bold uppercase tracking-widest mb-2">Precio de Venta</p>
                                         <div className="text-4xl lg:text-5xl font-bold text-primary tracking-tight">
-                                            ${formatNumber(apartment.price)}<span className="text-2xl text-neutral-400 font-normal">.00</span>
+                                            S/ {formatNumber(apartment.price)}<span className="text-2xl text-neutral-400 font-normal">.00</span>
                                         </div>
                                     </div>
 
                                     <div className="space-y-3">
                                         <a
-                                            href="https://wa.me/51978724604"
+                                            href={`https://wa.me/51964247545?text=Hola,%20estoy%20interesado%20en%20el%20departamento%20del%20Piso%20${apartment.floor}%20del%20Edificio%20Brindizi.`}
                                             target="_blank"
-                                            className="block w-full py-4 bg-green-500 hover:bg-green-600 text-white rounded-2xl font-bold text-center transition-all shadow-lg shadow-green-500/30 flex items-center justify-center gap-2"
+                                            className="block w-full py-4 bg-[#25D366] hover:bg-[#128C7E] text-white rounded-2xl font-bold text-center transition-all shadow-lg shadow-green-500/30 flex items-center justify-center gap-2"
                                         >
                                             <LucideIcons.MessageCircle size={20} />
                                             WhatsApp Directo
@@ -295,7 +296,7 @@ export default function ApartmentDetailPage({ params }: { params: Promise<{ id: 
                                         <p className="text-sm text-secondary mb-4">¿Te interesa este departamento?</p>
                                         <div className="flex items-center justify-center gap-2 text-accent font-bold">
                                             <LucideIcons.PhoneCall size={18} />
-                                            +51 978 724 604
+                                            +51 964 247 545
                                         </div>
                                     </div>
                                 </motion.div>
@@ -317,6 +318,7 @@ export default function ApartmentDetailPage({ params }: { params: Promise<{ id: 
 
             <FloatingCTA />
             <WhatsAppButton />
+            <MarketingBonus />
             <Footer />
         </main>
     );
