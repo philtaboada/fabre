@@ -18,7 +18,7 @@ export type Building = {
     district: string;
     description: string;
     about: string;
-    status: "Pre-venta" | "En construcción" | "Entregado" | "Entrega inmediata";
+    status: "Pre-venta" | "En construcción" | "Entregado" | "Entrega inmediata" | "PROXIMO LANZAMIENTO";
     deliveryDate?: string;
     floors: number;
     totalUnits: number;
@@ -53,9 +53,14 @@ export const BRINDIZI_BUILDING: Building = {
     about: "El Edificio Brindizi ofrece una ubicación privilegiada a solo 3 cuadras de la Universidad Continental, cerca de la UPLA, Universidad Roosevelt, clínicas y centros comerciales como MAKRO. Destaca por su tecnología de seguridad avanzada con cerraduras inteligentes (huella, clave, tarjeta) y servicios modernos incluidos.",
     status: "Entrega inmediata",
     deliveryDate: "2025",
-    floors: 7,
-    totalUnits: 2,
+    floors: 12,
+    totalUnits: 12,
     commonAreas: [
+        "Estacionamiento",
+        "Zonas de Parrillas",
+        "SSHH",
+        "Zona de Tendales",
+        "Lavandería",
         "Zona Pet Friendly",
         "Gimnasio Equipado",
         "Terraza Social & BBQ"
@@ -110,7 +115,7 @@ export const BRINDIZI_BUILDING: Building = {
                 "/dep-2/DSC05376-HDR.webp",
                 "/dep-2/DSC05377-HDR.webp"
             ],
-            available: true
+            available: false
         },
         {
             id: "brindizi-piso-6",
@@ -124,10 +129,13 @@ export const BRINDIZI_BUILDING: Building = {
                 "Vista a la calle",
                 "2 Dormitorios",
                 "2 Baños",
+                "1 Estudio",
+                "1 Terraza",
                 "Balcón privado",
                 "Iluminación natural",
                 "Cerradura biométrica",
-                "Termas Sole instaladas"
+                "Termas Sole instaladas",
+                "Cocina americana"
             ],
             images: [
                 "/dep-2/DSC05430-HDR.webp",

@@ -103,60 +103,45 @@ export default function FinancingSection() {
             </div>
           </div>
 
-          {/* Beneficios del financiamiento */}
-          <div className="space-y-6">
-            <div className="card p-6">
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 bg-accent rounded-lg flex items-center justify-center flex-shrink-0">
-                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                </div>
+          {/* Common Areas List and Images - Page 7 PDF */}
+          <div className="lg:col-span-2 mt-12">
+            <div className="bg-white rounded-3xl p-8 lg:p-12 shadow-xl border border-neutral-100">
+              <div className="grid lg:grid-cols-2 gap-12 items-center">
                 <div>
-                  <h4 className="font-semibold text-primary mb-1">Aprobación exprés</h4>
-                  <p className="text-secondary text-sm">Respuesta en menos de 48 horas con nuestro proceso simplificado.</p>
+                  <h3 className="text-3xl font-bold text-primary mb-6">Amenidades Exclusivas</h3>
+                  <p className="text-secondary mb-8">Disfruta de áreas sociales diseñadas para brindar comodidad, modernidad, confort y recreación en un solo lugar.</p>
+                  <ul className="space-y-4">
+                    {[
+                      "ZONA PET FRIENDLY",
+                      "GIMNASIO EQUIPADO",
+                      "TERRAZA SOCIAL & BBQ",
+                      "ESTACIONAMIENTO",
+                      "ZONAS DE PARRILLAS",
+                      "SSHH",
+                      "ZONA DE TENDALES",
+                      "LAVANDERIA"
+                    ].map((item, idx) => (
+                      <li key={idx} className="flex items-center gap-3 text-secondary font-bold text-sm tracking-widest">
+                        <div className="w-6 h-6 bg-accent rounded-full flex items-center justify-center text-white">
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
+                        </div>
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-              </div>
-            </div>
-
-            <div className="card p-6">
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 bg-accent rounded-lg flex items-center justify-center flex-shrink-0">
-                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
-                  </svg>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-primary mb-1">Mejores tasas del mercado</h4>
-                  <p className="text-secondary text-sm">Negociamos directamente con bancos para obtener las mejores condiciones.</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="card p-6">
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 bg-accent rounded-lg flex items-center justify-center flex-shrink-0">
-                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                  </svg>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-primary mb-1">Sin costos ocultos</h4>
-                  <p className="text-secondary text-sm">Transparencia total: todos los costos incluidos en la cuota mensual.</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="card p-6">
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 bg-accent rounded-lg flex items-center justify-center flex-shrink-0">
-                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                  </svg>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-primary mb-1">Asesoría personalizada</h4>
-                  <p className="text-secondary text-sm">Te acompañamos en todo el proceso hasta obtener tu llave.</p>
+                <div className="grid grid-cols-1 gap-4">
+                  <div className="relative h-64 rounded-2xl overflow-hidden shadow-lg">
+                    <img src="/building/common-areas.png" alt="Amenidades" className="object-cover w-full h-full" />
+                  </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="relative h-40 rounded-2xl overflow-hidden shadow-md">
+                      <img src="/building/build1-1.png" alt="Amenidad 1" className="object-cover w-full h-full" />
+                    </div>
+                    <div className="relative h-40 rounded-2xl overflow-hidden shadow-md">
+                      <img src="/building/build1-2.png" alt="Amenidad 2" className="object-cover w-full h-full" />
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

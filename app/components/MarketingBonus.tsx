@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
 import { X, Ticket, ArrowRight, MessageCircle, Sparkles, Clock } from "lucide-react";
 
 export default function MarketingBonus() {
@@ -80,47 +81,35 @@ export default function MarketingBonus() {
                             </div>
 
                             <div className="mb-6 mt-2">
-                                <p className="text-neutral-400 text-[10px] font-bold uppercase tracking-widest mb-1">Has sido seleccionado para un</p>
-                                <div className="relative inline-block">
-                                    <div className="text-6xl font-black text-primary tracking-tighter">
-                                        <span className="text-xl text-accent align-top">S/</span>20,000
-                                    </div>
-                                    <motion.div
-                                        animate={{ scale: [1, 1.1, 1] }}
-                                        transition={{ duration: 2, repeat: Infinity }}
-                                        className="absolute -top-2 -right-6 bg-accent text-white text-[10px] font-black px-2 py-1 rounded-md rotate-12"
-                                    >
-                                        BONUS
-                                    </motion.div>
-                                </div>
-                            </div>
-
-                            <div className="bg-sand/30 p-4 rounded-2xl mb-8 border border-sand/50">
-                                <p className="text-primary text-sm font-medium leading-tight">
-                                    Válido para la cuota inicial de tu depa en <span className="text-accent font-bold">Brindizi</span>.
-                                </p>
-                                <div className="mt-3 flex items-center justify-center gap-2 text-[10px] text-emerald-600 font-black uppercase">
-                                    <Clock size={12} /> solo 3 cupones disponibles
+                                <div className="text-4xl font-black text-primary tracking-tighter uppercase">
+                                    GANASTE UN <br />
+                                    <span className="text-accent">BONO DE</span> <br />
+                                    DESCUENTO
                                 </div>
                             </div>
 
                             <div className="space-y-4">
                                 <a
-                                    href="https://wa.me/51964247545?text=Hola!%20Acabo%20de%20ganar%20el%20BONO%20de%2020k%20en%20la%20web.%20%C2%BFC%C3%B3mo%20puedo%20canjearlo?"
+                                    href="https://wa.me/51964247545?text=Hola!%20Acabo%20de%20ganar%20el%20BONO%20DE%20DESCUENTO%20en%20la%20web.%20%C2%BFC%C3%B3mo%20puedo%20canjearlo?"
                                     target="_blank"
-                                    className="flex items-center justify-center gap-3 bg-accent text-white w-full py-4 rounded-2xl font-black text-sm transition-all hover:bg-accent/90 shadow-lg shadow-accent/20 active:scale-95"
+                                    className="flex items-center justify-center gap-3 bg-[#00A884] text-white w-full py-4 rounded-2xl font-black text-sm transition-all hover:bg-[#008F70] shadow-lg shadow-green-500/20 active:scale-95 uppercase"
                                 >
                                     <MessageCircle size={18} />
                                     CANJEAR MI REGALO
                                     <ArrowRight size={16} />
                                 </a>
 
-                                <button
-                                    onClick={() => setIsOpen(false)}
-                                    className="text-neutral-300 text-[10px] font-bold hover:text-primary transition-colors uppercase tracking-widest"
-                                >
-                                    No deseo el bono, gracias
-                                </button>
+                                <div className="flex flex-col items-center gap-2">
+                                    <button
+                                        onClick={() => setIsOpen(false)}
+                                        className="text-neutral-300 text-[10px] font-bold hover:text-primary transition-colors uppercase tracking-widest"
+                                    >
+                                        NO DESEO EL BONO, GRACIAS
+                                    </button>
+                                    <Link href="/terms" className="text-secondary text-[10px] font-medium border-b border-secondary/20 hover:text-accent transition-colors">
+                                        * términos y condiciones
+                                    </Link>
+                                </div>
                             </div>
                         </div>
 

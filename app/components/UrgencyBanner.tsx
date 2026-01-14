@@ -24,21 +24,17 @@ export default function UrgencyBanner() {
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.2 }}
-              className="inline-flex items-center gap-2 bg-emerald-800/50 border border-emerald-600/30 text-emerald-100 px-4 py-1.5 rounded-full text-sm font-medium mb-6"
+              className="inline-flex items-center gap-2 bg-yellow-400 text-[#0a4d3c] px-4 py-1.5 rounded-full text-sm font-bold mb-6"
             >
-              <Sparkles className="w-4 h-4 text-emerald-400" />
-              <span className="tracking-wide">Oportunidad Limitada</span>
+              <Sparkles className="w-4 h-4" />
+              <span className="tracking-wide uppercase">beneficios del Estado</span>
             </motion.div>
 
-            <h2 className="text-3xl lg:text-5xl font-bold text-white mb-6 leading-tight">
+            <h2 className="text-3xl lg:text-5xl font-bold text-white mb-6 leading-tight flex items-center gap-4">
               Aprovecha hoy el <br className="hidden lg:block" />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 to-amber-500 font-extrabold relative inline-block">
-                Bono MiVivienda
-                {/* Underline decoration */}
-                <svg className="absolute w-full h-3 -bottom-1 left-0 text-yellow-400 opacity-60" viewBox="0 0 100 10" preserveAspectRatio="none">
-                  <path d="M0 5 Q 50 10 100 5" stroke="currentColor" strokeWidth="3" fill="none" />
-                </svg>
-              </span>
+              <div className="bg-white p-3 rounded-xl inline-block shadow-2xl">
+                <img src="/building/mi-vivienda-logo.png" alt="Fondo MiVivienda" className="h-10 lg:h-14 object-contain" />
+              </div>
             </h2>
 
             <p className="text-emerald-100/90 text-lg leading-relaxed mb-0 lg:pr-12">
@@ -55,7 +51,7 @@ export default function UrgencyBanner() {
             className="flex flex-col sm:flex-row gap-4 w-full lg:w-auto"
           >
             <a
-              href="#proyectos"
+              href="#departamentos"
               className="group bg-white text-[#0a4d3c] px-8 py-4 rounded-xl font-bold hover:bg-emerald-50 transition-all duration-300 shadow-lg shadow-emerald-900/20 flex items-center justify-center gap-3 w-full sm:w-auto"
             >
               Ver Proyectos

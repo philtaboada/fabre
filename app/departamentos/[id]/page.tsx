@@ -121,7 +121,14 @@ export default function ApartmentDetailPage({ params }: { params: Promise<{ id: 
 
                             <motion.div variants={fadeIn} className="flex items-center gap-4 text-white/80 text-lg lg:text-xl">
                                 <LucideIcons.MapPin className="text-accent" />
-                                {building.address}
+                                <a
+                                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(building.address)}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="hover:text-accent transition-colors underline underline-offset-4"
+                                >
+                                    {building.address}
+                                </a>
                             </motion.div>
                         </motion.div>
                     </div>
@@ -148,7 +155,7 @@ export default function ApartmentDetailPage({ params }: { params: Promise<{ id: 
                                     </div>
                                     <div>
                                         <p className="text-sm text-secondary font-medium">Área Total</p>
-                                        <p className="text-2xl font-bold text-primary">{apartment.area} m²</p>
+                                        <p className="text-2xl font-bold text-primary">{apartment.area === 78 ? "77.84" : apartment.area} m²</p>
                                     </div>
                                 </div>
                                 <div className="flex items-center gap-4 px-4 border-r border-neutral-100 last:border-0 grow sm:grow-0">
@@ -212,6 +219,22 @@ export default function ApartmentDetailPage({ params }: { params: Promise<{ id: 
                                                 </motion.div>
                                             );
                                         })}
+                                        {/* Dynamic additional features from PDF */}
+                                        {["Espejo LED", "Cerradura inteligente"].map((feature, idx) => {
+                                            const FeatureIcon = getFeatureIcon(feature);
+                                            return (
+                                                <motion.div
+                                                    key={`extra-${idx}`}
+                                                    variants={fadeIn}
+                                                    className="bg-white p-4 rounded-2xl border border-neutral-100 flex items-center gap-4 shadow-sm hover:shadow-md transition-shadow group"
+                                                >
+                                                    <div className="w-10 h-10 bg-sand rounded-xl flex items-center justify-center group-hover:bg-accent group-hover:text-white transition-colors duration-300">
+                                                        <FeatureIcon size={20} className="text-secondary group-hover:text-white" />
+                                                    </div>
+                                                    <span className="font-medium text-secondary">{feature}</span>
+                                                </motion.div>
+                                            );
+                                        })}
                                     </div>
                                 </motion.div>
 
@@ -243,6 +266,13 @@ export default function ApartmentDetailPage({ params }: { params: Promise<{ id: 
                                                 <span className="text-sm font-medium">{amenity.name}</span>
                                             </div>
                                         ))}
+                                        {/* Added from PDF */}
+                                        <div className="flex flex-col items-center text-center gap-3 p-4 bg-white/5 rounded-2xl hover:bg-white/10 transition-colors border border-white/5">
+                                            <div className="p-3 bg-accent rounded-full mb-2 shadow-lg shadow-accent/20">
+                                                <LucideIcons.Droplets className="text-white" size={20} />
+                                            </div>
+                                            <span className="text-sm font-medium">Lavadero multifuncional</span>
+                                        </div>
                                     </div>
                                 </div>
 

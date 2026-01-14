@@ -5,6 +5,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import * as LucideIcons from "lucide-react";
 import { formatNumber } from "../lib/utils";
+import Filters from "./Filters";
 
 // Dynamic Icon Component
 const Icon = ({ name, className }: { name: string; className?: string }) => {
@@ -61,6 +62,11 @@ export default function ApartmentCatalog() {
                     <motion.p variants={itemVariants} className="text-secondary text-lg lg:text-xl max-w-2xl mx-auto leading-relaxed font-light">
                         {building.description}
                     </motion.p>
+
+                    {/* Filters integration */}
+                    <motion.div variants={itemVariants} className="max-w-4xl mx-auto mt-12">
+                        <Filters onChange={(f) => console.log(f)} />
+                    </motion.div>
                 </motion.div>
 
                 {/* Building Info */}
@@ -161,19 +167,25 @@ export default function ApartmentCatalog() {
                                     fill
                                     className="object-cover transition-transform duration-700 group-hover:scale-110"
                                 />
-                                <div className="absolute top-6 left-6">
-                                    <span className="px-5 py-2 bg-white/90 backdrop-blur-md text-primary text-xs font-black uppercase tracking-widest rounded-full shadow-sm">
-                                        Piso {apartment.floor}
-                                    </span>
-                                </div>
-                                {apartment.available && (
+                                {apartment.available ? (
                                     <div className="absolute top-6 right-6">
                                         <div className="flex items-center gap-2 px-4 py-2 bg-emerald-500 text-white text-[10px] font-bold uppercase tracking-widest rounded-full shadow-lg">
                                             <span className="w-1.5 h-1.5 bg-white rounded-full animate-pulse"></span>
-                                            Disponible
+                                            ENTREGA INMEDIATA
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <div className="absolute top-6 right-6">
+                                        <div className="flex items-center gap-2 px-4 py-2 bg-red-500 text-white text-[10px] font-bold uppercase tracking-widest rounded-full shadow-lg">
+                                            VENDIDO
                                         </div>
                                     </div>
                                 )}
+                                <div className="absolute top-6 left-6">
+                                    <span className="px-5 py-2 bg-white/90 backdrop-blur-md text-primary text-xs font-black uppercase tracking-widest rounded-full shadow-sm">
+                                        {apartment.floor === 5 ? "ENTREGADO" : "Piso " + apartment.floor}
+                                    </span>
+                                </div>
                                 <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/40 to-transparent"></div>
                                 <div className="absolute bottom-6 left-6">
                                     <div className="text-white text-3xl font-light">

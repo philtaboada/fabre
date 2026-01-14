@@ -40,16 +40,19 @@ export default function Footer() {
 
   const quickLinks = [
     { name: "Departamentos", href: "/#departamentos" },
-    { name: "Financiamiento", href: "/financiamiento" },
-    { name: "Ayuda Social", href: "/ayuda-social" },
+    { name: "Financiamiento", href: "/#financiamiento" },
+    { name: "Ayuda Social", href: "/#nosotros" },
+    { name: "Fundación", href: "/#nosotros" },
     { name: "Contacto", href: "#contacto" },
   ];
 
   const services = [
     { name: "Venta de Proyectos", href: "/#departamentos" },
     { name: "Asesoría Financiera", href: "#contacto" },
-    { name: "Post-venta Expert", href: "#nosotros" },
-    { name: "Atención 24/7", href: "#contacto" },
+    { name: "Post-venta Expert", href: "https://wa.me/51964247545?text=Adquir%C3%AD%20un%20inmueble%20con%20FABRE%20y%20deseo%20comunicarme%20con%20el%20%C3%A1rea%20de%20postventa%20para%20realizar%20una%20consulta.%20Gracias." },
+    { name: "Atención 24/7", href: "https://wa.me/51964247545" },
+    { name: "TEAM FABRE", href: "/#nosotros" },
+    { name: "Terrenos en aporte", href: "#contacto" },
   ];
 
   return (
@@ -141,17 +144,28 @@ export default function Footer() {
                 </div>
                 <span>gerencia@inmobiliariafabre.com</span>
               </a>
-              <div className="flex items-start justify-center md:justify-start gap-3 text-blue-100/70 group">
+              <a
+                href="https://www.google.com/maps/search/?api=1&query=San+Judas+Tadeo+421+Huancayo"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-start justify-center md:justify-start gap-3 text-blue-100/70 hover:text-accent transition-colors group"
+              >
                 <div className="w-10 h-10 bg-white/5 rounded-xl flex items-center justify-center group-hover:bg-accent/10 mt-1">
                   <MapPin className="w-5 h-5 text-accent" />
                 </div>
                 <span className="text-sm text-left">San Judas Tadeo 421,<br />Huancayo</span>
-              </div>
+              </a>
               <div className="flex items-start justify-center md:justify-start gap-3 text-blue-100/70 group">
                 <div className="w-10 h-10 bg-white/5 rounded-xl flex items-center justify-center group-hover:bg-accent/10 mt-1">
                   <Clock className="w-5 h-5 text-accent" />
                 </div>
-                <span className="text-sm text-left">Lun - Dom: 9am - 7pm</span>
+                <div className="text-sm text-left space-y-1">
+                  <p className="font-bold text-accent">Oficina:</p>
+                  <p>Lun - Vie: 9:00 am - 6:00 pm</p>
+                  <p>Sáb: 9:00 am - 1:00 pm</p>
+                  <p className="font-bold text-accent mt-2">Call Center:</p>
+                  <p>Lun - Dom: 9:00 am - 7:00 pm</p>
+                </div>
               </div>
             </div>
           </div>
