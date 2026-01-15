@@ -155,7 +155,7 @@ export default function ApartmentDetailPage({ params }: { params: Promise<{ id: 
                                     </div>
                                     <div>
                                         <p className="text-sm text-secondary font-medium">Área Total</p>
-                                        <p className="text-2xl font-bold text-primary">{apartment.area === 78 ? "77.84" : apartment.area} m²</p>
+                                        <p className="text-2xl font-bold text-primary">{apartment.area} m²</p>
                                     </div>
                                 </div>
                                 <div className="flex items-center gap-4 px-4 border-r border-neutral-100 last:border-0 grow sm:grow-0">
@@ -176,6 +176,28 @@ export default function ApartmentDetailPage({ params }: { params: Promise<{ id: 
                                         <p className="text-2xl font-bold text-primary">{apartment.bathrooms}</p>
                                     </div>
                                 </div>
+                                {apartment.study !== undefined && (
+                                    <div className="flex items-center gap-4 px-4 border-r border-neutral-100 last:border-0 grow sm:grow-0">
+                                        <div className="w-12 h-12 bg-accent/5 rounded-2xl flex items-center justify-center text-accent">
+                                            <LucideIcons.Laptop size={24} />
+                                        </div>
+                                        <div>
+                                            <p className="text-sm text-secondary font-medium">Estudio</p>
+                                            <p className="text-2xl font-bold text-primary">{apartment.study}</p>
+                                        </div>
+                                    </div>
+                                )}
+                                {apartment.terrace !== undefined && (
+                                    <div className="flex items-center gap-4 px-4 border-r border-neutral-100 last:border-0 grow sm:grow-0">
+                                        <div className="w-12 h-12 bg-accent/5 rounded-2xl flex items-center justify-center text-accent">
+                                            <LucideIcons.Sun size={24} />
+                                        </div>
+                                        <div>
+                                            <p className="text-sm text-secondary font-medium">Terraza</p>
+                                            <p className="text-2xl font-bold text-primary">{apartment.terrace}</p>
+                                        </div>
+                                    </div>
+                                )}
                             </motion.div>
 
                             {/* Description & Gallery */}
@@ -220,7 +242,7 @@ export default function ApartmentDetailPage({ params }: { params: Promise<{ id: 
                                             );
                                         })}
                                         {/* Dynamic additional features from PDF */}
-                                        {["Espejo LED", "Cerradura inteligente"].map((feature, idx) => {
+                                        {["Espejo LED"].map((feature, idx) => {
                                             const FeatureIcon = getFeatureIcon(feature);
                                             return (
                                                 <motion.div
@@ -256,7 +278,7 @@ export default function ApartmentDetailPage({ params }: { params: Promise<{ id: 
                                 className="bg-primary text-white p-8 lg:p-12 rounded-[2.5rem] relative overflow-hidden"
                             >
                                 <div className="relative z-10">
-                                    <h3 className="text-2xl font-bold mb-8">Amenities del Edificio</h3>
+                                    <h3 className="text-2xl font-bold mb-8">Amenidades del Edificio</h3>
                                     <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
                                         {building.buildingFeatures.map((amenity, idx) => (
                                             <div key={idx} className="flex flex-col items-center text-center gap-3 p-4 bg-white/5 rounded-2xl hover:bg-white/10 transition-colors border border-white/5">
@@ -266,13 +288,6 @@ export default function ApartmentDetailPage({ params }: { params: Promise<{ id: 
                                                 <span className="text-sm font-medium">{amenity.name}</span>
                                             </div>
                                         ))}
-                                        {/* Added from PDF */}
-                                        <div className="flex flex-col items-center text-center gap-3 p-4 bg-white/5 rounded-2xl hover:bg-white/10 transition-colors border border-white/5">
-                                            <div className="p-3 bg-accent rounded-full mb-2 shadow-lg shadow-accent/20">
-                                                <LucideIcons.Droplets className="text-white" size={20} />
-                                            </div>
-                                            <span className="text-sm font-medium">Lavadero multifuncional</span>
-                                        </div>
                                     </div>
                                 </div>
 

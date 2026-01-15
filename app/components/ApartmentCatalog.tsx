@@ -80,7 +80,7 @@ export default function ApartmentCatalog() {
                     <div className="bg-white rounded-3xl border border-neutral-100 shadow-[0_32px_64px_-16px_rgba(0,0,0,0.08)] overflow-hidden">
                         <div className="grid lg:grid-cols-12 gap-0">
                             {/* Building Image */}
-                            <div className="lg:col-span-7 relative h-80 lg:h-[600px] overflow-hidden group">
+                            <div className="lg:col-span-7 relative h-80 lg:h-[520px] overflow-hidden group">
                                 <Image
                                     src={building.gallery[0]}
                                     alt={building.name}
@@ -95,21 +95,22 @@ export default function ApartmentCatalog() {
                             </div>
 
                             {/* Building Details */}
-                            <div className="lg:col-span-5 p-8 lg:p-14 flex flex-col justify-center">
+                            <div className="lg:col-span-5 p-8 lg:p-12 flex flex-col justify-start">
                                 <div className="space-y-10">
                                     <div>
-                                        <h3 className="text-2xl lg:text-3xl font-bold text-primary mb-4">La Arquitectura</h3>
+                                        <h3 className="text-2xl lg:text-3xl font-bold text-primary mb-4">EDIFICIO BRINDIZI</h3>
                                         <p className="text-secondary leading-relaxed font-light text-lg">{building.about}</p>
                                     </div>
 
-                                    <div className="grid grid-cols-2 gap-6">
-                                        <div className="bg-accent-light/30 p-6 rounded-2xl border border-accent/5">
+                                    <div className="flex items-center gap-8 bg-accent-light/30 p-6 rounded-2xl border border-accent/5">
+                                        <div className="flex flex-col">
                                             <div className="text-3xl font-bold text-accent mb-1">{building.floors}</div>
-                                            <div className="text-xs text-secondary font-bold uppercase tracking-widest">Niveles</div>
+                                            <div className="text-[10px] text-secondary font-bold uppercase tracking-widest">Niveles</div>
                                         </div>
-                                        <div className="bg-accent-light/30 p-6 rounded-2xl border border-accent/5">
+                                        <div className="w-px h-10 bg-accent/20"></div>
+                                        <div className="flex flex-col">
                                             <div className="text-3xl font-bold text-accent mb-1">{building.totalUnits}</div>
-                                            <div className="text-xs text-secondary font-bold uppercase tracking-widest">Unidades</div>
+                                            <div className="text-[10px] text-secondary font-bold uppercase tracking-widest">Unidades</div>
                                         </div>
                                     </div>
 
@@ -189,28 +190,46 @@ export default function ApartmentCatalog() {
                                 <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/40 to-transparent"></div>
                                 <div className="absolute bottom-6 left-6">
                                     <div className="text-white text-3xl font-light">
-                                        Unit <span className="font-bold">{apartment.floor}01</span>
+                                        Dpto <span className="font-bold">{apartment.floor}01</span>
                                     </div>
                                 </div>
                             </div>
 
                             {/* Apartment Details */}
                             <div className="p-8 lg:p-10">
-                                <div className="flex items-center gap-6 mb-8 border-b border-neutral-50 pb-8">
+                                <div className="flex items-center gap-6 mb-8 border-b border-neutral-50 pb-8 flex-wrap">
                                     <div className="flex flex-col">
                                         <span className="text-[10px] text-neutral-400 uppercase font-black tracking-widest mb-1">Área</span>
                                         <span className="text-xl font-bold text-primary">{apartment.area} m²</span>
                                     </div>
-                                    <div className="w-px h-8 bg-neutral-100"></div>
+                                    <div className="w-px h-8 bg-neutral-100 hidden sm:block"></div>
                                     <div className="flex flex-col">
                                         <span className="text-[10px] text-neutral-400 uppercase font-black tracking-widest mb-1">Dorms</span>
                                         <span className="text-xl font-bold text-primary">{apartment.bedrooms}</span>
                                     </div>
-                                    <div className="w-px h-8 bg-neutral-100"></div>
+                                    <div className="w-px h-8 bg-neutral-100 hidden sm:block"></div>
                                     <div className="flex flex-col">
                                         <span className="text-[10px] text-neutral-400 uppercase font-black tracking-widest mb-1">Baños</span>
                                         <span className="text-xl font-bold text-primary">{apartment.bathrooms}</span>
                                     </div>
+                                    {apartment.study !== undefined && (
+                                        <>
+                                            <div className="w-px h-8 bg-neutral-100 hidden sm:block"></div>
+                                            <div className="flex flex-col">
+                                                <span className="text-[10px] text-neutral-400 uppercase font-black tracking-widest mb-1">Estudio</span>
+                                                <span className="text-xl font-bold text-primary">{apartment.study}</span>
+                                            </div>
+                                        </>
+                                    )}
+                                    {apartment.terrace !== undefined && (
+                                        <>
+                                            <div className="w-px h-8 bg-neutral-100 hidden sm:block"></div>
+                                            <div className="flex flex-col">
+                                                <span className="text-[10px] text-neutral-400 uppercase font-black tracking-widest mb-1">Terraza</span>
+                                                <span className="text-xl font-bold text-primary">{apartment.terrace}</span>
+                                            </div>
+                                        </>
+                                    )}
                                 </div>
 
                                 <p className="text-secondary text-base mb-8 line-clamp-2 leading-relaxed font-light">
@@ -222,7 +241,7 @@ export default function ApartmentCatalog() {
                                     <span className="px-4 py-1.5 bg-accent/10 text-accent text-[10px] font-bold uppercase tracking-wider rounded-lg border border-accent/20">
                                         Vista a la calle
                                     </span>
-                                    {apartment.features.slice(1, 5).map((feature, idx) => (
+                                    {apartment.features.slice(1, 8).map((feature, idx) => (
                                         <span key={idx} className="px-4 py-1.5 bg-neutral-50 text-neutral-500 text-[10px] font-bold uppercase tracking-wider rounded-lg border border-neutral-100 group-hover:bg-accent/5 group-hover:text-accent group-hover:border-accent/10 transition-colors duration-300">
                                             {feature}
                                         </span>
