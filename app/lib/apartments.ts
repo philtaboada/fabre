@@ -9,6 +9,8 @@ export type Apartment = {
     features: string[];
     images: string[];
     available: boolean;
+    study?: number;
+    terrace?: number;
 };
 
 export type Building = {
@@ -53,7 +55,7 @@ export const BRINDIZI_BUILDING: Building = {
     about: "El Edificio Brindizi ofrece una ubicación privilegiada a solo 3 cuadras de la Universidad Continental, cerca de la UPLA, Universidad Roosevelt, clínicas y centros comerciales como MAKRO. Destaca por su tecnología de seguridad avanzada con cerraduras inteligentes (huella, clave, tarjeta) y servicios modernos incluidos.",
     status: "Entrega inmediata",
     deliveryDate: "2025",
-    floors: 12,
+    floors: 7,
     totalUnits: 12,
     commonAreas: [
         "Estacionamiento",
@@ -67,9 +69,13 @@ export const BRINDIZI_BUILDING: Building = {
     ],
     buildingFeatures: [
         { name: "Cerradura Smart", iconName: "Lock" },
-        { name: "Seguridad Integrada", iconName: "ShieldCheck" },
+        { name: "Lavadero Multifuncional", iconName: "Droplets" },
+        { name: "Cámaras de Seguridad", iconName: "Camera" },
+        { name: "Cerco Eléctrico", iconName: "Zap" },
+        { name: "Ascensor", iconName: "ArrowUpCircle" },
         { name: "Ubicación Estratégica", iconName: "MapPin" },
-        { name: "Agua Caliente", iconName: "Droplets" },
+        { name: "Edificio Sismorresistente", iconName: "ShieldCheck" },
+        { name: "Luz LED en Fachada", iconName: "Sun" },
         { name: "Intercomunicador", iconName: "Phone" }
     ],
     location: {
@@ -97,19 +103,18 @@ export const BRINDIZI_BUILDING: Building = {
         {
             id: "brindizi-piso-5",
             floor: 5,
-            area: 78,
+            area: 77.84,
             price: 285000,
-            bedrooms: 2,
+            bedrooms: 3,
             bathrooms: 2,
-            description: "Departamento exclusivo con vista a la calle, diseñado para maximizar la iluminación natural y el confort. Acabados de primera y distribución eficiente.",
+            description: "Departamento exclusivo en 5.º piso con vista a la calle, excelente distribución y abundante iluminación natural. Acabados de primera que garantizan confort y funcionalidad",
             features: [
                 "Vista a la calle",
-                "2 Dormitorios",
+                "3 DORMITORIOS",
                 "2 Baños",
                 "Iluminación LED",
                 "Cocina americana",
-                "Lavadero independiente",
-                "Cerradura inteligente"
+                "Lavadero independiente"
             ],
             images: [
                 "/dep-2/DSC05376-HDR.webp",
@@ -120,22 +125,22 @@ export const BRINDIZI_BUILDING: Building = {
         {
             id: "brindizi-piso-6",
             floor: 6,
-            area: 78,
+            area: 77.84,
             price: 290000,
             bedrooms: 2,
             bathrooms: 2,
-            description: "Elegante departamento en el piso 6 con impresionante vista a la calle. Espacios optimizados y tecnología smart de seguridad incluída.",
+            study: 1,
+            terrace: 1,
+            description: "Elegante departamento en 6.º piso con impresionante vista a la calle, espacios optimizados y seguridad smart para una vida moderna y segura.",
             features: [
                 "Vista a la calle",
                 "2 Dormitorios",
                 "2 Baños",
-                "1 Estudio",
-                "1 Terraza",
-                "Balcón privado",
+                "TERRAZA",
                 "Iluminación natural",
-                "Cerradura biométrica",
-                "Termas Sole instaladas",
-                "Cocina americana"
+                "1 Estudio",
+                "Cocina americana",
+                "Termas Sole instaladas"
             ],
             images: [
                 "/dep-2/DSC05430-HDR.webp",
