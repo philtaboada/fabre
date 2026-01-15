@@ -9,7 +9,7 @@ import WhatsAppButton from "../components/WhatsAppButton";
 
 export default function FinanciamientoPage() {
     // Calculator state
-    const [propertyPrice, setPropertyPrice] = useState(300000);
+    const [propertyPrice, setPropertyPrice] = useState(350000);
     const [downPaymentPercent, setDownPaymentPercent] = useState(20);
     const [interestRate, setInterestRate] = useState(8.5);
     const [loanTerm, setLoanTerm] = useState(20);
@@ -95,27 +95,27 @@ export default function FinanciamientoPage() {
                                 {/* Property Price */}
                                 <div>
                                     <label className="block text-sm font-medium text-primary mb-2">
-                                        Precio del inmueble: <span className="font-bold text-accent">$ {formatNumber(propertyPrice)}</span>
+                                        Precio del inmueble: <span className="font-bold text-accent">S/ {formatNumber(propertyPrice)}</span>
                                     </label>
                                     <input
                                         type="range"
-                                        min="100000"
-                                        max="1000000"
+                                        min="150000"
+                                        max="1200000"
                                         step="10000"
                                         value={propertyPrice}
                                         onChange={(e) => setPropertyPrice(Number(e.target.value))}
                                         className="w-full h-2 bg-sand rounded-lg appearance-none cursor-pointer accent-accent"
                                     />
                                     <div className="flex justify-between text-xs text-secondary mt-1">
-                                        <span>$100,000</span>
-                                        <span>$1,000,000</span>
+                                        <span>S/ 150,000</span>
+                                        <span>S/ 1,200,000</span>
                                     </div>
                                 </div>
 
                                 {/* Down Payment */}
                                 <div>
                                     <label className="block text-sm font-medium text-primary mb-2">
-                                        Cuota inicial: <span className="font-bold text-accent">{downPaymentPercent}% ($ {formatNumber(downPayment)})</span>
+                                        Cuota inicial: <span className="font-bold text-accent">{downPaymentPercent}% (S/ {formatNumber(downPayment)})</span>
                                     </label>
                                     <input
                                         type="range"
@@ -177,19 +177,19 @@ export default function FinanciamientoPage() {
                                     <div className="text-center mb-4">
                                         <div className="text-sm opacity-90 mb-1">Tu cuota mensual sería</div>
                                         <div className="text-4xl font-bold">
-                                            $ {formatNumber(monthlyPayment)}
+                                            S/ {formatNumber(monthlyPayment)}
                                         </div>
                                     </div>
                                     <div className="grid grid-cols-2 gap-4 pt-4 border-t border-white/20">
                                         <div className="text-center">
                                             <div className="text-xl font-bold">
-                                                $ {formatNumber(loanAmount)}
+                                                S/ {formatNumber(loanAmount)}
                                             </div>
                                             <div className="text-sm opacity-90">Monto a financiar</div>
                                         </div>
                                         <div className="text-center">
                                             <div className="text-xl font-bold">
-                                                $ {formatNumber(totalInterest)}
+                                                S/ {formatNumber(totalInterest)}
                                             </div>
                                             <div className="text-sm opacity-90">Interés total</div>
                                         </div>

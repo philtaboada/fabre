@@ -30,10 +30,10 @@ export default function UrgencyBanner() {
               <span className="tracking-wide uppercase">beneficios del Estado</span>
             </motion.div>
 
-            <h2 className="text-3xl lg:text-5xl font-bold text-white mb-6 leading-tight flex items-center gap-4">
-              Aprovecha hoy el <br className="hidden lg:block" />
-              <div className="bg-white p-3 rounded-xl inline-block shadow-2xl">
-                <img src="/building/mi-vivienda-logo.png" alt="Fondo MiVivienda" className="h-10 lg:h-14 object-contain" />
+            <h2 className="text-3xl lg:text-5xl font-bold text-white mb-6 leading-tight flex items-baseline gap-2 flex-wrap">
+              <span className="inline-block">Aprovecha hoy el</span>
+              <div className="bg-white px-2 py-1 rounded-xl inline-block shadow-2xl self-center">
+                <img src="\logo-fmv-azul.png" alt="Fondo MiVivienda" className="h-8 lg:h-12 object-contain" />
               </div>
             </h2>
 

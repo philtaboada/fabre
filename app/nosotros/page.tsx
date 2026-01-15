@@ -285,7 +285,7 @@ export default function NosotrosPage() {
             </section>
 
             {/* Video Feature Section */}
-            <section className="py-24 bg-neutral-900 relative overflow-hidden">
+            <section id="fundacion" className="py-24 bg-neutral-900 relative overflow-hidden">
                 {/* Background Image/Gradient */}
                 <div className="absolute inset-0 bg-gradient-to-br from-neutral-900 via-neutral-800 to-neutral-900" />
 

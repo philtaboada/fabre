@@ -40,9 +40,8 @@ export default function Footer() {
 
   const quickLinks = [
     { name: "Departamentos", href: "/#departamentos" },
-    { name: "Financiamiento", href: "/#financiamiento" },
-    { name: "Ayuda Social", href: "/#nosotros" },
-    { name: "Fundación", href: "/#nosotros" },
+    { name: "Financiamiento", href: "/financiamiento" },
+    { name: "Fundación", href: "/nosotros#fundacion" },
     { name: "Contacto", href: "#contacto" },
   ];
 
@@ -51,7 +50,8 @@ export default function Footer() {
     { name: "Asesoría Financiera", href: "#contacto" },
     { name: "Post-venta Expert", href: "https://wa.me/51964247545?text=Adquir%C3%AD%20un%20inmueble%20con%20FABRE%20y%20deseo%20comunicarme%20con%20el%20%C3%A1rea%20de%20postventa%20para%20realizar%20una%20consulta.%20Gracias." },
     { name: "Atención 24/7", href: "https://wa.me/51964247545" },
-    { name: "TEAM FABRE", href: "/#nosotros" },
+    { name: "TEAM FABRE", href: "/nosotros" },
+    { name: "Bono de referido", href: "/referido" },
     { name: "Terrenos en aporte", href: "#contacto" },
   ];
 
