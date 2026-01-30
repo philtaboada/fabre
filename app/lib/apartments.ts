@@ -20,7 +20,7 @@ export type Building = {
     district: string;
     description: string;
     about: string;
-    status: "Pre-venta" | "En construcción" | "Entregado" | "Entrega inmediata" | "PROXIMO LANZAMIENTO";
+    status: "ENTREGADO" | "ENTREGA INMEDIATA" | "PROXIMO LANZAMIENTO" | "PRE-VENTA" | "EN CONSTRUCCIÓN";
     deliveryDate?: string;
     floors: number;
     totalUnits: number;
@@ -45,6 +45,28 @@ export type Building = {
     apartments: Apartment[];
 };
 
+// Edificio Wabi Sabi
+export const WABI_SABI_BUILDING: Building = {
+    id: "wabi-sabi",
+    name: "Residencial Wabi Sabi",
+    address: "Calle Edmundo Mezger 248",
+    district: "San Carlos",
+    description: "Diseño minimalista y funcional en el corazón de San Carlos.",
+    about: "Wabi Sabi es un proyecto entregado que destaca por su diseño arquitectónico moderno y su integración con el entorno urbano.",
+    status: "ENTREGADO",
+    floors: 10,
+    totalUnits: 30,
+    commonAreas: ["Lobby", "Gimnasio", "Terraza"],
+    buildingFeatures: [{ name: "Seguridad 24/7", iconName: "Shield" }],
+    location: {
+        address: "Calle Edmundo Mezger 248, San Carlos",
+        coordinates: { lat: -12.1121, lng: -77.0152 },
+        nearbyPlaces: []
+    },
+    gallery: ["/building/build1.png"],
+    apartments: []
+};
+
 // Edificio Brindizi con 2 departamentos disponibles
 export const BRINDIZI_BUILDING: Building = {
     id: "brindizi",
@@ -53,7 +75,7 @@ export const BRINDIZI_BUILDING: Building = {
     district: "San Carlos, Huancayo",
     description: "Departamentos exclusivos en ubicación estratégica en San Carlos, cerca de la Universidad Continental y el Parque de la Identidad Wanka.",
     about: "El Edificio Brindizi ofrece una ubicación privilegiada a solo 3 cuadras de la Universidad Continental, cerca de la UPLA, Universidad Roosevelt, clínicas y centros comerciales como MAKRO. Destaca por su tecnología de seguridad avanzada con cerraduras inteligentes (huella, clave, tarjeta) y servicios modernos incluidos.",
-    status: "Entrega inmediata",
+    status: "ENTREGA INMEDIATA",
     deliveryDate: "2025",
     floors: 7,
     totalUnits: 12,
@@ -151,14 +173,50 @@ export const BRINDIZI_BUILDING: Building = {
     ]
 };
 
+// Edificio Mora
+export const MORA_BUILDING: Building = {
+    id: "mora",
+    name: "Mora",
+    address: "Av. Aramburú 638",
+    district: "Huancayo",
+    description: "Próximo lanzamiento en una de las zonas más conectadas de la ciudad.",
+    about: "Mora es nuestro próximo gran proyecto, diseñado para quienes buscan conectividad y modernidad.",
+    status: "PROXIMO LANZAMIENTO",
+    floors: 15,
+    totalUnits: 60,
+    commonAreas: ["Piscina", "Coworking", "Sky Bar"],
+    buildingFeatures: [{ name: "Eco-friendly", iconName: "Leaf" }],
+    location: {
+        address: "Av. Aramburú 638, Huancayo",
+        coordinates: { lat: -12.1023, lng: -77.0234 },
+        nearbyPlaces: []
+    },
+    gallery: ["/building/build1-1.png"],
+    apartments: []
+};
+
+export const BUILDINGS: Building[] = [
+    WABI_SABI_BUILDING,
+    BRINDIZI_BUILDING,
+    MORA_BUILDING
+];
+
+export function getAllBuildings(): Building[] {
+    return BUILDINGS;
+}
+
 export function getApartmentById(id: string): Apartment | undefined {
-    return BRINDIZI_BUILDING.apartments.find(apt => apt.id === id);
+    return BUILDINGS.flatMap(b => b.apartments).find(apt => apt.id === id);
 }
 
 export function getAllApartments(): Apartment[] {
-    return BRINDIZI_BUILDING.apartments;
+    return BUILDINGS.flatMap(b => b.apartments);
 }
 
 export function getBuilding(): Building {
     return BRINDIZI_BUILDING;
+}
+
+export function getBuildingById(id: string): Building | undefined {
+    return BUILDINGS.find(b => b.id === id);
 }

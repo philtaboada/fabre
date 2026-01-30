@@ -3,10 +3,14 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Gift, ArrowRight, Share2 } from "lucide-react";
+import { usePathname } from "next/navigation";
 
 export default function FloatingCTA() {
+  const pathname = usePathname();
   const [isVisible, setIsVisible] = useState(false);
   const [isClosed, setIsClosed] = useState(false);
+
+  const isHome = pathname === "/";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -21,6 +25,8 @@ export default function FloatingCTA() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, [isClosed]);
+
+  if (!isHome) return null;
 
   return (
     <AnimatePresence>

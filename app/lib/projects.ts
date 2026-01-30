@@ -37,62 +37,83 @@ export type Project = {
 
 export const ALL_PROJECTS: Project[] = [
   {
-    id: "1",
-    title: "Brindizi",
+    id: "wabi-sabi",
+    title: "Residencial Wabi Sabi",
+    district: "San Carlos",
+    area: 75,
+    price: 250000,
+    status: "Entregado",
+    image: "/building/build1.png",
+    bedrooms: 3,
+    bathrooms: 2,
+    description: "Diseño minimalista y funcional en el corazón de San Carlos.",
+    about: "Wabi Sabi es un proyecto entregado que destaca por su diseño arquitectónico moderno y su integración con el entorno urbano.",
+    commonAreas: ["Lobby", "Gimnasio", "Terraza"],
+    gallery: ["/building/build1.png"],
+    location: {
+      address: "Calle Edmundo Mezger 248, San Carlos",
+      coordinates: { lat: -12.1121, lng: -77.0152 },
+      nearbyPlaces: []
+    },
+    features: [
+      { name: "Seguridad 24/7", icon: "🔒" }
+    ],
+    deliveryDate: "Entregado",
+    floors: 10,
+    units: 30
+  },
+  {
+    id: "brindizi",
+    title: "Edificio Brindizi",
     district: "San Carlos",
     area: 78,
-    price: 185000,
-    status: "Pre-venta",
-    image: "/building/build1.png",
+    price: 285000,
+    status: "En construcción",
+    image: "/building/build1-1.png",
     bedrooms: 2,
     bathrooms: 2,
     description: "Departamentos modernos en el corazón de San Carlos. Diseño contemporáneo y acabados de lujo.",
-    about: "Brindizi es un proyecto residencial exclusivo ubicado en una de las mejores zonas de San Carlos. Cada departamento ha sido diseñado pensando en el confort y la funcionalidad, con amplios espacios y acabados de primera calidad. El proyecto cuenta con tecnología de punta y sistemas de seguridad avanzados para garantizar tu tranquilidad y la de tu familia.",
-    commonAreas: [
-      "Piscina temperada",
-      "Gimnasio equipado",
-      "Sala de eventos",
-      "Terraza con vista al mar",
-      "Área de juegos infantiles",
-      "Salón de usos múltiples",
-      "Estacionamiento subterráneo",
-      "Zona de BBQ",
-      "Spa y sauna",
-      "Business center"
-    ],
-    gallery: [
-      "/building/build1.png",
-      "/building/build1-1.png",
-      "/building/build1-2.png",
-      "/building/build1-3.png",
-      "/building/build1-4.jpg",
-      "/building/build1-5.jpg"
-    ],
+    about: "Brindizi es un proyecto residencial exclusivo ubicado en una de las mejores zonas de San Carlos. Cada departamento ha sido diseñado pensando en el confort y la funcionalidad.",
+    commonAreas: ["Zona BBQ", "Gimnasio", "Sala Social"],
+    gallery: ["/building/build1-1.png", "/building/build1-2.png"],
     location: {
-      address: "Av. Malecón de la Reserva 123, Miraflores",
-      coordinates: {
-        lat: -12.1194,
-        lng: -77.0303
-      },
-      nearbyPlaces: [
-        { name: "Parque Kennedy", distance: "200 m", icon: "park" },
-        { name: "Larcomar", distance: "500 m", icon: "shopping" },
-        { name: "Playa Waikiki", distance: "300 m", icon: "beach" },
-        { name: "Hospital Clínica Ricardo Palma", distance: "800 m", icon: "hospital" },
-        { name: "Colegio Markham", distance: "1.2 km", icon: "school" }
-      ]
+      address: "Calle Lorenzo de Brindizi 166, San Carlos",
+      coordinates: { lat: -12.0560, lng: -75.2150 },
+      nearbyPlaces: []
     },
     features: [
-      { name: "Vista al mar", icon: "🌊" },
-      { name: "Acabados de lujo", icon: "✨" },
-      { name: "Seguridad 24/7", icon: "🔒" },
-      { name: "Ascensores", icon: "🛗" },
-      { name: "Cocina integral", icon: "🍳" },
-      { name: "Closets empotrados", icon: "👔" }
+      { name: "Seguridad smart", icon: "📱" },
+      { name: "Ascensor", icon: "🛗" }
     ],
     deliveryDate: "Diciembre 2025",
+    floors: 7,
+    units: 12
+  },
+  {
+    id: "mora",
+    title: "Mora",
+    district: "San Carlos",
+    area: 85,
+    price: 320000,
+    status: "Pre-venta",
+    image: "/building/build1-2.png",
+    bedrooms: 3,
+    bathrooms: 2,
+    description: "Próximo lanzamiento en una de las zonas más conectadas de la ciudad.",
+    about: "Mora es nuestro próximo gran proyecto, diseñado para quienes buscan conectividad y modernidad.",
+    commonAreas: ["Piscina", "Coworking", "Sky Bar"],
+    gallery: ["/building/build1-2.png"],
+    location: {
+      address: "Av. Aramburú 638, San Carlos",
+      coordinates: { lat: -12.1023, lng: -77.0234 },
+      nearbyPlaces: []
+    },
+    features: [
+      { name: "Eco-friendly", icon: "🌿" }
+    ],
+    deliveryDate: "2026",
     floors: 15,
-    units: 120
+    units: 60
   }
 ];
 

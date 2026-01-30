@@ -43,7 +43,7 @@ export default function AboutSection() {
           {/* Content */}
           <div className="animate-fade-in-left">
             <h2 className="text-3xl lg:text-4xl font-bold text-primary mb-6">
-              Más de 15 años construyendo sueños
+              Más de 15 años construyendo sueños de calidad
             </h2>
             <p className="text-secondary text-lg mb-6 leading-relaxed">
               En Fabre Inmobiliaria nos especializamos en el desarrollo de proyectos inmobiliarios

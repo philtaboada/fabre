@@ -7,7 +7,10 @@ import {
     GraduationCap,
     Hammer,
     Utensils,
+    Pause,
     Play,
+    Volume2,
+    VolumeX,
     ArrowRight,
     Users,
     HandHeart,
@@ -39,25 +42,25 @@ export default function NosotrosPage() {
 
     const businessStats = [
         {
-            number: "+15",
+            number: "+7",
             label: "Años de experiencia",
             description: "Desarrollando proyectos extraordinarios",
             icon: Building2
         },
         {
-            number: "+1,200",
+            number: "+25",
             label: "Familias felices",
             description: "Hogares construidos con calidad",
             icon: Smile
         },
         {
-            number: "+25",
+            number: "+2",
             label: "Proyectos entregados",
             description: "Satisfacción garantizada",
             icon: Home
         },
         {
-            number: "+500,000",
+            number: "+2500",
             label: "m² construidos",
             description: "Espacios de vida premium",
             icon: Trophy
@@ -68,37 +71,23 @@ export default function NosotrosPage() {
         { icon: Users, number: "500+", label: "Familias Beneficiadas" },
         { icon: Home, number: "10", label: "Comunidades Alcanzadas" },
         { icon: GraduationCap, number: "50+", label: "Jóvenes Becados" },
-        { icon: Heart, number: "15", label: "Años de Compromiso" },
+        { icon: Heart, number: "+7", label: "Años de Compromiso" },
     ];
 
     const initiatives = [
         {
             icon: Home,
-            title: "Vivienda Digna",
-            description: "No solo construimos edificios, construimos hogares. Apoyamos activamente en el mejoramiento de infraestructura en zonas vulnerables.",
+            title: "Multifamiliares",
+            description: "Desarrollamos proyectos multifamiliares pensados para vivir mejor. No solo construimos edificios, creamos hogares con calidad, seguridad y una distribución funcional.",
             color: "bg-blue-500",
             lightColor: "bg-blue-50"
         },
         {
             icon: GraduationCap,
-            title: "Educación & Futuro",
-            description: "Creemos en el talento. Otorgamos becas integrales y útiles escolares para asegurar que el futuro de nuestra comunidad sea brillante.",
+            title: "Convenios institucionales",
+            description: "Establecemos alianzas estratégicas con instituciones públicas y privadas para brindar mayores beneficios, facilidades y respaldo a nuestros clientes.",
             color: "bg-emerald-500",
             lightColor: "bg-emerald-50"
-        },
-        {
-            icon: Hammer,
-            title: "Capacitación Técnica",
-            description: "Brindamos talleres gratuitos de oficios relacionados a la construcción, empoderando a las personas con herramientas para el trabajo.",
-            color: "bg-orange-500",
-            lightColor: "bg-orange-50"
-        },
-        {
-            icon: Utensils,
-            title: "Nutrición Solidaria",
-            description: "Apoyo constante a comedores populares y ollas comunes, garantizando la seguridad alimentaria de quienes más lo necesitan.",
-            color: "bg-pink-500",
-            lightColor: "bg-pink-50"
         }
     ];
 
@@ -132,8 +121,7 @@ export default function NosotrosPage() {
                             </motion.div>
 
                             <h1 className="text-4xl lg:text-6xl font-bold text-primary mb-8 leading-[1.1]">
-                                Más de 15 años <br />
-                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-accent-light">construyendo sueños</span>
+                                <span className="text-primary">Construyendo sueños de calidad</span>
                             </h1>
 
                             <p className="text-secondary text-lg lg:text-xl mb-8 leading-relaxed">
@@ -284,40 +272,96 @@ export default function NosotrosPage() {
                 </div>
             </section>
 
-            {/* Video Feature Section */}
-            <section id="fundacion" className="py-24 bg-neutral-900 relative overflow-hidden">
-                {/* Background Image/Gradient */}
-                <div className="absolute inset-0 bg-gradient-to-br from-neutral-900 via-neutral-800 to-neutral-900" />
+            {/* Video Feature Section - Redesigned for Reel Format */}
+            <section id="fundacion" className="py-24 lg:py-32 bg-neutral-900 relative overflow-hidden">
+                {/* Background decorative elements */}
+                <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-accent/10 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+                <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[120px] translate-y-1/2 -translate-x-1/2 pointer-events-none" />
 
                 <div className="container-page relative z-10">
-                    <div className="grid lg:grid-cols-12 gap-12 items-center">
-                        <div className="lg:col-span-12 text-center mb-12">
-                            <h2 className="text-3xl lg:text-5xl font-bold leading-tight text-white mb-6">
+                    <div className="grid lg:grid-cols-2 gap-16 items-center">
+                        {/* Text Content */}
+                        <motion.div
+                            initial={{ opacity: 0, x: -30 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            className="text-left"
+                        >
+                            <motion.div
+                                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-accent font-semibold text-sm mb-8"
+                            >
+                                <Play size={16} fill="currentColor" />
+                                <span>Impacto en video</span>
+                            </motion.div>
+
+                            <h2 className="text-4xl lg:text-6xl font-bold leading-tight text-white mb-8">
                                 Transformando vidas, <br />
                                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-emerald-400">Una historia a la vez</span>
                             </h2>
-                            <p className="text-white/60 text-lg leading-relaxed max-w-2xl mx-auto mb-10">
-                                Descubre cómo nuestras iniciativas han cambiado la realidad de cientos de familias en Huancayo.
-                            </p>
-                        </div>
-                    </div>
 
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        viewport={{ once: true }}
-                        className="relative aspect-video rounded-[2rem] overflow-hidden shadow-2xl shadow-black/50 border border-white/10 group cursor-pointer max-w-5xl mx-auto"
-                    >
-                        <div className="absolute inset-0 bg-neutral-800 flex items-center justify-center">
-                            <span className="text-white/30 font-medium">Video Próximamente</span>
-                        </div>
-                        {/* Placeholder overlay */}
-                        <div className="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition-colors flex items-center justify-center">
-                            <div className="w-24 h-24 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300 border border-white/20 shadow-xl">
-                                <Play size={40} className="fill-white text-white ml-2" />
+                            <p className="text-white/70 text-lg lg:text-xl leading-relaxed mb-8">
+                                Descubre cómo nuestras iniciativas han cambiado la realidad de cientos de familias en Huancayo. A través de este video, compartimos la emoción y el impacto real de nuestro compromiso social.
+                            </p>
+
+                            <div className="space-y-6">
+                                {[
+                                    { title: "Gestión Directa", desc: "Supervisamos cada paso del proceso social." },
+                                    { title: "Resultados Tangibles", desc: "Más de 500 familias beneficiadas directamente." },
+                                    { title: "Compromiso Local", desc: "Enfocados en el crecimiento de nuestra región." }
+                                ].map((item, i) => (
+                                    <div key={i} className="flex gap-4">
+                                        <div className="mt-1 w-5 h-5 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0">
+                                            <div className="w-2 h-2 rounded-full bg-accent" />
+                                        </div>
+                                        <div>
+                                            <h4 className="font-bold text-white mb-1">{item.title}</h4>
+                                            <p className="text-white/50 text-sm">{item.desc}</p>
+                                        </div>
+                                    </div>
+                                ))}
                             </div>
-                        </div>
-                    </motion.div>
+                        </motion.div>
+
+                        {/* Video Column - Reel Style */}
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            whileInView={{ opacity: 1, scale: 1 }}
+                            viewport={{ once: true }}
+                            className="relative flex justify-center"
+                        >
+                            {/* Smartphone frame effect */}
+                            <div className="relative w-full max-w-[340px] aspect-[9/19] bg-neutral-800 rounded-[3rem] p-3 border-[8px] border-neutral-800 shadow-[0_0_50px_-12px_rgba(0,0,0,0.5)] overflow-hidden">
+                                {/* Video Container */}
+                                <div className="relative w-full h-full rounded-[2rem] overflow-hidden bg-black group">
+                                    <video
+                                        src="/chocolatada.mp4"
+                                        className="w-full h-full object-cover"
+                                        autoPlay
+                                        loop
+                                        muted
+                                        playsInline
+                                    />
+
+                                    {/* Video Overlay Info */}
+                                    <div className="absolute inset-x-0 bottom-0 p-6 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none">
+                                        <div className="flex items-center gap-2 mb-2">
+                                            <div className="w-8 h-8 rounded-full bg-accent flex items-center justify-center">
+                                                <Heart size={14} className="text-white fill-white" />
+                                            </div>
+                                            <span className="text-white font-semibold text-sm">Fabre Solidario</span>
+                                        </div>
+                                        <p className="text-white/90 text-sm font-medium">Evento Chocolatada 2025 - Huancayo</p>
+                                    </div>
+
+                                    {/* Glass reflection effect */}
+                                    <div className="absolute inset-0 pointer-events-none bg-gradient-to-tr from-white/5 to-transparent opacity-50" />
+                                </div>
+
+                                {/* Dynamic light effect behind the phone */}
+                                <div className="absolute -inset-10 bg-accent/20 blur-[100px] -z-10 animate-pulse" />
+                            </div>
+                        </motion.div>
+                    </div>
                 </div>
             </section>
 

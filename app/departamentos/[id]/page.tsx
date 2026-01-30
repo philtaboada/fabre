@@ -12,7 +12,7 @@ import Footer from "../../components/Footer";
 import WhatsAppButton from "../../components/WhatsAppButton";
 import FloatingCTA from "../../components/FloatingCTA";
 import MarketingBonus from "../../components/MarketingBonus";
-import { getApartmentById, BRINDIZI_BUILDING } from "../../lib/apartments";
+import { getApartmentById, BUILDINGS } from "../../lib/apartments";
 import { formatNumber } from "../../lib/utils";
 import ImageGallery from "../../components/ImageGallery";
 
@@ -42,9 +42,9 @@ const getFeatureIcon = (text: string) => {
 export default function ApartmentDetailPage({ params }: { params: Promise<{ id: string }> }) {
     const resolvedParams = use(params);
     const apartment = getApartmentById(resolvedParams.id);
-    const building = BRINDIZI_BUILDING;
+    const building = BUILDINGS.find(b => b.apartments.some(a => a.id === resolvedParams.id));
 
-    if (!apartment) {
+    if (!apartment || !building) {
         notFound();
     }
 

@@ -1,11 +1,12 @@
 "use client";
-import { BRINDIZI_BUILDING } from "../lib/apartments";
+import { useState, useMemo } from "react";
+import { BUILDINGS } from "../lib/apartments";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import * as LucideIcons from "lucide-react";
 import { formatNumber } from "../lib/utils";
-import Filters from "./Filters";
+import FiltersComponent from "./Filters";
 
 // Dynamic Icon Component
 const Icon = ({ name, className }: { name: string; className?: string }) => {
@@ -38,7 +39,35 @@ const itemVariants = {
 };
 
 export default function ApartmentCatalog() {
-    const building = BRINDIZI_BUILDING;
+    const [filters, setFilters] = useState({
+        search: "",
+        district: "",
+        status: ""
+    });
+
+    const handleFilterChange = (newFilters: Partial<typeof filters>) => {
+        setFilters(prev => ({ ...prev, ...newFilters }));
+    };
+
+    const filteredBuildings = useMemo(() => {
+        return BUILDINGS.filter(building => {
+            const searchStr = filters.search.trim().toLowerCase();
+            const districtStr = filters.district.trim().toLowerCase();
+            const statusStr = filters.status;
+
+            const matchesSearch = !searchStr ||
+                building.name.toLowerCase().includes(searchStr);
+
+            const matchesDistrict = !districtStr ||
+                building.district.toLowerCase().includes(districtStr) ||
+                building.address.toLowerCase().includes(districtStr);
+
+            const matchesStatus = !statusStr ||
+                building.status === statusStr;
+
+            return matchesSearch && matchesDistrict && matchesStatus;
+        });
+    }, [filters]);
 
     return (
         <section id="departamentos" className="py-20 lg:py-32 bg-[#FDFDFD] overflow-hidden">
@@ -57,258 +86,112 @@ export default function ApartmentCatalog() {
                         </span>
                     </motion.div>
                     <motion.h2 variants={itemVariants} className="text-4xl lg:text-6xl font-bold text-primary mb-6 tracking-tight">
-                        {building.name}
+                        Nuestros Proyectos
                     </motion.h2>
                     <motion.p variants={itemVariants} className="text-secondary text-lg lg:text-xl max-w-2xl mx-auto leading-relaxed font-light">
-                        {building.description}
+                        Descubre edificios diseñados para elevar tu estilo de vida, ubicados en las zonas más estratégicas.
                     </motion.p>
-
-                    {/* Filters integration */}
-                    <motion.div variants={itemVariants} className="max-w-4xl mx-auto mt-12">
-                        <Filters onChange={(f) => console.log(f)} />
-                    </motion.div>
                 </motion.div>
 
-                {/* Building Info */}
                 <motion.div
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, margin: "-100px" }}
-                    variants={itemVariants}
-                    className="mb-20 lg:mb-32"
-                >
-                    <div className="bg-white rounded-3xl border border-neutral-100 shadow-[0_32px_64px_-16px_rgba(0,0,0,0.08)] overflow-hidden">
-                        <div className="grid lg:grid-cols-12 gap-0">
-                            {/* Building Image */}
-                            <div className="lg:col-span-7 relative h-80 lg:h-[520px] overflow-hidden group">
-                                <Image
-                                    src={building.gallery[0]}
-                                    alt={building.name}
-                                    fill
-                                    className="object-cover transition-transform duration-1000 group-hover:scale-105"
-                                />
-                                <div className="absolute top-6 left-6">
-                                    <span className="px-4 py-2 bg-white/90 backdrop-blur-md text-primary text-xs font-bold uppercase tracking-wider rounded-full shadow-lg">
-                                        {building.status}
-                                    </span>
-                                </div>
-                            </div>
-
-                            {/* Building Details */}
-                            <div className="lg:col-span-5 p-8 lg:p-12 flex flex-col justify-start">
-                                <div className="space-y-10">
-                                    <div>
-                                        <h3 className="text-2xl lg:text-3xl font-bold text-primary mb-4">EDIFICIO BRINDIZI</h3>
-                                        <p className="text-secondary leading-relaxed font-light text-lg">{building.about}</p>
-                                    </div>
-
-                                    <div className="flex items-center gap-8 bg-accent-light/30 p-6 rounded-2xl border border-accent/5">
-                                        <div className="flex flex-col">
-                                            <div className="text-3xl font-bold text-accent mb-1">{building.floors}</div>
-                                            <div className="text-[10px] text-secondary font-bold uppercase tracking-widest">Niveles</div>
-                                        </div>
-                                        <div className="w-px h-10 bg-accent/20"></div>
-                                        <div className="flex flex-col">
-                                            <div className="text-3xl font-bold text-accent mb-1">{building.totalUnits}</div>
-                                            <div className="text-[10px] text-secondary font-bold uppercase tracking-widest">Unidades</div>
-                                        </div>
-                                    </div>
-
-                                    <div>
-                                        <h4 className="text-xs font-bold text-primary uppercase tracking-[0.2em] mb-6">Amenidades del Proyecto</h4>
-                                        <div className="grid grid-cols-2 gap-y-4">
-                                            {building.buildingFeatures.map((feature, idx) => (
-                                                <div key={idx} className="flex items-center gap-3 group">
-                                                    <div className="w-10 h-10 rounded-xl bg-neutral-50 flex items-center justify-center text-accent group-hover:bg-accent group-hover:text-white transition-all duration-300">
-                                                        <Icon name={feature.iconName} className="w-5 h-5" />
-                                                    </div>
-                                                    <span className="text-secondary text-sm font-medium">{feature.name}</span>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </motion.div>
-
-                {/* Available Apartments Heading */}
-                <div className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
-                    <div className="max-w-xl">
-                        <h3 className="text-3xl lg:text-4xl font-bold text-primary mb-4 flex items-center gap-4">
-                            <span className="w-1.5 h-10 bg-accent rounded-full"></span>
-                            Unidades Disponibles
-                        </h3>
-                        <p className="text-secondary font-light">
-                            Selecciona el espacio que mejor se adapte a tu estilo de vida. Diseños optimizados para el máximo confort.
-                        </p>
-                    </div>
-                </div>
-
-                {/* Available Apartments Grid */}
-                <motion.div
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, margin: "-50px" }}
-                    variants={containerVariants}
-                    className="grid md:grid-cols-2 gap-8 lg:gap-10"
-                >
-                    {building.apartments.map((apartment) => (
-                        <motion.div
-                            key={apartment.id}
-                            variants={itemVariants}
-                            className="group bg-white rounded-[2.5rem] overflow-hidden border border-neutral-100 transition-all duration-500 hover:shadow-[0_40px_80px_-20px_rgba(0,0,0,0.12)] hover:-translate-y-2"
-                        >
-                            {/* Apartment Image */}
-                            <div className="relative h-64 lg:h-80 overflow-hidden">
-                                <Image
-                                    src={apartment.images[0]}
-                                    alt={`Departamento Piso ${apartment.floor}`}
-                                    fill
-                                    className="object-cover transition-transform duration-700 group-hover:scale-110"
-                                />
-                                {apartment.available ? (
-                                    <div className="absolute top-6 right-6">
-                                        <div className="flex items-center gap-2 px-4 py-2 bg-emerald-500 text-white text-[10px] font-bold uppercase tracking-widest rounded-full shadow-lg">
-                                            <span className="w-1.5 h-1.5 bg-white rounded-full animate-pulse"></span>
-                                            ENTREGA INMEDIATA
-                                        </div>
-                                    </div>
-                                ) : (
-                                    <div className="absolute top-6 right-6">
-                                        <div className="flex items-center gap-2 px-4 py-2 bg-red-500 text-white text-[10px] font-bold uppercase tracking-widest rounded-full shadow-lg">
-                                            VENDIDO
-                                        </div>
-                                    </div>
-                                )}
-                                <div className="absolute top-6 left-6">
-                                    <span className="px-5 py-2 bg-white/90 backdrop-blur-md text-primary text-xs font-black uppercase tracking-widest rounded-full shadow-sm">
-                                        {apartment.floor === 5 ? "ENTREGADO" : "Piso " + apartment.floor}
-                                    </span>
-                                </div>
-                                <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/40 to-transparent"></div>
-                                <div className="absolute bottom-6 left-6">
-                                    <div className="text-white text-3xl font-light">
-                                        Dpto <span className="font-bold">{apartment.floor}01</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            {/* Apartment Details */}
-                            <div className="p-8 lg:p-10">
-                                <div className="flex items-center gap-6 mb-8 border-b border-neutral-50 pb-8 flex-wrap">
-                                    <div className="flex flex-col">
-                                        <span className="text-[10px] text-neutral-400 uppercase font-black tracking-widest mb-1">Área</span>
-                                        <span className="text-xl font-bold text-primary">{apartment.area} m²</span>
-                                    </div>
-                                    <div className="w-px h-8 bg-neutral-100 hidden sm:block"></div>
-                                    <div className="flex flex-col">
-                                        <span className="text-[10px] text-neutral-400 uppercase font-black tracking-widest mb-1">Dorms</span>
-                                        <span className="text-xl font-bold text-primary">{apartment.bedrooms}</span>
-                                    </div>
-                                    <div className="w-px h-8 bg-neutral-100 hidden sm:block"></div>
-                                    <div className="flex flex-col">
-                                        <span className="text-[10px] text-neutral-400 uppercase font-black tracking-widest mb-1">Baños</span>
-                                        <span className="text-xl font-bold text-primary">{apartment.bathrooms}</span>
-                                    </div>
-                                    {apartment.study !== undefined && (
-                                        <>
-                                            <div className="w-px h-8 bg-neutral-100 hidden sm:block"></div>
-                                            <div className="flex flex-col">
-                                                <span className="text-[10px] text-neutral-400 uppercase font-black tracking-widest mb-1">Estudio</span>
-                                                <span className="text-xl font-bold text-primary">{apartment.study}</span>
-                                            </div>
-                                        </>
-                                    )}
-                                    {apartment.terrace !== undefined && (
-                                        <>
-                                            <div className="w-px h-8 bg-neutral-100 hidden sm:block"></div>
-                                            <div className="flex flex-col">
-                                                <span className="text-[10px] text-neutral-400 uppercase font-black tracking-widest mb-1">Terraza</span>
-                                                <span className="text-xl font-bold text-primary">{apartment.terrace}</span>
-                                            </div>
-                                        </>
-                                    )}
-                                </div>
-
-                                <p className="text-secondary text-base mb-8 line-clamp-2 leading-relaxed font-light">
-                                    {apartment.description}
-                                </p>
-
-                                {/* Features */}
-                                <div className="flex flex-wrap gap-2 mb-10">
-                                    <span className="px-4 py-1.5 bg-accent/10 text-accent text-[10px] font-bold uppercase tracking-wider rounded-lg border border-accent/20">
-                                        Vista a la calle
-                                    </span>
-                                    {apartment.features.slice(1, 8).map((feature, idx) => (
-                                        <span key={idx} className="px-4 py-1.5 bg-neutral-50 text-neutral-500 text-[10px] font-bold uppercase tracking-wider rounded-lg border border-neutral-100 group-hover:bg-accent/5 group-hover:text-accent group-hover:border-accent/10 transition-colors duration-300">
-                                            {feature}
-                                        </span>
-                                    ))}
-                                </div>
-
-                                {/* Price and CTA */}
-                                <div className="flex items-center justify-between">
-                                    <div>
-                                        <div className="text-[10px] text-neutral-400 uppercase font-black tracking-widest mb-1">Inversión desde</div>
-                                        <div className="text-3xl font-bold text-accent">
-                                            S/ {formatNumber(apartment.price)}
-                                        </div>
-                                    </div>
-                                    <Link
-                                        href={`/departamentos/${apartment.id}`}
-                                        className="w-14 h-14 bg-primary text-white rounded-2xl flex items-center justify-center transition-all duration-300 hover:bg-accent hover:shadow-xl hover:-rotate-6 group/btn"
-                                    >
-                                        <LucideIcons.ArrowUpRight size={24} className="group-hover:scale-110 transition-transform" />
-                                    </Link>
-                                </div>
-                            </div>
-                        </motion.div>
-                    ))}
-                </motion.div>
-
-                {/* Common Areas */}
-                <motion.div
-                    initial={{ opacity: 0, y: 50 }}
+                    initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.8 }}
-                    className="mt-24 lg:mt-32"
+                    className="max-w-5xl mx-auto mb-20"
                 >
-                    <div className="relative bg-white rounded-[3rem] border border-neutral-100 shadow-xl overflow-hidden">
-                        <div className="grid lg:grid-cols-2">
-                            {/* Left Side: Text and Items */}
-                            <div className="p-10 lg:p-20 flex flex-col justify-center">
-                                <h3 className="text-3xl lg:text-4xl font-bold text-primary mb-6">Amenidades Exclusivas</h3>
-                                <p className="text-secondary font-light text-lg mb-10 leading-relaxed">
-                                    Disfruta de espacios diseñados para elevar tu calidad de vida, combinando modernidad, confort y recreación en un solo lugar.
-                                </p>
-                                <div className="space-y-6">
-                                    {building.commonAreas.map((area, idx) => (
-                                        <div key={idx} className="flex items-center gap-4 group/area">
-                                            <div className="w-12 h-12 rounded-2xl bg-accent text-white flex items-center justify-center shadow-lg shadow-accent/20 transition-transform group-hover/area:scale-110">
-                                                <LucideIcons.CheckCircle2 className="w-6 h-6" />
-                                            </div>
-                                            <div className="text-lg text-primary font-bold uppercase tracking-widest">{area}</div>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
+                    <FiltersComponent
+                        values={filters}
+                        onChange={handleFilterChange}
+                    />
+                </motion.div>
 
-                            {/* Right Side: Image */}
-                            <div className="relative min-h-[400px] lg:min-h-full overflow-hidden group">
+                <motion.div
+                    key={`${filters.status}-${filters.search}-${filters.district}`}
+                    initial="hidden"
+                    animate="visible"
+                    variants={containerVariants}
+                    className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10"
+                >
+                    {filteredBuildings.map((building) => (
+                        <motion.div
+                            key={building.id}
+                            variants={itemVariants}
+                            className="group relative bg-white overflow-hidden transition-all duration-500 hover:-translate-y-2"
+                        >
+                            {/* Building Image */}
+                            <Link href={`/proyectos/${building.id}`} className="block relative aspect-[4/5] overflow-hidden">
                                 <Image
-                                    src="/building/common-areas.png"
-                                    alt="Espacios Comunes Brindizi"
+                                    src={building.gallery[0] || "/building/build1.png"}
+                                    alt={building.name}
                                     fill
                                     className="object-cover transition-transform duration-1000 group-hover:scale-110"
                                 />
-                                <div className="absolute inset-0 bg-gradient-to-l from-black/20 to-transparent"></div>
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
+                                {/* Status Overlay */}
+                                <div className="absolute inset-0 p-8 flex flex-col justify-end z-10">
+                                    <div className="mb-auto">
+                                        <div className={`inline-block px-4 py-1 rounded text-[11px] font-black uppercase tracking-[0.2em] text-white shadow-lg
+                                            ${building.status === 'ENTREGADO' ? 'bg-[#98CB00]' :
+                                                building.status === 'ENTREGA INMEDIATA' ? 'bg-[#98CB00]' :
+                                                    building.status === 'PROXIMO LANZAMIENTO' ? 'bg-[#FF3B30]' : 'bg-orange-500'}`}
+                                        >
+                                            {building.status}
+                                        </div>
+                                    </div>
+
+                                    <div className="space-y-0.5">
+                                        <div className="text-[10px] text-white/90 font-black uppercase tracking-[0.3em] mb-1">
+                                            DEPARTAMENTOS
+                                        </div>
+                                        <div className="flex flex-col">
+                                            <span className="text-4xl lg:text-5xl font-black text-[#007AFF] uppercase leading-none tracking-tighter">
+                                                {building.district.split(',')[0]}
+                                            </span>
+                                            <span className="text-3xl lg:text-4xl font-black text-[#FF3B30] uppercase leading-none tracking-tighter mt-1">
+                                                {(building.name || '').replace('Residencial ', '').replace('Edificio ', '').toUpperCase()}
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div className="mt-4 pt-4 border-t border-white/20">
+                                        <div className="text-white/80 text-xs font-bold uppercase tracking-widest flex items-center gap-2">
+                                            <LucideIcons.MapPin size={14} className="text-[#98CB00]" />
+                                            {building.address}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="absolute inset-x-0 bottom-0 h-3/4 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
+                            </Link>
+
+                            {/* CTA */}
+                            <div className="mt-8">
+                                <Link
+                                    href={`/proyectos/${building.id}`}
+                                    className="group/btn inline-flex items-center gap-4 text-primary font-black text-xs uppercase tracking-[0.2em] transition-all hover:text-accent"
+                                >
+                                    <span className="inline-block py-2 border-b-2 border-primary/20 group-hover/btn:border-accent transition-all">
+                                        VER PROYECTO
+                                    </span>
+                                    <div className="w-10 h-10 rounded-full border border-primary/20 flex items-center justify-center group-hover/btn:bg-accent group-hover/btn:border-accent group-hover/btn:text-white transition-all">
+                                        <LucideIcons.ArrowRight size={18} className="transition-transform group-hover/btn:translate-x-1" />
+                                    </div>
+                                </Link>
                             </div>
+                        </motion.div>
+                    ))}
+
+                    {filteredBuildings.length === 0 && (
+                        <div className="col-span-full py-20 text-center">
+                            <p className="text-secondary text-xl font-light">
+                                No se encontraron proyectos que coincidan con tu búsqueda.
+                            </p>
+                            <button
+                                onClick={() => setFilters({ search: "", district: "", status: "" })}
+                                className="mt-6 text-accent font-bold uppercase tracking-widest text-sm border-b-2 border-accent/20 hover:border-accent transition-all"
+                            >
+                                Limpiar Filtros
+                            </button>
                         </div>
-                    </div>
+                    )}
                 </motion.div>
 
                 {/* CTA Section */}
@@ -327,16 +210,12 @@ export default function ApartmentCatalog() {
                                 Tu próxima historia comienza aquí
                             </h3>
                             <p className="text-neutral-400 text-lg lg:text-xl mb-12 font-light leading-relaxed">
-                                Agenda una visita privada y descubre por qué {building.name} es la mejor elección para tu futuro. Nuestros asesores especializados están listos para guiarte.
+                                Agenda una visita privada y descubre por qué Fabre es la mejor elección para tu futuro. Nuestros asesores especializados están listos para guiarte.
                             </p>
                             <div className="flex flex-col sm:flex-row gap-6 justify-center">
                                 <a href="#contacto" className="px-10 py-5 bg-accent text-white font-bold rounded-2xl hover:bg-accent/90 transition-all duration-300 shadow-xl shadow-accent/20 hover:shadow-accent/40 hover:-translate-y-1 flex items-center justify-center gap-3 group/visit">
                                     <LucideIcons.Calendar className="w-5 h-5 group-hover:rotate-12 transition-transform" />
                                     Agendar visita
-                                </a>
-                                <a href="/financiamiento" className="px-10 py-5 bg-white/5 border border-white/10 text-white font-bold rounded-2xl hover:bg-white/10 transition-all duration-300 flex items-center justify-center gap-3 backdrop-blur-sm group/finance">
-                                    <LucideIcons.Calculator className="w-5 h-5 group-hover:scale-110 transition-transform" />
-                                    Simular crédito
                                 </a>
                             </div>
                         </div>

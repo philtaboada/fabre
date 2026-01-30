@@ -3,8 +3,6 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { motion } from "framer-motion";
-
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
