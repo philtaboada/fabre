@@ -6,7 +6,8 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import * as LucideIcons from "lucide-react";
 import { formatNumber } from "../lib/utils";
-import FiltersComponent from "./Filters";
+import FiltersComponent, { FiltersValues } from "./Filters";
+import { ProjectStatus } from "../lib/projects";
 
 // Dynamic Icon Component
 const Icon = ({ name, className }: { name: string; className?: string }) => {
@@ -39,20 +40,20 @@ const itemVariants = {
 };
 
 export default function ApartmentCatalog() {
-    const [filters, setFilters] = useState({
+    const [filters, setFilters] = useState<FiltersValues>({
         search: "",
         district: "",
         status: ""
     });
 
-    const handleFilterChange = (newFilters: Partial<typeof filters>) => {
+    const handleFilterChange = (newFilters: Partial<FiltersValues>) => {
         setFilters(prev => ({ ...prev, ...newFilters }));
     };
 
     const filteredBuildings = useMemo(() => {
         return BUILDINGS.filter(building => {
-            const searchStr = filters.search.trim().toLowerCase();
-            const districtStr = filters.district.trim().toLowerCase();
+            const searchStr = (filters.search || "").trim().toLowerCase();
+            const districtStr = (filters.district || "").trim().toLowerCase();
             const statusStr = filters.status;
 
             const matchesSearch = !searchStr ||
@@ -113,7 +114,7 @@ export default function ApartmentCatalog() {
                     className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10"
                 >
                     {filteredBuildings.map((building) => {
-                        const isDelivered = building.status === 'ENTREGADO';
+                        const isDelivered = building.status === 'Entregado';
                         const cardContent = (
                             <>
                                 <Image
@@ -126,11 +127,11 @@ export default function ApartmentCatalog() {
                                 <div className="absolute inset-0 p-8 flex flex-col justify-end z-10">
                                     <div className="mb-auto">
                                         <div className={`inline-block px-4 py-1 rounded text-[11px] font-black uppercase tracking-[0.2em] text-white shadow-lg
-                                            ${building.status === 'ENTREGADO' ? 'bg-[#98CB00]' :
-                                                building.status === 'ENTREGA INMEDIATA' ? 'bg-[#98CB00]' :
-                                                    building.status === 'PROXIMO LANZAMIENTO' ? 'bg-[#FF3B30]' : 'bg-orange-500'}`}
+                                            ${building.status === 'Entregado' ? 'bg-[#98CB00]' :
+                                                building.status === 'Entrega inmediata' ? 'bg-[#98CB00]' :
+                                                    building.status === 'Próximo lanzamiento' ? 'bg-[#FF3B30]' : 'bg-orange-500'}`}
                                         >
-                                            {building.status}
+                                            {building.status.toUpperCase()}
                                         </div>
                                     </div>
 

@@ -1,22 +1,27 @@
 "use client";
 import { useMemo, useState } from "react";
-import Filters from "./Filters";
+import Filters, { FiltersValues } from "./Filters";
 import ProjectCard from "./ProjectCard";
-import { ALL_PROJECTS } from "../lib/projects";
+import { ALL_PROJECTS, ProjectStatus } from "../lib/projects";
 
 export default function Catalog() {
   const [priceMax, setPriceMax] = useState<number | undefined>(undefined);
   const [district, setDistrict] = useState<string | undefined>(undefined);
-  const [status, setStatus] = useState<"Pre-venta" | "En construcción" | "Entregado" | "">("");
+  const [status, setStatus] = useState<ProjectStatus | "">("");
+  const [search, setSearch] = useState<string>("");
 
-  const onFiltersChange = (f: {
-    priceMax?: number;
-    district?: string;
-    status?: "Pre-venta" | "En construcción" | "Entregado" | "";
-  }) => {
-    setPriceMax(f.priceMax);
-    setDistrict(f.district);
-    setStatus(f.status ?? "");
+  const onFiltersChange = (f: Partial<FiltersValues>) => {
+    if (f.priceMax !== undefined) setPriceMax(f.priceMax);
+    if (f.district !== undefined) setDistrict(f.district);
+    if (f.status !== undefined) setStatus(f.status);
+    if (f.search !== undefined) setSearch(f.search);
+  };
+
+  const resetFilters = () => {
+    setPriceMax(undefined);
+    setDistrict("");
+    setStatus("");
+    setSearch("");
   };
 
   const filtered = useMemo(() => {
@@ -24,9 +29,17 @@ export default function Catalog() {
       if (priceMax && p.price > priceMax) return false;
       if (district && !p.district.toLowerCase().includes(district.toLowerCase())) return false;
       if (status && p.status !== status) return false;
+      if (search && !p.title.toLowerCase().includes(search.toLowerCase())) return false;
       return true;
     });
-  }, [priceMax, district, status]);
+  }, [priceMax, district, status, search]);
+
+  const currentFilters: FiltersValues = {
+    priceMax,
+    district,
+    status,
+    search
+  };
 
   return (
     <section id="proyectos" className="py-16 lg:py-24 bg-gradient-to-b from-white to-sand">
@@ -48,7 +61,7 @@ export default function Catalog() {
 
         <div className="space-y-10">
           <div className="animate-fade-in-up" style={{ animationDelay: "0.1s" }}>
-            <Filters onChange={onFiltersChange} />
+            <Filters values={currentFilters} onChange={onFiltersChange} />
           </div>
 
           {filtered.length > 0 ? (
@@ -60,7 +73,7 @@ export default function Catalog() {
                 </p>
                 {filtered.length !== ALL_PROJECTS.length && (
                   <button
-                    onClick={() => onFiltersChange({})}
+                    onClick={resetFilters}
                     className="text-sm text-accent hover:underline font-medium flex items-center gap-2"
                   >
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -121,7 +134,7 @@ export default function Catalog() {
                   Intenta ajustar tus criterios de búsqueda.
                 </p>
                 <button
-                  onClick={() => onFiltersChange({})}
+                  onClick={resetFilters}
                   className="btn-primary"
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

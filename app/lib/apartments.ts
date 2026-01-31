@@ -1,3 +1,5 @@
+import { ProjectStatus } from "./projects";
+
 export type Apartment = {
     id: string;
     floor: number;
@@ -20,7 +22,7 @@ export type Building = {
     district: string;
     description: string;
     about: string;
-    status: "ENTREGADO" | "ENTREGA INMEDIATA" | "PROXIMO LANZAMIENTO" | "PRE-VENTA" | "EN CONSTRUCCIÓN";
+    status: ProjectStatus;
     deliveryDate?: string;
     floors: number;
     totalUnits: number;
@@ -53,7 +55,7 @@ export const WABI_SABI_BUILDING: Building = {
     district: "San Carlos",
     description: "Diseño minimalista y funcional en el corazón de San Carlos.",
     about: "Wabi Sabi es un proyecto entregado que destaca por su diseño arquitectónico moderno y su integración con el entorno urbano.",
-    status: "ENTREGADO",
+    status: "Entregado",
     floors: 10,
     totalUnits: 30,
     commonAreas: ["Lobby", "Gimnasio", "Terraza"],
@@ -75,7 +77,7 @@ export const BRINDIZI_BUILDING: Building = {
     district: "San Carlos, Huancayo",
     description: "Departamentos exclusivos en ubicación estratégica en San Carlos, cerca de la Universidad Continental y el Parque de la Identidad Wanka.",
     about: "El Edificio Brindizi ofrece una ubicación privilegiada a solo 3 cuadras de la Universidad Continental, cerca de la UPLA, Universidad Roosevelt, clínicas y centros comerciales como MAKRO. Destaca por su tecnología de seguridad avanzada con cerraduras inteligentes (huella, clave, tarjeta) y servicios modernos incluidos.",
-    status: "ENTREGA INMEDIATA",
+    status: "Entrega inmediata",
     deliveryDate: "2025",
     floors: 7,
     totalUnits: 12,
@@ -192,7 +194,7 @@ export const MORA_BUILDING: Building = {
     district: "Huancayo",
     description: "Próximo lanzamiento en una de las zonas más conectadas de la ciudad.",
     about: "Mora es nuestro próximo gran proyecto, diseñado para quienes buscan conectividad y modernidad.",
-    status: "PROXIMO LANZAMIENTO",
+    status: "Próximo lanzamiento",
     floors: 15,
     totalUnits: 60,
     commonAreas: ["Piscina", "Coworking", "Sky Bar"],

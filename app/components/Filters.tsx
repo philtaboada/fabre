@@ -1,10 +1,10 @@
 "use client";
-import { useState } from "react";
+import { ProjectStatus } from "../lib/projects";
 
-type FiltersValues = {
+export type FiltersValues = {
   priceMax?: number;
   district?: string;
-  status?: string;
+  status?: ProjectStatus | "";
   search?: string;
 };
 
@@ -47,16 +47,25 @@ export default function Filters({
         <label className="text-[10px] font-black uppercase tracking-widest text-neutral-500 mb-2 block">
           Estado
         </label>
-        <select
-          value={values.status || ""}
-          className="w-full rounded-xl border border-neutral-200 bg-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-accent/20 transition-all appearance-none"
-          onChange={(e) => onChange({ status: e.target.value })}
-        >
-          <option value="">Todos</option>
-          <option value="ENTREGADO">ENTREGADO</option>
-          <option value="ENTREGA INMEDIATA">ENTREGA INMEDIATA</option>
-          <option value="PROXIMO LANZAMIENTO">PROXIMO LANZAMIENTO</option>
-        </select>
+        <div className="relative">
+          <select
+            value={values.status || ""}
+            className="w-full rounded-xl border border-neutral-200 bg-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-accent/20 transition-all appearance-none pr-10"
+            onChange={(e) => onChange({ status: e.target.value as ProjectStatus | "" })}
+          >
+            <option value="">Todos los estados</option>
+            <option value="Pre-venta">Pre-venta</option>
+            <option value="En construcción">En construcción</option>
+            <option value="Entregado">Entregado</option>
+            <option value="Entrega inmediata">Entrega inmediata</option>
+            <option value="Próximo lanzamiento">Próximo lanzamiento</option>
+          </select>
+          <div className="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none text-neutral-400">
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+            </svg>
+          </div>
+        </div>
       </div>
 
       <button
