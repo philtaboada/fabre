@@ -29,6 +29,8 @@ import Footer from "../components/Footer";
 import WhatsAppButton from "../components/WhatsAppButton";
 import Link from "next/link";
 import FloatingCTA from "../components/FloatingCTA";
+import Script from "next/script";
+
 
 export default function NosotrosPage() {
     const fadeIn = {
@@ -397,31 +399,19 @@ export default function NosotrosPage() {
                             initial={{ opacity: 0, scale: 0.9 }}
                             whileInView={{ opacity: 1, scale: 1 }}
                             viewport={{ once: true }}
-                            className="relative flex justify-center"
+                            className="relative flex justify-center w-full"
                         >
-                            {/* Smartphone frame effect */}
-                            <div className="relative w-full max-w-[340px] aspect-[9/19] bg-neutral-800 rounded-[3rem] p-3 border-[8px] border-neutral-800 shadow-[0_0_50px_-12px_rgba(0,0,0,0.5)] overflow-hidden">
+                            {/* Smartphone frame effect - Increased size to show more video */}
+                            <div className="relative w-full max-w-[450px] aspect-[9/16] bg-neutral-800 rounded-[3rem] p-3 border-[8px] border-neutral-800 shadow-[0_0_50px_-12px_rgba(0,0,0,0.5)] overflow-hidden">
                                 {/* Video Container */}
                                 <div className="relative w-full h-full rounded-[2rem] overflow-hidden bg-black group">
-                                    <video
-                                        src="/chocolatada.mp4"
-                                        className="w-full h-full object-cover"
-                                        autoPlay
-                                        loop
-                                        muted
-                                        playsInline
+                                    <iframe
+                                        src="https://www.tiktok.com/embed/v2/7597624849447669013"
+                                        className="w-full h-full border-none"
+                                        scrolling="no"
+                                        allow="encrypted-media; fullscreen"
                                     />
 
-                                    {/* Video Overlay Info */}
-                                    <div className="absolute inset-x-0 bottom-0 p-6 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none">
-                                        <div className="flex items-center gap-2 mb-2">
-                                            <div className="w-8 h-8 rounded-full bg-accent flex items-center justify-center">
-                                                <Heart size={14} className="text-white fill-white" />
-                                            </div>
-                                            <span className="text-white font-semibold text-sm">Fabre Solidario</span>
-                                        </div>
-                                        <p className="text-white/90 text-sm font-medium">Evento Chocolatada 2025 - Huancayo</p>
-                                    </div>
 
                                     {/* Glass reflection effect */}
                                     <div className="absolute inset-0 pointer-events-none bg-gradient-to-tr from-white/5 to-transparent opacity-50" />
@@ -462,6 +452,7 @@ export default function NosotrosPage() {
             <FloatingCTA />
             <WhatsAppButton />
             <Footer />
+            <Script src="https://www.tiktok.com/embed.js" strategy="afterInteractive" />
         </main>
     );
 }
