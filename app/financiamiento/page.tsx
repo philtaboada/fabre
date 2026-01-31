@@ -180,18 +180,12 @@ export default function FinanciamientoPage() {
                                             S/ {formatNumber(monthlyPayment)}
                                         </div>
                                     </div>
-                                    <div className="grid grid-cols-2 gap-4 pt-4 border-t border-white/20">
+                                    <div className="pt-4 border-t border-white/20">
                                         <div className="text-center">
                                             <div className="text-xl font-bold">
                                                 S/ {formatNumber(loanAmount)}
                                             </div>
                                             <div className="text-sm opacity-90">Monto a financiar</div>
-                                        </div>
-                                        <div className="text-center">
-                                            <div className="text-xl font-bold">
-                                                S/ {formatNumber(totalInterest)}
-                                            </div>
-                                            <div className="text-sm opacity-90">Interés total</div>
                                         </div>
                                     </div>
                                 </div>

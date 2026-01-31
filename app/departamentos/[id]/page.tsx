@@ -69,7 +69,7 @@ export default function ApartmentDetailPage({ params }: { params: Promise<{ id: 
             <Header />
 
             {/* Immersive Hero Section */}
-            <section className="relative h-[60vh] lg:h-[70vh] w-full overflow-hidden">
+            <section className="relative h-[70vh] lg:h-[80vh] w-full overflow-hidden">
                 <Image
                     src={apartment.images[0]}
                     alt={`Departamento Piso ${apartment.floor}`}
@@ -81,20 +81,22 @@ export default function ApartmentDetailPage({ params }: { params: Promise<{ id: 
 
                 <div className="absolute inset-0 flex items-end pb-12 lg:pb-20">
                     <div className="container-page">
+                        <Link
+                            href="/#departamentos"
+                            className="absolute top-24 lg:top-28 left-4 lg:left-8 z-20 hover:opacity-80 transition-all flex items-center gap-3 text-white/90 font-medium group"
+                        >
+                            <div className="p-2.5 bg-white/10 backdrop-blur-md rounded-full border border-white/20 transition-all group-hover:bg-white/20">
+                                <LucideIcons.ArrowLeft size={20} />
+                            </div>
+                            <span className="text-shadow-sm">Volver al catálogo</span>
+                        </Link>
+
                         <motion.div
                             initial="hidden"
                             animate="visible"
                             variants={staggerContainer}
                             className="max-w-4xl"
                         >
-                            <motion.div variants={fadeIn} className="flex items-center gap-2 mb-6 text-white/90 font-medium">
-                                <Link href="/#departamentos" className="hover:text-accent transition-colors flex items-center gap-2 group">
-                                    <div className="p-2 bg-white/10 rounded-full group-hover:bg-accent hover:border-accent border border-white/20 transition-all">
-                                        <LucideIcons.ArrowLeft size={18} />
-                                    </div>
-                                    Volver al catálogo
-                                </Link>
-                            </motion.div>
 
                             <motion.div variants={fadeIn} className="flex flex-wrap items-center gap-3 mb-4">
                                 <span className="px-4 py-1.5 bg-white/10 backdrop-blur-md border border-white/20 text-white text-sm font-semibold rounded-full flex items-center gap-2">

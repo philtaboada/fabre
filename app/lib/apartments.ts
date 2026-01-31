@@ -63,7 +63,7 @@ export const WABI_SABI_BUILDING: Building = {
         coordinates: { lat: -12.1121, lng: -77.0152 },
         nearbyPlaces: []
     },
-    gallery: ["/building/build1.png"],
+    gallery: ["/wasi-wavi/wasi_wabi.png"],
     apartments: []
 };
 
@@ -114,12 +114,23 @@ export const BRINDIZI_BUILDING: Building = {
         ]
     },
     gallery: [
-        "/building/build1.png",
         "/building/build1-1.png",
-        "/building/build1-2.png",
-        "/building/build1-3.png",
-        "/building/build1-4.jpg",
-        "/building/build1-5.jpg"
+        "/Brindizi/comun_areas/DSC06466.jpg",
+        "/Brindizi/comun_areas/DSC06467.jpg",
+        "/Brindizi/comun_areas/DSC06475.jpg",
+        "/Brindizi/comun_areas/DSC06476.jpg",
+        "/Brindizi/comun_areas/DSC06477.jpg",
+        "/Brindizi/comun_areas/DSC06482.jpg",
+        "/Brindizi/comun_areas/DSC06483.jpg",
+        "/Brindizi/comun_areas/DSC06485.jpg",
+        "/Brindizi/comun_areas/DSC06487.jpg",
+        "/Brindizi/comun_areas/DSC06488.jpg",
+        "/Brindizi/comun_areas/DSC06490.jpg",
+        "/Brindizi/comun_areas/DSC06496.jpg",
+        "/Brindizi/comun_areas/DSC07571.jpg",
+        "/Brindizi/comun_areas/DSC07573.jpg",
+        "/Brindizi/comun_areas/DSC07574.jpg",
+        "/Brindizi/comun_areas/DSC07575.jpg"
     ],
     apartments: [
         {

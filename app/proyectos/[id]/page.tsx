@@ -13,6 +13,7 @@ import WhatsAppButton from "../../components/WhatsAppButton";
 import FloatingCTA from "../../components/FloatingCTA";
 import MarketingBonus from "../../components/MarketingBonus";
 import { getProjectById, getOtherProjects } from "../../lib/projects";
+import { getBuildingById } from "../../lib/apartments";
 import { formatNumber } from "../../lib/utils";
 import ImageGallery from "../../components/ImageGallery";
 import ContactForm from "../../components/ContactForm";
@@ -23,6 +24,35 @@ const Icon = ({ name, className }: { name: string; className?: string }) => {
   // @ts-expect-error Dynamic access
   const LucideIcon = LucideIcons[name] || LucideIcons.HelpCircle;
   return <LucideIcon className={className} size={20} />;
+};
+
+const getItemIcon = (name: string, iconKey?: string) => {
+  const n = (name + (iconKey || "")).toLowerCase();
+
+  // Security/Smart
+  if (n.includes("seguridad") || n.includes("smart") || n.includes("cerradura") || n.includes("📱") || n.includes("🔒") || n.includes("intercomunicador")) return LucideIcons.ShieldCheck;
+  if (n.includes("cámara") || n.includes("camera")) return LucideIcons.Camera;
+  if (n.includes("cerco")) return LucideIcons.Zap;
+
+  // Building/Structural
+  if (n.includes("ascensor") || n.includes("🛗") || n.includes("elevator")) return LucideIcons.ArrowUpCircle;
+  if (n.includes("sismo") || n.includes("estructura")) return LucideIcons.Building2;
+  if (n.includes("led") || n.includes("luz") || n.includes("iluminación")) return LucideIcons.Sun;
+
+  // Amenities
+  if (n.includes("estacionamiento") || n.includes("car") || n.includes("cochera")) return LucideIcons.Car;
+  if (n.includes("parrilla") || n.includes("bbq") || n.includes("flame") || n.includes("social")) return LucideIcons.Flame;
+  if (n.includes("sshh") || n.includes("baño") || n.includes("bath")) return LucideIcons.Bath;
+  if (n.includes("tendal") || n.includes("viento") || n.includes("wind")) return LucideIcons.Wind;
+  if (n.includes("lavandería") || n.includes("wash") || n.includes("droplets") || n.includes("lavadero")) return LucideIcons.Droplets;
+  if (n.includes("pet") || n.includes("perro")) return LucideIcons.Dog;
+  if (n.includes("gimnasio") || n.includes("gym") || n.includes("dumbbell")) return LucideIcons.Dumbbell;
+  if (n.includes("lobby") || n.includes("recepción")) return LucideIcons.Armchair;
+  if (n.includes("coworking") || n.includes("oficina")) return LucideIcons.Laptop;
+  if (n.includes("piscina") || n.includes("pool")) return LucideIcons.Waves;
+  if (n.includes("terraza") || n.includes("sky")) return LucideIcons.TreePine;
+
+  return LucideIcons.CheckCircle2;
 };
 
 // Map string icons to Lucide icons
@@ -46,6 +76,7 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
   const resolvedParams = use(params);
   const project = getProjectById(resolvedParams.id);
   const otherProjects = getOtherProjects(resolvedParams.id);
+  const buildingData = getBuildingById(resolvedParams.id);
 
   if (!project) {
     notFound();
@@ -75,6 +106,10 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
         return { color: "bg-amber-500", text: "En construcción" };
       case "Entregado":
         return { color: "bg-slate-600", text: "Entregado" };
+      case "Entrega inmediata":
+        return { color: "bg-blue-600", text: "Entrega inmediata" };
+      case "Próximo lanzamiento":
+        return { color: "bg-purple-600", text: "Próximo lanzamiento" };
       default:
         return { color: "bg-gray-500", text: status };
     }
@@ -87,7 +122,7 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
       <Header />
 
       {/* Immersive Hero Section */}
-      <section className="relative h-[60vh] lg:h-[70vh] w-full overflow-hidden">
+      <section className="relative h-[70vh] lg:h-[80vh] w-full overflow-hidden">
         <Image
           src={project.image}
           alt={project.title}
@@ -99,20 +134,22 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
 
         <div className="absolute inset-0 flex items-end pb-12 lg:pb-20">
           <div className="container-page">
+            <Link
+              href="/#proyectos"
+              className="absolute top-24 lg:top-28 left-4 lg:left-8 z-20 hover:opacity-80 transition-all flex items-center gap-3 text-white/90 font-medium group"
+            >
+              <div className="p-2.5 bg-white/10 backdrop-blur-md rounded-full border border-white/20 transition-all group-hover:bg-white/20">
+                <LucideIcons.ArrowLeft size={20} />
+              </div>
+              <span className="text-shadow-sm">Volver a proyectos</span>
+            </Link>
+
             <motion.div
               initial="hidden"
               animate="visible"
               variants={staggerContainer}
               className="max-w-4xl"
             >
-              <motion.div variants={fadeIn} className="flex items-center gap-2 mb-6 text-white/90 font-medium">
-                <Link href="/#proyectos" className="hover:text-accent transition-colors flex items-center gap-2 group">
-                  <div className="p-2 bg-white/10 rounded-full group-hover:bg-accent hover:border-accent border border-white/20 transition-all">
-                    <LucideIcons.ArrowLeft size={18} />
-                  </div>
-                  Volver a proyectos
-                </Link>
-              </motion.div>
 
               <motion.div variants={fadeIn} className="flex flex-wrap items-center gap-3 mb-4">
                 <span className={`px-4 py-1.5 ${statusConfig.color} text-white text-sm font-semibold rounded-full shadow-lg`}>
@@ -156,7 +193,7 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
             {/* Main Content */}
             <div className="lg:col-span-8 space-y-8">
 
-              {/* Stats Bar */}
+              {/* Stats Bar - Building Focused */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -165,42 +202,31 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
               >
                 <div className="flex items-center gap-4 px-4 border-r border-neutral-100 last:border-0 grow sm:grow-0">
                   <div className="w-12 h-12 bg-accent/5 rounded-2xl flex items-center justify-center text-accent">
-                    <LucideIcons.Maximize2 size={24} />
+                    <LucideIcons.Building size={24} />
                   </div>
                   <div>
-                    <p className="text-sm text-secondary font-medium">Área</p>
-                    <p className="text-2xl font-bold text-primary">{project.area} m²</p>
+                    <p className="text-sm text-secondary font-medium">Pisos</p>
+                    <p className="text-2xl font-bold text-primary">{project.floors || buildingData?.floors || '—'}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-4 px-4 border-r border-neutral-100 last:border-0 grow sm:grow-0">
                   <div className="w-12 h-12 bg-accent/5 rounded-2xl flex items-center justify-center text-accent">
-                    <LucideIcons.BedDouble size={24} />
+                    <LucideIcons.LayoutGrid size={24} />
                   </div>
                   <div>
-                    <p className="text-sm text-secondary font-medium">Dormitorios</p>
-                    <p className="text-2xl font-bold text-primary">{project.bedrooms}</p>
+                    <p className="text-sm text-secondary font-medium">Unidades Totales</p>
+                    <p className="text-2xl font-bold text-primary">{project.units || buildingData?.totalUnits || '—'}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-4 px-4 border-r border-neutral-100 last:border-0 grow sm:grow-0">
                   <div className="w-12 h-12 bg-accent/5 rounded-2xl flex items-center justify-center text-accent">
-                    <LucideIcons.Bath size={24} />
+                    <LucideIcons.ShieldCheck size={24} />
                   </div>
                   <div>
-                    <p className="text-sm text-secondary font-medium">Baños</p>
-                    <p className="text-2xl font-bold text-primary">{project.bathrooms}</p>
+                    <p className="text-sm text-secondary font-medium">Estado</p>
+                    <p className="text-xl font-bold text-primary">{project.status}</p>
                   </div>
                 </div>
-                {project.floors && (
-                  <div className="flex items-center gap-4 px-4 border-r border-neutral-100 last:border-0 grow sm:grow-0">
-                    <div className="w-12 h-12 bg-accent/5 rounded-2xl flex items-center justify-center text-accent">
-                      <LucideIcons.Building size={24} />
-                    </div>
-                    <div>
-                      <p className="text-sm text-secondary font-medium">Pisos</p>
-                      <p className="text-2xl font-bold text-primary">{project.floors}</p>
-                    </div>
-                  </div>
-                )}
               </motion.div>
 
               {/* Description & Gallery */}
@@ -222,35 +248,73 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
                   </div>
                 </motion.div>
 
-                {/* Features Grid */}
-                <motion.div
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true }}
-                  variants={staggerContainer}
-                >
-                  <h3 className="text-xl font-bold text-primary mb-6 flex items-center gap-2">
-                    <LucideIcons.Sparkles className="text-accent" />
-                    Características Principales
-                  </h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {project.features.map((feature, idx) => {
-                      const FeatureIcon = getFeatureIcon(feature.icon);
-                      return (
+                {/* Available Apartments Section - Prioritized Position */}
+                {buildingData && buildingData.apartments.length > 0 && (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    viewport={{ once: true }}
+                    className="space-y-8 py-4"
+                  >
+                    <div className="flex items-center justify-between">
+                      <h3 className="text-2xl font-bold text-primary flex items-center gap-2">
+                        <LucideIcons.LayoutGrid className="text-accent" />
+                        Departamentos Disponibles
+                      </h3>
+                      <span className="px-4 py-1 bg-accent/10 text-accent rounded-full text-xs font-bold uppercase">
+                        {buildingData.apartments.filter(a => a.available).length} unidades disponibles
+                      </span>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      {buildingData.apartments.map((apt) => (
                         <motion.div
-                          key={idx}
-                          variants={fadeIn}
-                          className="bg-white p-4 rounded-2xl border border-neutral-100 flex items-center gap-4 shadow-sm hover:shadow-md transition-shadow group"
+                          key={apt.id}
+                          whileHover={{ y: -5 }}
+                          className="bg-white rounded-3xl border border-neutral-100 shadow-soft hover:shadow-strong transition-all duration-300 p-6"
                         >
-                          <div className="w-10 h-10 bg-sand rounded-xl flex items-center justify-center group-hover:bg-accent group-hover:text-white transition-colors duration-300">
-                            <FeatureIcon size={20} className="text-secondary group-hover:text-white" />
+                          <div className="flex justify-between items-start mb-6">
+                            <div>
+                              <h4 className="text-lg font-bold text-primary">Piso {apt.floor}</h4>
+                              <p className="text-sm text-secondary">ID: {apt.id}</p>
+                            </div>
+                            <div className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase ${apt.available ? 'bg-emerald-100 text-emerald-600' : 'bg-red-100 text-red-600'}`}>
+                              {apt.available ? 'Disponible' : 'Vendido'}
+                            </div>
                           </div>
-                          <span className="font-medium text-secondary">{feature.name}</span>
+
+                          <div className="grid grid-cols-2 gap-4 mb-6">
+                            <div className="flex items-center gap-2 text-secondary">
+                              <LucideIcons.Maximize2 size={16} className="text-accent" />
+                              <span className="text-sm font-medium">{apt.area} m²</span>
+                            </div>
+                            <div className="flex items-center gap-2 text-secondary">
+                              <LucideIcons.BedDouble size={16} className="text-accent" />
+                              <span className="text-sm font-medium">{apt.bedrooms} Dorm.</span>
+                            </div>
+                            <div className="flex items-center gap-2 text-secondary">
+                              <LucideIcons.Bath size={16} className="text-accent" />
+                              <span className="text-sm font-medium">{apt.bathrooms} Baños</span>
+                            </div>
+                          </div>
+
+                          <div className="flex items-center justify-between pt-5 border-t border-neutral-50">
+                            <div>
+                              <p className="text-[10px] text-secondary font-bold uppercase tracking-widest">Desde</p>
+                              <p className="text-xl font-bold text-primary">S/ {formatNumber(apt.price)}</p>
+                            </div>
+                            <Link
+                              href={`/departamentos/${apt.id}`}
+                              className="px-5 py-2.5 bg-sand hover:bg-accent hover:text-white text-primary rounded-xl text-xs font-bold transition-all"
+                            >
+                              Ver Detalles
+                            </Link>
+                          </div>
                         </motion.div>
-                      );
-                    })}
-                  </div>
-                </motion.div>
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
 
                 {/* Gallery */}
                 <motion.div
@@ -260,31 +324,55 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
                 >
                   <ImageGallery images={project.gallery} />
                 </motion.div>
-              </div>
 
-              {/* Common Areas */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                className="bg-primary text-white p-8 lg:p-12 rounded-[2.5rem] relative overflow-hidden"
-              >
-                <div className="relative z-10">
-                  <h3 className="text-2xl font-bold mb-8">Áreas Comunes y Amenidades</h3>
-                  <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
-                    {project.commonAreas.map((area, idx) => (
-                      <div key={idx} className="flex flex-col items-center text-center gap-3 p-4 bg-white/5 rounded-2xl hover:bg-white/10 transition-colors border border-white/5">
-                        <div className="p-3 bg-accent rounded-full mb-2 shadow-lg shadow-accent/20">
-                          <LucideIcons.CheckCircle2 className="text-white" size={20} />
-                        </div>
-                        <span className="text-sm font-medium">{area}</span>
-                      </div>
-                    ))}
+                {/* Unified Services & Amenities - High Impact */}
+                <motion.div
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  variants={staggerContainer}
+                  className="space-y-8"
+                >
+                  <div className="flex items-center justify-between">
+                    <h3 className="text-2xl font-bold text-primary flex items-center gap-2">
+                      <LucideIcons.Sparkles className="text-accent" />
+                      Servicios y Amenidades
+                    </h3>
                   </div>
-                </div>
-                {/* Decor */}
-                <div className="absolute top-0 right-0 w-64 h-64 bg-accent/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
-              </motion.div>
+
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    {([
+                      ...(project.features || []).map(f => ({ name: f.name, icon: f.icon, type: 'feature' })),
+                      ...(project.commonAreas || []).map(a => ({ name: a, icon: undefined, type: 'amenity' })),
+                      ...(buildingData?.buildingFeatures || []).map(f => ({ name: f.name, icon: f.iconName, type: 'building' }))
+                    ]
+                      // Filter out duplicates by name, being safe with nulls
+                      .filter((v, i, a) => v.name && a.findIndex(t => t.name?.toLowerCase() === v.name.toLowerCase()) === i)
+                      .map((item, idx) => {
+                        const ItemIcon = getItemIcon(item.name, item.icon) || LucideIcons.CheckCircle2;
+                        return (
+                          <motion.div
+                            key={idx}
+                            variants={fadeIn}
+                            className="bg-white p-6 rounded-[2rem] border border-neutral-100 flex flex-col items-center text-center gap-3 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group"
+                          >
+                            <div className="w-12 h-12 bg-sand rounded-2xl flex items-center justify-center group-hover:bg-accent group-hover:text-white transition-colors duration-300 shadow-inner">
+                              {ItemIcon && <ItemIcon size={20} className="text-secondary group-hover:text-white" />}
+                            </div>
+                            <span className="text-[10px] font-bold uppercase tracking-widest text-primary leading-tight px-1">
+                              {item.name}
+                            </span>
+                          </motion.div>
+                        );
+                      }))}
+                    {(!project.features?.length && !project.commonAreas?.length && !buildingData?.buildingFeatures?.length) && (
+                      <div className="col-span-full py-10 text-center text-secondary italic">
+                        Servicios en actualización...
+                      </div>
+                    )}
+                  </div>
+                </motion.div>
+              </div>
 
               {/* Location Section */}
               <motion.div
@@ -341,20 +429,6 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
                 </div>
               </motion.div>
 
-              {/* Contact Form */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                id="contactanos"
-                className="bg-white p-8 lg:p-12 rounded-[2.5rem] shadow-xl border border-neutral-100"
-              >
-                <div className="text-center mb-10">
-                  <h3 className="text-3xl font-bold text-primary mb-4">¿Te interesa este proyecto?</h3>
-                  <p className="text-secondary">Déjanos tus datos y un asesor te contactará a la brevedad.</p>
-                </div>
-                <ContactForm defaultProjectId={project.id} />
-              </motion.div>
             </div>
 
             {/* Sidebar Sticky */}
@@ -366,15 +440,14 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
                   transition={{ duration: 0.6, delay: 0.4 }}
                   className="bg-white p-6 lg:p-8 rounded-[2.5rem] shadow-xl shadow-black/5 border border-neutral-100"
                 >
-                  <div className="text-center mb-8">
-                    <p className="text-secondary text-sm font-bold uppercase tracking-widest mb-2">Precio desde</p>
-                    <div className="text-4xl lg:text-5xl font-bold text-primary tracking-tight">
-                      S/ {formatNumber(project.price)}<span className="text-2xl text-neutral-400 font-normal">.00</span>
+                  <div className="text-center mb-10">
+                    <div className="w-20 h-20 bg-accent/10 rounded-3xl flex items-center justify-center text-accent mx-auto mb-6">
+                      <LucideIcons.Key size={40} />
                     </div>
-                    <div className="mt-2 inline-flex items-center gap-2 px-3 py-1 bg-accent/10 text-accent rounded-full text-xs font-bold">
-                      <LucideIcons.Calculator size={14} />
-                      Cerrar a cuotas
-                    </div>
+                    <h3 className="text-2xl font-bold text-primary mb-3">Solicitar Información</h3>
+                    <p className="text-secondary text-sm leading-relaxed">
+                      Si buscas un nuevo hogar o una inversión segura, déjanos tus datos y un asesor te guiará en el proceso.
+                    </p>
                   </div>
 
                   <div className="space-y-3">
@@ -397,8 +470,8 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
                       href="/financiamiento"
                       className="block w-full py-4 bg-sand hover:bg-sand-dark text-primary rounded-2xl font-bold text-center transition-colors flex items-center justify-center gap-2"
                     >
-                      <LucideIcons.TrendingUp size={20} />
-                      Plan de Inversión
+                      <LucideIcons.Calculator size={20} />
+                      Opciones de Crédito
                     </Link>
                   </div>
 

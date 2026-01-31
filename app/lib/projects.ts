@@ -1,4 +1,4 @@
-export type ProjectStatus = "Pre-venta" | "En construcción" | "Entregado";
+export type ProjectStatus = "Pre-venta" | "En construcción" | "Entregado" | "Entrega inmediata" | "Próximo lanzamiento";
 
 export type Project = {
   id: string;
@@ -42,14 +42,14 @@ export const ALL_PROJECTS: Project[] = [
     district: "San Carlos",
     area: 75,
     price: 250000,
-    status: "Entregado",
-    image: "/building/build1.png",
+    status: "Entrega inmediata",
+    image: "/wasi-wavi/wasi_wabi.png",
     bedrooms: 3,
     bathrooms: 2,
     description: "Diseño minimalista y funcional en el corazón de San Carlos.",
     about: "Wabi Sabi es un proyecto entregado que destaca por su diseño arquitectónico moderno y su integración con el entorno urbano.",
     commonAreas: ["Lobby", "Gimnasio", "Terraza"],
-    gallery: ["/building/build1.png"],
+    gallery: ["/wasi-wavi/wasi_wabi.png"],
     location: {
       address: "Calle Edmundo Mezger 248, San Carlos",
       coordinates: { lat: -12.1121, lng: -77.0152 },
@@ -68,22 +68,49 @@ export const ALL_PROJECTS: Project[] = [
     district: "San Carlos",
     area: 78,
     price: 285000,
-    status: "En construcción",
+    status: "Entrega inmediata",
     image: "/building/build1-1.png",
     bedrooms: 2,
     bathrooms: 2,
     description: "Departamentos modernos en el corazón de San Carlos. Diseño contemporáneo y acabados de lujo.",
     about: "Brindizi es un proyecto residencial exclusivo ubicado en una de las mejores zonas de San Carlos. Cada departamento ha sido diseñado pensando en el confort y la funcionalidad.",
-    commonAreas: ["Zona BBQ", "Gimnasio", "Sala Social"],
-    gallery: ["/building/build1-1.png", "/building/build1-2.png"],
+    commonAreas: [
+      "Estacionamiento",
+      "Gimnasio Equipado",
+      "Terraza Social",
+      "Zona Pet Friendly",
+      "Lavandería",
+      "Zona de Tendales",
+      "Cerraduras Smart",
+      "Ascensor"
+    ],
+    gallery: [
+      "/building/build1-1.png",
+      "/Brindizi/comun_areas/DSC06466.jpg",
+      "/Brindizi/comun_areas/DSC06467.jpg",
+      "/Brindizi/comun_areas/DSC06475.jpg",
+      "/Brindizi/comun_areas/DSC06476.jpg",
+      "/Brindizi/comun_areas/DSC06477.jpg",
+      "/Brindizi/comun_areas/DSC06482.jpg",
+      "/Brindizi/comun_areas/DSC06483.jpg",
+      "/Brindizi/comun_areas/DSC06485.jpg",
+      "/Brindizi/comun_areas/DSC06487.jpg",
+      "/Brindizi/comun_areas/DSC06488.jpg",
+      "/Brindizi/comun_areas/DSC06490.jpg",
+      "/Brindizi/comun_areas/DSC06496.jpg",
+      "/Brindizi/comun_areas/DSC07571.jpg",
+      "/Brindizi/comun_areas/DSC07573.jpg",
+      "/Brindizi/comun_areas/DSC07574.jpg",
+      "/Brindizi/comun_areas/DSC07575.jpg"
+    ],
     location: {
       address: "Calle Lorenzo de Brindizi 166, San Carlos",
       coordinates: { lat: -12.0560, lng: -75.2150 },
       nearbyPlaces: []
     },
     features: [
-      { name: "Seguridad smart", icon: "📱" },
-      { name: "Ascensor", icon: "🛗" }
+      { name: "Seguridad smart", icon: "shield" },
+      { name: "Ascensor", icon: "elevator" }
     ],
     deliveryDate: "Diciembre 2025",
     floors: 7,
@@ -95,7 +122,7 @@ export const ALL_PROJECTS: Project[] = [
     district: "San Carlos",
     area: 85,
     price: 320000,
-    status: "Pre-venta",
+    status: "Próximo lanzamiento",
     image: "/building/build1-2.png",
     bedrooms: 3,
     bathrooms: 2,

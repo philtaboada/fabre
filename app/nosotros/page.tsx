@@ -16,7 +16,13 @@ import {
     HandHeart,
     Building2,
     Trophy,
-    Smile
+    Smile,
+    Target,
+    Compass,
+    ShieldCheck,
+    CheckCircle2,
+    Zap,
+    Handshake
 } from "lucide-react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -88,6 +94,37 @@ export default function NosotrosPage() {
             description: "Establecemos alianzas estratégicas con instituciones públicas y privadas para brindar mayores beneficios, facilidades y respaldo a nuestros clientes.",
             color: "bg-emerald-500",
             lightColor: "bg-emerald-50"
+        }
+    ];
+
+    const values = [
+        {
+            title: "Ética",
+            description: "Actuamos con honestidad, transparencia e integridad en todas nuestras operaciones, manteniendo relaciones comerciales y laborales basadas en el respeto.",
+            icon: ShieldCheck,
+            color: "text-blue-600",
+            bg: "bg-blue-50"
+        },
+        {
+            title: "Responsabilidad",
+            description: "Asumimos nuestros compromisos con profesionalismo y calidad, garantizando el cumplimiento de los plazos y estándares técnicos.",
+            icon: CheckCircle2,
+            color: "text-emerald-600",
+            bg: "bg-emerald-50"
+        },
+        {
+            title: "Proactividad",
+            description: "Nos anticipamos a las necesidades y desafíos, proponiendo soluciones oportunas y eficientes que contribuyen a la mejora continua.",
+            icon: Zap,
+            color: "text-amber-600",
+            bg: "bg-amber-50"
+        },
+        {
+            title: "Confianza",
+            description: "Construimos relaciones sólidas y duraderas con nuestros clientes, colaboradores y aliados estratégicos.",
+            icon: Handshake,
+            color: "text-accent",
+            bg: "bg-accent/5"
         }
     ];
 
@@ -180,6 +217,71 @@ export default function NosotrosPage() {
             {/* divider */}
             <div className="h-px w-full bg-gradient-to-r from-transparent via-neutral-200 to-transparent" />
 
+            {/* Mission, Vision & Values Section */}
+            <section className="py-24 relative overflow-hidden bg-white">
+                <div className="container-page relative z-10">
+                    {/* Mission & Vision */}
+                    <div className="grid md:grid-cols-2 gap-8">
+                        <motion.div
+                            initial={{ opacity: 0, x: -30 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            className="bg-sand/30 p-8 lg:p-10 rounded-[2.5rem] border border-neutral-100 flex flex-col h-full"
+                        >
+                            <div className="w-14 h-14 rounded-2xl bg-white shadow-sm flex items-center justify-center text-accent mb-6 shrink-0">
+                                <Compass size={28} />
+                            </div>
+                            <h3 className="text-3xl font-bold text-primary mb-4">Nuestra Misión</h3>
+                            <p className="text-lg text-secondary leading-relaxed">
+                                Desarrollar proyectos multifamiliares con altos estándares de calidad y seguridad, trabajando de manera colaborativa con nuestro equipo para acompañar, asesorar y satisfacer las necesidades de nuestros clientes en cada etapa del proceso.
+                            </p>
+                        </motion.div>
+
+                        <motion.div
+                            initial={{ opacity: 0, x: 30 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            className="bg-primary p-8 lg:p-10 rounded-[2.5rem] text-white shadow-xl flex flex-col h-full"
+                        >
+                            <div className="w-14 h-14 rounded-2xl bg-white/10 flex items-center justify-center text-accent-light mb-6 shrink-0">
+                                <Target size={28} />
+                            </div>
+                            <h3 className="text-3xl font-bold mb-4">Nuestra Visión</h3>
+                            <p className="text-lg text-white/80 leading-relaxed">
+                                Ser una inmobiliaria líder en proyectos multifamiliares, reconocida por su calidad constructiva, seguridad y transparencia, con capacidad de expansión a nivel nacional e internacional.
+                            </p>
+                        </motion.div>
+                    </div>
+
+                    {/* Values */}
+                    <div className="mt-24 lg:mt-32">
+                        <div className="text-center mb-16">
+                            <h3 className="text-3xl lg:text-4xl font-bold text-primary mb-4">Nuestros Valores</h3>
+                            <div className="w-20 h-1 bg-accent mx-auto rounded-full" />
+                        </div>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                            {values.map((val, idx) => (
+                                <motion.div
+                                    key={idx}
+                                    initial={{ opacity: 0, y: 20 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ delay: idx * 0.1 }}
+                                    whileHover={{ y: -5 }}
+                                    className="bg-white p-8 rounded-3xl border border-neutral-100 shadow-soft hover:shadow-strong transition-all duration-300 flex flex-col h-full"
+                                >
+                                    <div className={`w-12 h-12 ${val.bg} ${val.color} rounded-xl flex items-center justify-center mb-6 shrink-0`}>
+                                        <val.icon size={24} />
+                                    </div>
+                                    <h4 className="text-xl font-bold text-primary mb-3">{val.title}</h4>
+                                    <p className="text-secondary text-sm leading-relaxed flex-grow">{val.description}</p>
+                                </motion.div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             {/* Social Impact Transition */}
             <section id="impacto" className="relative py-24 lg:py-32 overflow-hidden bg-white">
                 <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-accent/5 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2 pointer-events-none" />
@@ -230,45 +332,13 @@ export default function NosotrosPage() {
                                     <div className={`w-16 h-16 rounded-2xl flex items-center justify-center text-white mb-8 transform group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-lg ${item.color}`}>
                                         <item.icon size={32} />
                                     </div>
-                                    <h3 className="text-2xl font-bold mb-4 text-primary group-hover:text-accent transition-colors duration-300">{item.title}</h3>
+                                    <h3 className="text-2xl font-bold mb-4 text-primary transition-colors duration-300">{item.title}</h3>
                                     <p className="text-lg text-secondary leading-relaxed group-hover:text-neutral-600 transition-colors duration-300">{item.description}</p>
-
-                                    <div className="mt-8 pt-8 border-t border-neutral-100 flex items-center text-accent font-semibold opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
-                                        <span className="mr-2">Saber más</span>
-                                        <ArrowRight size={18} />
-                                    </div>
                                 </div>
                             </motion.div>
                         ))}
                     </div>
-                </div>
-            </section>
 
-            {/* Impact Stats Stripe */}
-            <section className="py-20 bg-primary text-white relative overflow-hidden">
-                <div className="absolute inset-0 bg-[url('/noise.png')] opacity-10 mix-blend-overlay" />
-                <div className="absolute top-0 left-0 w-full h-px bg-white/10" />
-                <div className="absolute bottom-0 left-0 w-full h-px bg-white/10" />
-
-                <div className="container-page relative z-10">
-                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
-                        {socialStats.map((stat, idx) => (
-                            <motion.div
-                                key={idx}
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: idx * 0.1 }}
-                                className="text-center group"
-                            >
-                                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-white/5 border border-white/10 text-white mb-6 group-hover:bg-white/10 group-hover:scale-110 transition-all duration-300">
-                                    <stat.icon size={28} />
-                                </div>
-                                <h4 className="text-4xl lg:text-5xl font-bold mb-2 group-hover:text-accent-light transition-colors">{stat.number}</h4>
-                                <p className="text-white/60 font-medium uppercase tracking-widest text-xs mt-2">{stat.label}</p>
-                            </motion.div>
-                        ))}
-                    </div>
                 </div>
             </section>
 

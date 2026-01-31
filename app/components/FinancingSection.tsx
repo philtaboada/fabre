@@ -86,12 +86,7 @@ export default function FinancingSection() {
                     </div>
                     <div className="text-sm text-secondary">Cuota mensual</div>
                   </div>
-                  <div>
-                    <div className="text-2xl font-bold text-accent">
-                      S/ {formatNumber(totalInterest)}
-                    </div>
-                    <div className="text-sm text-secondary">Interés total</div>
-                  </div>
+
                 </div>
               </div>
             </div>

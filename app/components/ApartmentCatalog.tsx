@@ -112,14 +112,10 @@ export default function ApartmentCatalog() {
                     variants={containerVariants}
                     className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10"
                 >
-                    {filteredBuildings.map((building) => (
-                        <motion.div
-                            key={building.id}
-                            variants={itemVariants}
-                            className="group relative bg-white overflow-hidden transition-all duration-500 hover:-translate-y-2"
-                        >
-                            {/* Building Image */}
-                            <Link href={`/proyectos/${building.id}`} className="block relative aspect-[4/5] overflow-hidden">
+                    {filteredBuildings.map((building) => {
+                        const isDelivered = building.status === 'ENTREGADO';
+                        const cardContent = (
+                            <>
                                 <Image
                                     src={building.gallery[0] || "/building/build1.png"}
                                     alt={building.name}
@@ -160,24 +156,51 @@ export default function ApartmentCatalog() {
                                     </div>
                                 </div>
                                 <div className="absolute inset-x-0 bottom-0 h-3/4 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
-                            </Link>
+                            </>
+                        );
 
-                            {/* CTA */}
-                            <div className="mt-8">
-                                <Link
-                                    href={`/proyectos/${building.id}`}
-                                    className="group/btn inline-flex items-center gap-4 text-primary font-black text-xs uppercase tracking-[0.2em] transition-all hover:text-accent"
-                                >
-                                    <span className="inline-block py-2 border-b-2 border-primary/20 group-hover/btn:border-accent transition-all">
-                                        VER PROYECTO
-                                    </span>
-                                    <div className="w-10 h-10 rounded-full border border-primary/20 flex items-center justify-center group-hover/btn:bg-accent group-hover/btn:border-accent group-hover/btn:text-white transition-all">
-                                        <LucideIcons.ArrowRight size={18} className="transition-transform group-hover/btn:translate-x-1" />
+                        return (
+                            <motion.div
+                                key={building.id}
+                                variants={itemVariants}
+                                className={`group relative bg-white overflow-hidden transition-all duration-500 ${!isDelivered ? 'hover:-translate-y-2' : ''}`}
+                            >
+                                {/* Building Image */}
+                                {isDelivered ? (
+                                    <div className="block relative aspect-[4/5] overflow-hidden cursor-default">
+                                        {cardContent}
                                     </div>
-                                </Link>
-                            </div>
-                        </motion.div>
-                    ))}
+                                ) : (
+                                    <Link href={`/proyectos/${building.id}`} className="block relative aspect-[4/5] overflow-hidden cursor-pointer">
+                                        {cardContent}
+                                    </Link>
+                                )}
+
+                                {/* CTA */}
+                                <div className="mt-8">
+                                    {isDelivered ? (
+                                        <div className="inline-flex items-center gap-4 text-secondary font-black text-xs uppercase tracking-[0.2em] cursor-default opacity-60">
+                                            <span className="inline-block py-2">
+                                                PROYECTO ENTREGADO
+                                            </span>
+                                        </div>
+                                    ) : (
+                                        <Link
+                                            href={`/proyectos/${building.id}`}
+                                            className="group/btn inline-flex items-center gap-4 text-primary font-black text-xs uppercase tracking-[0.2em] transition-all hover:text-accent"
+                                        >
+                                            <span className="inline-block py-2 border-b-2 border-primary/20 group-hover/btn:border-accent transition-all">
+                                                VER PROYECTO
+                                            </span>
+                                            <div className="w-10 h-10 rounded-full border border-primary/20 flex items-center justify-center group-hover/btn:bg-accent group-hover/btn:border-accent group-hover/btn:text-white transition-all">
+                                                <LucideIcons.ArrowRight size={18} className="transition-transform group-hover/btn:translate-x-1" />
+                                            </div>
+                                        </Link>
+                                    )}
+                                </div>
+                            </motion.div>
+                        );
+                    })}
 
                     {filteredBuildings.length === 0 && (
                         <div className="col-span-full py-20 text-center">
