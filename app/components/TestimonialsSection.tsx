@@ -1,35 +1,33 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Star, ChevronLeft, ChevronRight, Quote, TrendingUp, CheckCircle } from "lucide-react";
 
 const testimonials = [
   {
     id: 1,
-    name: "Carlos Mendoza",
-    role: "Proprietario en Brindizi",
+    role: "Propietario piso 4",
     content: "La calidad de los acabados superó mis expectativas. El proceso de compra fue transparente y el equipo de Fabre siempre estuvo dispuesto a ayudar.",
     rating: 5,
-    avatar: "/images/testimonials/user-1.jpg",
+    image: "/testimonio/test-1.webp",
     verified: true
   },
   {
     id: 2,
-    name: "Ana Lucía Ortiz",
-    role: "Inversionista",
+    role: "Propietario piso 2",
     content: "He comprado dos departamentos con Fabre para inversión. La puntualidad en la entrega y la valorización de las zonas donde construyen es increíble.",
     rating: 5,
-    avatar: "/images/testimonials/user-2.jpg",
+    image: "/testimonio/DSC05079.webp",
     verified: true
   },
   {
     id: 3,
-    name: "Roberto Sánchez",
-    role: "Propietario en Miraflores",
+    role: "Propietario piso 5",
     content: "Lo que más valoro es la atención post-venta. Tuvieron un detalle con una grifería y lo solucionaron en 24 horas. Muy recomendados.",
     rating: 5,
-    avatar: "/images/testimonials/user-3.jpg",
+    image: "/testimonio/DSC06684.webp",
     verified: true
   }
 ];
@@ -144,34 +142,48 @@ export default function TestimonialsSection() {
                 {currentTestimonials.map((testimonial) => (
                   <article
                     key={testimonial.id}
-                    className="bg-white p-8 lg:p-10 rounded-[2.5rem] shadow-sm border border-neutral-100 relative group hover:shadow-xl transition-shadow duration-500"
+                    className="bg-white rounded-[2.5rem] shadow-sm border border-neutral-100 relative group hover:shadow-xl transition-all duration-500 overflow-hidden flex flex-col md:flex-row min-h-[320px]"
                   >
-                    <Quote className="absolute top-8 right-8 w-12 h-12 text-accent/5 group-hover:text-accent/10 transition-colors" />
-
-                    <div className="flex items-center gap-1 mb-6">
-                      {[...Array(5)].map((_, i) => (
-                        <Star key={i} className={`w-5 h-5 ${i < testimonial.rating ? "text-yellow-400 fill-yellow-400" : "text-neutral-200"}`} />
-                      ))}
+                    {/* Columna imagen vertical */}
+                    <div className="relative w-full md:w-2/5 aspect-3/4 md:aspect-auto md:min-w-[200px] md:max-w-[240px] md:h-auto md:min-h-[320px] shrink-0 overflow-hidden">
+                      <Image
+                        src={testimonial.image}
+                        alt={testimonial.role}
+                        fill
+                        sizes="(max-width: 768px) 100vw, 240px"
+                        className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                        priority={currentIndex === 0 && testimonials.indexOf(testimonial) < 2}
+                      />
+                      <div className="absolute inset-0 bg-linear-to-t from-black/30 via-transparent to-transparent md:from-transparent" />
                     </div>
 
-                    <p className="text-primary text-xl font-medium mb-8 leading-relaxed italic">
-                      &quot;{testimonial.content}&quot;
-                    </p>
-
-                    <div className="flex items-center gap-4">
-                      <div className="w-14 h-14 rounded-2xl bg-neutral-100 relative overflow-hidden flex-shrink-0">
-                        <div className="absolute inset-0 bg-accent/10 flex items-center justify-center text-accent font-bold text-xl uppercase">
-                          {testimonial.name.charAt(0)}
-                        </div>
+                    {/* Columna contenido */}
+                    <div className="relative flex flex-col flex-1 p-6 lg:p-8 justify-between">
+                      <div className="flex items-center gap-1 mb-4">
+                        {[...Array(5)].map((_, i) => (
+                          <Star key={i} className={`w-5 h-5 ${i < testimonial.rating ? "text-yellow-400 fill-yellow-400" : "text-neutral-200"}`} />
+                        ))}
                       </div>
-                      <div>
+                      <Quote className="absolute top-6 right-6 md:top-8 md:right-8 w-10 h-10 text-accent/10 pointer-events-none" />
+                      <p className="text-primary text-lg font-medium leading-relaxed italic pr-8">
+                        &quot;{testimonial.content}&quot;
+                      </p>
+                      <div className="flex items-center gap-4 pt-6 mt-6 border-t border-neutral-100">
+                        <div className="w-12 h-12 rounded-xl overflow-hidden shrink-0 ring-2 ring-accent/20">
+                          <Image
+                            src={testimonial.image}
+                            alt=""
+                            width={48}
+                            height={48}
+                            className="object-cover object-top w-full h-full"
+                          />
+                        </div>
                         <div className="flex items-center gap-2">
-                          <h4 className="font-bold text-primary">{testimonial.name}</h4>
+                          <h4 className="font-bold text-primary">{testimonial.role}</h4>
                           {testimonial.verified && (
-                            <CheckCircle className="w-4 h-4 text-green-500" />
+                            <CheckCircle className="w-4 h-4 text-green-500 shrink-0" />
                           )}
                         </div>
-                        <p className="text-secondary text-sm">{testimonial.role}</p>
                       </div>
                     </div>
                   </article>

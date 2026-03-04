@@ -12,15 +12,15 @@ const heroSlides = [
     title: "Aquí empieza tu historia",
     subtitle: "Departamentos modernos en Huancayo",
     description: "Descubre nuestros proyectos inmobiliarios diseñados para tu comodidad y estilo de vida.",
-    image: "/building/build1-3.png",
+    image: "/dep-2/DSC07550.webp",
     cta: "Ver proyectos",
     ctaLink: "#departamentos"
   },
   {
     id: 2,
     title: "Viviendas que inspiran",
-    subtitle: "Construyendo sueños desde 1999",
-    description: "Más de 20 años creando espacios que mejoran la calidad de vida de nuestras familias.",
+    subtitle: "Construyendo sueños",
+    description: "Creando espacios que mejoran la calidad de vida de nuestras familias.",
     image: "/building/build1-4.jpg",
     cta: "Conoce nuestra historia",
     ctaLink: "/nosotros"

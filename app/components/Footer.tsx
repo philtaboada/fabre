@@ -63,9 +63,6 @@ export default function Footer() {
             <Link href="/" className="inline-block">
               <span className="text-3xl font-black tracking-tighter text-accent-light">FABRE</span>
             </Link>
-            <p className="text-blue-100/70 text-base leading-relaxed max-w-sm">
-              Construimos hogares con alma y proyectos con visión. Más de 15 años transformando el paisaje urbano de Lima con calidad y compromiso inigualable.
-            </p>
             <div className="flex gap-4 justify-center md:justify-start">
               {socialLinks.map((social) => (
                 <a

@@ -5,20 +5,17 @@ import ProjectCard from "./ProjectCard";
 import { ALL_PROJECTS, ProjectStatus } from "../lib/projects";
 
 export default function Catalog() {
-  const [priceMax, setPriceMax] = useState<number | undefined>(undefined);
   const [district, setDistrict] = useState<string | undefined>(undefined);
   const [status, setStatus] = useState<ProjectStatus | "">("");
   const [search, setSearch] = useState<string>("");
 
   const onFiltersChange = (f: Partial<FiltersValues>) => {
-    if (f.priceMax !== undefined) setPriceMax(f.priceMax);
     if (f.district !== undefined) setDistrict(f.district);
     if (f.status !== undefined) setStatus(f.status);
     if (f.search !== undefined) setSearch(f.search);
   };
 
   const resetFilters = () => {
-    setPriceMax(undefined);
     setDistrict("");
     setStatus("");
     setSearch("");
@@ -26,16 +23,14 @@ export default function Catalog() {
 
   const filtered = useMemo(() => {
     return ALL_PROJECTS.filter((p) => {
-      if (priceMax && p.price > priceMax) return false;
       if (district && !p.district.toLowerCase().includes(district.toLowerCase())) return false;
       if (status && p.status !== status) return false;
       if (search && !p.title.toLowerCase().includes(search.toLowerCase())) return false;
       return true;
     });
-  }, [priceMax, district, status, search]);
+  }, [district, status, search]);
 
   const currentFilters: FiltersValues = {
-    priceMax,
     district,
     status,
     search

@@ -43,13 +43,13 @@ export const ALL_PROJECTS: Project[] = [
     area: 75,
     price: 250000,
     status: "Entrega inmediata",
-    image: "/wasi-wavi/wasi_wabi.png",
+    image: "/wasi-wavi/wasi_wabi.webp",
     bedrooms: 3,
     bathrooms: 2,
     description: "Diseño minimalista y funcional en el corazón de San Carlos.",
     about: "Wabi Sabi es un proyecto entregado que destaca por su diseño arquitectónico moderno y su integración con el entorno urbano.",
     commonAreas: ["Lobby", "Gimnasio", "Terraza"],
-    gallery: ["/wasi-wavi/wasi_wabi.png"],
+    gallery: ["/wasi-wavi/wasi_wabi.webp"],
     location: {
       address: "Calle Edmundo Mezger 248, San Carlos",
       coordinates: { lat: -12.1121, lng: -77.0152 },
@@ -69,7 +69,7 @@ export const ALL_PROJECTS: Project[] = [
     area: 78,
     price: 285000,
     status: "Entrega inmediata",
-    image: "/building/build1-1.png",
+    image: "/Brindizi/brindizi.webp",
     bedrooms: 2,
     bathrooms: 2,
     description: "Departamentos modernos en el corazón de San Carlos. Diseño contemporáneo y acabados de lujo.",
@@ -80,12 +80,10 @@ export const ALL_PROJECTS: Project[] = [
       "Terraza Social",
       "Zona Pet Friendly",
       "Lavandería",
-      "Zona de Tendales",
-      "Cerraduras Smart",
-      "Ascensor"
+      "Zona de Tendales"
     ],
     gallery: [
-      "/building/build1-1.png",
+      "/Brindizi/brindizi.webp",
       "/Brindizi/comun_areas/DSC06466.jpg",
       "/Brindizi/comun_areas/DSC06467.jpg",
       "/Brindizi/comun_areas/DSC06475.jpg",
@@ -108,39 +106,10 @@ export const ALL_PROJECTS: Project[] = [
       coordinates: { lat: -12.0560, lng: -75.2150 },
       nearbyPlaces: []
     },
-    features: [
-      { name: "Seguridad smart", icon: "shield" },
-      { name: "Ascensor", icon: "elevator" }
-    ],
+    features: [],
     deliveryDate: "Diciembre 2025",
     floors: 7,
     units: 12
-  },
-  {
-    id: "mora",
-    title: "Mora",
-    district: "San Carlos",
-    area: 85,
-    price: 320000,
-    status: "Próximo lanzamiento",
-    image: "/building/build1-2.png",
-    bedrooms: 3,
-    bathrooms: 2,
-    description: "Próximo lanzamiento en una de las zonas más conectadas de la ciudad.",
-    about: "Mora es nuestro próximo gran proyecto, diseñado para quienes buscan conectividad y modernidad.",
-    commonAreas: ["Piscina", "Coworking", "Sky Bar"],
-    gallery: ["/building/build1-2.png"],
-    location: {
-      address: "Av. Aramburú 638, San Carlos",
-      coordinates: { lat: -12.1023, lng: -77.0234 },
-      nearbyPlaces: []
-    },
-    features: [
-      { name: "Eco-friendly", icon: "🌿" }
-    ],
-    deliveryDate: "2026",
-    floors: 15,
-    units: 60
   }
 ];
 

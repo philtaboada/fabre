@@ -2,7 +2,6 @@
 import { ProjectStatus } from "../lib/projects";
 
 export type FiltersValues = {
-  priceMax?: number;
   district?: string;
   status?: ProjectStatus | "";
   search?: string;

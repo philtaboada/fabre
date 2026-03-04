@@ -13,7 +13,6 @@ import WhatsAppButton from "../../components/WhatsAppButton";
 import FloatingCTA from "../../components/FloatingCTA";
 import MarketingBonus from "../../components/MarketingBonus";
 import { getApartmentById, BUILDINGS } from "../../lib/apartments";
-import { formatNumber } from "../../lib/utils";
 import ImageGallery from "../../components/ImageGallery";
 
 // Helper for dynamic icons
@@ -307,14 +306,7 @@ export default function ApartmentDetailPage({ params }: { params: Promise<{ id: 
                                     transition={{ duration: 0.6, delay: 0.4 }}
                                     className="bg-white p-6 lg:p-8 rounded-[2.5rem] shadow-xl shadow-black/5 border border-neutral-100"
                                 >
-                                    <div className="text-center mb-8">
-                                        <p className="text-secondary text-sm font-bold uppercase tracking-widest mb-2">Precio de Venta</p>
-                                        <div className="text-4xl lg:text-5xl font-bold text-primary tracking-tight">
-                                            S/ {formatNumber(apartment.price)}<span className="text-2xl text-neutral-400 font-normal">.00</span>
-                                        </div>
-                                    </div>
-
-                                    <div className="space-y-3">
+                                    <div className="space-y-3 mb-6">
                                         <a
                                             href={`https://wa.me/51964247545?text=Hola,%20estoy%20interesado%20en%20el%20departamento%20del%20Piso%20${apartment.floor}%20del%20Edificio%20Brindizi.`}
                                             target="_blank"

@@ -8,7 +8,6 @@ export default function ProjectCard({
   title,
   district,
   area,
-  price,
   status,
   image,
   bedrooms,
@@ -19,25 +18,13 @@ export default function ProjectCard({
   title: string;
   district: string;
   area: number; // m²
-  price: number; // USD
+  price: number; // mantiene compatibilidad con datos, no se muestra
   status: Status;
   image: string;
   bedrooms?: number;
   bathrooms?: number;
   featured?: boolean;
 }) {
-  const priceLabel = new Intl.NumberFormat("es-PE", {
-    style: "currency",
-    currency: "PEN",
-    maximumFractionDigits: 0,
-  }).format(price);
-
-  // Calcular cuota mensual aproximada (precio / 120 meses con interés del 8%)
-  const monthlyPayment = Math.round((price * 1.08) / 120);
-  const monthlyPaymentLabel = new Intl.NumberFormat("es-PE", {
-    maximumFractionDigits: 0,
-  }).format(monthlyPayment);
-
   const getStatusConfig = (status: Status) => {
     switch (status) {
       case "Pre-venta":
@@ -167,20 +154,6 @@ export default function ProjectCard({
               <span className="text-xs font-semibold text-primary">{area}</span>
             </div>
             <div className="text-xs text-secondary">m²</div>
-          </div>
-        </div>
-
-        {/* Precio y cuota mensual */}
-        <div className="mb-4">
-          <div className="flex items-baseline gap-2 mb-1">
-            <div className="text-2xl font-bold text-accent">
-              {priceLabel}
-            </div>
-            <div className="text-xs text-secondary">desde</div>
-          </div>
-          <div className="text-sm text-secondary">
-            Cuota mensual: <span className="font-semibold text-primary">S/ {monthlyPaymentLabel}</span>
-            <span className="text-xs"> (aprox.)</span>
           </div>
         </div>
 

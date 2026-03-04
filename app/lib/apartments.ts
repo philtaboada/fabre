@@ -65,11 +65,11 @@ export const WABI_SABI_BUILDING: Building = {
         coordinates: { lat: -12.1121, lng: -77.0152 },
         nearbyPlaces: []
     },
-    gallery: ["/wasi-wavi/wasi_wabi.png"],
+    gallery: ["/wasi-wavi/wasi_wabi.webp"],
     apartments: []
 };
 
-// Edificio Brindizi con 2 departamentos disponibles
+// Edificio Brindizi
 export const BRINDIZI_BUILDING: Building = {
     id: "brindizi",
     name: "Edificio Brindizi",
@@ -92,15 +92,16 @@ export const BRINDIZI_BUILDING: Building = {
         "Terraza Social & BBQ"
     ],
     buildingFeatures: [
-        { name: "Cerradura Smart", iconName: "Lock" },
-        { name: "Lavadero Multifuncional", iconName: "Droplets" },
+        { name: "Seguridad Smart", iconName: "ShieldCheck" },
+        { name: "Cerraduras Smart", iconName: "Lock" },
         { name: "Cámaras de Seguridad", iconName: "Camera" },
         { name: "Cerco Eléctrico", iconName: "Zap" },
         { name: "Ascensor", iconName: "ArrowUpCircle" },
         { name: "Ubicación Estratégica", iconName: "MapPin" },
-        { name: "Edificio Sismorresistente", iconName: "ShieldCheck" },
+        { name: "Edificio Sismorresistente", iconName: "Building2" },
         { name: "Luz LED en Fachada", iconName: "Sun" },
-        { name: "Intercomunicador", iconName: "Phone" }
+        { name: "Intercomunicador", iconName: "Phone" },
+        { name: "Lavadero Multifuncional", iconName: "Droplets" }
     ],
     location: {
         address: "Calle Lorenzo de Brindizi 166, San Carlos",
@@ -116,7 +117,7 @@ export const BRINDIZI_BUILDING: Building = {
         ]
     },
     gallery: [
-        "/building/build1-1.png",
+        "/Brindizi/brindizi.webp",
         "/Brindizi/comun_areas/DSC06466.jpg",
         "/Brindizi/comun_areas/DSC06467.jpg",
         "/Brindizi/comun_areas/DSC06475.jpg",
@@ -181,37 +182,37 @@ export const BRINDIZI_BUILDING: Building = {
                 "/dep-2/DSC05430-HDR.webp",
                 "/dep-2/DSC05438-HDR.webp"
             ],
-            available: true
+            available: false
         }
     ]
 };
 
-// Edificio Mora
-export const MORA_BUILDING: Building = {
-    id: "mora",
-    name: "Mora",
-    address: "Av. Aramburú 638",
-    district: "Huancayo",
-    description: "Próximo lanzamiento en una de las zonas más conectadas de la ciudad.",
-    about: "Mora es nuestro próximo gran proyecto, diseñado para quienes buscan conectividad y modernidad.",
+// Edificio Lumen Park
+export const LUMEN_PARK_BUILDING: Building = {
+    id: "lumen-park",
+    name: "Edificio Lumen Park",
+    address: "Por definir",
+    district: "Lumen Park",
+    description: "Proyecto Lumen Park.",
+    about: "",
     status: "Próximo lanzamiento",
-    floors: 15,
-    totalUnits: 60,
-    commonAreas: ["Piscina", "Coworking", "Sky Bar"],
-    buildingFeatures: [{ name: "Eco-friendly", iconName: "Leaf" }],
+    floors: 0,
+    totalUnits: 0,
+    commonAreas: [],
+    buildingFeatures: [],
     location: {
-        address: "Av. Aramburú 638, Huancayo",
-        coordinates: { lat: -12.1023, lng: -77.0234 },
+        address: "Por definir",
+        coordinates: { lat: 0, lng: 0 },
         nearbyPlaces: []
     },
-    gallery: ["/building/build1-1.png"],
+    gallery: ["/lumen/Espectativa.webp"],
     apartments: []
 };
 
 export const BUILDINGS: Building[] = [
     WABI_SABI_BUILDING,
     BRINDIZI_BUILDING,
-    MORA_BUILDING
+    LUMEN_PARK_BUILDING
 ];
 
 export function getAllBuildings(): Building[] {

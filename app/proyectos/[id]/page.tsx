@@ -14,7 +14,6 @@ import FloatingCTA from "../../components/FloatingCTA";
 import MarketingBonus from "../../components/MarketingBonus";
 import { getProjectById, getOtherProjects } from "../../lib/projects";
 import { getBuildingById } from "../../lib/apartments";
-import { formatNumber } from "../../lib/utils";
 import ImageGallery from "../../components/ImageGallery";
 import ContactForm from "../../components/ContactForm";
 import ProjectCard from "../../components/ProjectCard";
@@ -26,31 +25,39 @@ const Icon = ({ name, className }: { name: string; className?: string }) => {
   return <LucideIcon className={className} size={20} />;
 };
 
+/** Normaliza el nombre para desduplicar (ej: "Cerradura Smart" y "Cerraduras Smart" → misma clave). */
+function getAmenityDedupKey(name: string): string {
+  const n = name.toLowerCase().trim().replace(/\s+/g, " ");
+  if ((n.includes("cerradura") || n.includes("cerraduras")) && n.includes("smart")) return "cerraduras smart";
+  return n;
+}
+
 const getItemIcon = (name: string, iconKey?: string) => {
-  const n = (name + (iconKey || "")).toLowerCase();
+  const n = (name + " " + (iconKey || "")).toLowerCase();
 
-  // Security/Smart
-  if (n.includes("seguridad") || n.includes("smart") || n.includes("cerradura") || n.includes("📱") || n.includes("🔒") || n.includes("intercomunicador")) return LucideIcons.ShieldCheck;
+  // Orden: más específico primero para evitar que varios caigan en el mismo ícono
+  if (n.includes("intercomunicador") || n.includes("phone")) return LucideIcons.Phone;
   if (n.includes("cámara") || n.includes("camera")) return LucideIcons.Camera;
-  if (n.includes("cerco")) return LucideIcons.Zap;
-
-  // Building/Structural
-  if (n.includes("ascensor") || n.includes("🛗") || n.includes("elevator")) return LucideIcons.ArrowUpCircle;
-  if (n.includes("sismo") || n.includes("estructura")) return LucideIcons.Building2;
-  if (n.includes("led") || n.includes("luz") || n.includes("iluminación")) return LucideIcons.Sun;
-
-  // Amenities
+  if (n.includes("cerco") || n.includes("zap")) return LucideIcons.Zap;
+  if ((n.includes("cerradura") || n.includes("cerraduras")) && n.includes("smart")) return LucideIcons.Lock;
+  if (n.includes("seguridad") && n.includes("smart")) return LucideIcons.ShieldCheck;
+  if (n.includes("ascensor") || n.includes("elevator") || n.includes("arrowupcircle")) return LucideIcons.ArrowUpCircle;
+  if (n.includes("sismo") || n.includes("estructura") || n.includes("building")) return LucideIcons.Building2;
+  if (n.includes("led") || n.includes("luz") || n.includes("iluminación") || n.includes("sun")) return LucideIcons.Sun;
+  if (n.includes("ubicación") || n.includes("estratégica") || n.includes("mappin")) return LucideIcons.MapPin;
   if (n.includes("estacionamiento") || n.includes("car") || n.includes("cochera")) return LucideIcons.Car;
-  if (n.includes("parrilla") || n.includes("bbq") || n.includes("flame") || n.includes("social")) return LucideIcons.Flame;
+  if (n.includes("parrilla") || n.includes("bbq") || n.includes("flame")) return LucideIcons.Flame;
+  if (n.includes("terraza") && n.includes("social")) return LucideIcons.TreePine;
+  if (n.includes("terraza") || n.includes("sky")) return LucideIcons.TreePine;
   if (n.includes("sshh") || n.includes("baño") || n.includes("bath")) return LucideIcons.Bath;
   if (n.includes("tendal") || n.includes("viento") || n.includes("wind")) return LucideIcons.Wind;
-  if (n.includes("lavandería") || n.includes("wash") || n.includes("droplets") || n.includes("lavadero")) return LucideIcons.Droplets;
+  if (n.includes("lavadero") && n.includes("multifuncional")) return LucideIcons.Droplets;
+  if (n.includes("lavandería") || n.includes("lavadero") || n.includes("wash") || n.includes("droplets")) return LucideIcons.Shirt;
   if (n.includes("pet") || n.includes("perro")) return LucideIcons.Dog;
   if (n.includes("gimnasio") || n.includes("gym") || n.includes("dumbbell")) return LucideIcons.Dumbbell;
   if (n.includes("lobby") || n.includes("recepción")) return LucideIcons.Armchair;
   if (n.includes("coworking") || n.includes("oficina")) return LucideIcons.Laptop;
   if (n.includes("piscina") || n.includes("pool")) return LucideIcons.Waves;
-  if (n.includes("terraza") || n.includes("sky")) return LucideIcons.TreePine;
 
   return LucideIcons.CheckCircle2;
 };
@@ -299,13 +306,12 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
                           </div>
 
                           <div className="flex items-center justify-between pt-5 border-t border-neutral-50">
-                            <div>
-                              <p className="text-[10px] text-secondary font-bold uppercase tracking-widest">Desde</p>
-                              <p className="text-xl font-bold text-primary">S/ {formatNumber(apt.price)}</p>
-                            </div>
+                            {!apt.available && (
+                              <p className="text-sm text-secondary font-medium">Vendido</p>
+                            )}
                             <Link
                               href={`/departamentos/${apt.id}`}
-                              className="px-5 py-2.5 bg-sand hover:bg-accent hover:text-white text-primary rounded-xl text-xs font-bold transition-all"
+                              className="px-5 py-2.5 bg-sand hover:bg-accent hover:text-white text-primary rounded-xl text-xs font-bold transition-all ml-auto"
                             >
                               Ver Detalles
                             </Link>
@@ -316,14 +322,53 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
                   </motion.div>
                 )}
 
-                {/* Gallery */}
-                <motion.div
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                >
-                  <ImageGallery images={project.gallery} />
-                </motion.div>
+                {/* Tipos de departamento (Brindizi) o Galería general */}
+                {resolvedParams.id === "brindizi" ? (
+                  <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    className="space-y-8"
+                  >
+                    <div>
+                      <h3 className="text-2xl font-bold text-primary mb-4 flex items-center gap-2">
+                        <LucideIcons.LayoutGrid className="text-accent" />
+                        Tipos de departamento
+                      </h3>
+                      <p className="text-secondary text-lg leading-relaxed max-w-2xl">
+                        Conoce los distintos tipos de departamento disponibles en Brindizi. Diseños pensados para tu comodidad y estilo de vida.
+                      </p>
+                    </div>
+                    <div className="space-y-12">
+                      <div className="relative w-full aspect-[4/3] max-w-4xl mx-auto bg-neutral-50">
+                        <Image
+                          src="/Brindizi/TIPO 1.webp"
+                          alt="Tipo de departamento 1 - Brindizi"
+                          fill
+                          className="object-contain"
+                          sizes="100vw"
+                        />
+                      </div>
+                      <div className="relative w-full aspect-[4/3] max-w-4xl mx-auto bg-neutral-50">
+                        <Image
+                          src="/Brindizi/TIPO 5.webp"
+                          alt="Tipo de departamento 5 - Brindizi"
+                          fill
+                          className="object-contain"
+                          sizes="100vw"
+                        />
+                      </div>
+                    </div>
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                  >
+                    <ImageGallery images={project.gallery} />
+                  </motion.div>
+                )}
 
                 {/* Unified Services & Amenities - High Impact */}
                 <motion.div
@@ -346,8 +391,8 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
                       ...(project.commonAreas || []).map(a => ({ name: a, icon: undefined, type: 'amenity' })),
                       ...(buildingData?.buildingFeatures || []).map(f => ({ name: f.name, icon: f.iconName, type: 'building' }))
                     ]
-                      // Filter out duplicates by name, being safe with nulls
-                      .filter((v, i, a) => v.name && a.findIndex(t => t.name?.toLowerCase() === v.name.toLowerCase()) === i)
+                      .filter((v): v is { name: string; icon: string | undefined; type: string } => Boolean(v.name))
+                      .filter((v, i, a) => a.findIndex(t => getAmenityDedupKey(t.name) === getAmenityDedupKey(v.name)) === i)
                       .map((item, idx) => {
                         const ItemIcon = getItemIcon(item.name, item.icon) || LucideIcons.CheckCircle2;
                         return (

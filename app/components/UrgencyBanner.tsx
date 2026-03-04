@@ -24,7 +24,7 @@ export default function UrgencyBanner() {
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.2 }}
-              className="inline-flex items-center gap-2 bg-yellow-400 text-[#0a4d3c] px-4 py-1.5 rounded-full text-sm font-bold mb-6"
+              className="inline-flex items-center gap-2 bg-[#cb924a] text-white px-4 py-1.5 rounded-full text-sm font-medium mb-6"
             >
               <Sparkles className="w-4 h-4" />
               <span className="tracking-wide uppercase">beneficios del Estado</span>
