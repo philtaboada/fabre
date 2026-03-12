@@ -151,7 +151,7 @@ export default function ApartmentCatalog() {
                                             building.status === 'Entrega inmediata' ? 'bg-[#98CB00]' :
                                                 building.status === 'Próximo lanzamiento' ? 'bg-[#FF3B30]' : 'bg-orange-500'}`}
                                     >
-                                        {building.status.toUpperCase()}
+                                        {(building.status === 'Entrega inmediata' ? 'Entregado' : building.status).toUpperCase()}
                                     </div>
                                 </div>
                                 <div className="absolute inset-x-0 bottom-0 h-3/4 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>

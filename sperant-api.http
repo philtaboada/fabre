@@ -1,0 +1,34 @@
+### Variables - usa la misma URL que .env (URL_QA)
+@token = mqAMM5yzX78tnrolcyHytYI1wT6uYTk1u5rVSeB6
+@baseUrl = https://api.eterniasoft.com/v3
+
+### Canales de entrada
+GET {{baseUrl}}/input_channels
+Authorization: {{token}}
+
+### Medios de captación
+GET {{baseUrl}}/captation_ways
+Authorization: {{token}}
+
+### Proyectos
+GET {{baseUrl}}/projects
+Authorization: {{token}}
+
+### Usuarios (vendedores) - usar un id para SPERANT_AGENT_ID si falla asignación
+GET {{baseUrl}}/users
+Authorization: {{token}}
+
+### Crear cliente (POST) - Ejecuta después de obtener input_channel_id y source_id
+POST {{baseUrl}}/clients
+Authorization: {{token}}
+Content-Type: application/json
+
+{
+  "fname": "Juan",
+  "lname": "Pérez Test",
+  "email": "test@ejemplo.com",
+  "phone": "+51 999 888 777",
+  "input_channel_id": 1,
+  "source_id": 1,
+  "interest_type_id": 4
+}

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Send,
@@ -17,11 +17,19 @@ import {
   Award
 } from "lucide-react";
 
+interface Project {
+  id: number;
+  code: string;
+  name: string;
+  slug: string;
+}
+
 interface ContactFormProps {
   defaultProjectId?: string;
 }
 
 export default function ContactForm({ defaultProjectId = "" }: ContactFormProps) {
+  const [projects, setProjects] = useState<Project[]>([]);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -34,13 +42,24 @@ export default function ContactForm({ defaultProjectId = "" }: ContactFormProps)
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
+  useEffect(() => {
+    fetch("/api/projects")
+      .then((res) => res.json())
+      .then((data) => {
+        if (Array.isArray(data.projects)) {
+          setProjects(data.projects);
+        }
+      })
+      .catch(() => setProjects([]));
+  }, []);
+
   const validate = () => {
     const newErrors: Record<string, string> = {};
     if (!formData.name) newErrors.name = "Por favor ingresa tu nombre";
     if (!formData.email) newErrors.email = "Correo electrónico requerido";
     else if (!/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = "Email inválido";
     if (!formData.phone) newErrors.phone = "Número de celular requerido";
-    if (!formData.project) newErrors.project = "Selecciona un proyecto";
+    if (projects.length > 0 && !formData.project) newErrors.project = "Selecciona un proyecto";
     return newErrors;
   };
 
@@ -55,27 +74,20 @@ export default function ContactForm({ defaultProjectId = "" }: ContactFormProps)
     setIsSubmitting(true);
     setErrors({});
 
-<<<<<<< HEAD
-    // Simular envío
-    await new Promise(resolve => setTimeout(resolve, 2000));
-
-    setIsSubmitting(false);
-    setSubmitSuccess(true);
-=======
     try {
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name: formData.name,
-          lastname: formData.lastname,
+          lastname: "",
           email: formData.email,
           phone: formData.phone,
+          projectId: formData.project ? parseInt(formData.project, 10) : undefined,
           project: formData.project || undefined,
-          bedrooms: formData.bedrooms || undefined,
           message: formData.message || undefined,
-          marketing: formData.marketing,
-          shareData: formData.shareData,
+          marketing: false,
+          shareData: false,
         }),
       });
 
@@ -90,17 +102,11 @@ export default function ContactForm({ defaultProjectId = "" }: ContactFormProps)
       setTimeout(() => {
         setFormData({
           name: "",
-          lastname: "",
           email: "",
           phone: "",
-          project: "",
-          bedrooms: "",
+          project: defaultProjectId,
           message: "",
-          privacy: false,
-          marketing: false,
-          shareData: false,
         });
-        setTouched({});
         setErrors({});
         setSubmitSuccess(false);
       }, 3000);
@@ -115,7 +121,6 @@ export default function ContactForm({ defaultProjectId = "" }: ContactFormProps)
     } finally {
       setIsSubmitting(false);
     }
->>>>>>> 7e7c563 (Implement form submission logic in ContactForm component with error handling and API integration)
   };
 
   const inputClasses = (field: string) => `
@@ -236,6 +241,11 @@ export default function ContactForm({ defaultProjectId = "" }: ContactFormProps)
                     className="space-y-6"
                     exit={{ opacity: 0 }}
                   >
+                    {errors.general && (
+                      <div className="p-4 bg-red-50 border border-red-200 rounded-2xl text-red-700 text-sm font-medium">
+                        {errors.general}
+                      </div>
+                    )}
                     <div className="grid md:grid-cols-2 gap-6">
                       <div className="space-y-2">
                         <label className="text-sm font-bold text-primary flex items-center gap-2">
@@ -289,8 +299,11 @@ export default function ContactForm({ defaultProjectId = "" }: ContactFormProps)
                           value={formData.project}
                         >
                           <option value="">Selecciona proyecto</option>
-                          <option value="brindizi">Brindizi (En curso)</option>
-                          <option value="future">Próximos lanzamientos</option>
+                          {projects.map((p) => (
+                            <option key={p.id} value={p.id}>
+                              {p.name}
+                            </option>
+                          ))}
                         </select>
                         <ChevronDown className="absolute right-6 bottom-5 w-5 h-5 text-secondary pointer-events-none" />
                         {errors.project && <p className="text-red-500 text-xs font-bold pl-2">{errors.project}</p>}

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import {
     Heart,
@@ -95,7 +96,8 @@ export default function NosotrosPage() {
             title: "Convenios institucionales",
             description: "Establecemos alianzas estratégicas con instituciones públicas y privadas para brindar mayores beneficios, facilidades y respaldo a nuestros clientes.",
             color: "bg-emerald-500",
-            lightColor: "bg-emerald-50"
+            lightColor: "bg-emerald-50",
+            logo: "/LOGO-HORIZONTAL.png"
         }
     ];
 
@@ -331,8 +333,12 @@ export default function NosotrosPage() {
                                 <div className={`absolute top-0 right-0 w-64 h-64 ${item.lightColor} rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
 
                                 <div className="relative z-10">
-                                    <div className={`w-16 h-16 rounded-2xl flex items-center justify-center text-white mb-8 transform group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-lg ${item.color}`}>
-                                        <item.icon size={32} />
+                                    <div className={`rounded-2xl flex items-center justify-center p-2 mb-8 transform group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-lg overflow-hidden ${item.logo ? "w-32 h-14 bg-white border border-neutral-100" : `w-16 h-16 ${item.color}`}`}>
+                                        {"logo" in item && item.logo ? (
+                                            <Image src={item.logo} alt="Colegio de Abogados de Lima" width={128} height={56} className="object-contain" />
+                                        ) : (
+                                            <item.icon size={32} className="text-white" />
+                                        )}
                                     </div>
                                     <h3 className="text-2xl font-bold mb-4 text-primary transition-colors duration-300">{item.title}</h3>
                                     <p className="text-lg text-secondary leading-relaxed group-hover:text-neutral-600 transition-colors duration-300">{item.description}</p>
@@ -441,7 +447,7 @@ export default function NosotrosPage() {
                         Estamos abiertos a colaboraciones y voluntariado. Si compartes nuestra visión de un mundo más solidario, contáctanos.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-6 justify-center">
-                        <Link href="/contacto" className="btn-primary text-lg px-10 py-4 shadow-lg shadow-accent/20">
+                        <Link href="https://wa.me/+51964247545?text=Hola%2C%20estoy%20interesado%20en%20ser%20voluntario%20o%20colaborar%20con%20su%20fundaci%C3%B3n.%20%C2%BFPodr%C3%ADan%20darme%20m%C3%A1s%20informaci%C3%B3n%3F" className="btn-primary text-lg px-10 py-4 shadow-lg shadow-accent/20">
                             Contáctanos Ahora
                             <ArrowRight size={20} />
                         </Link>

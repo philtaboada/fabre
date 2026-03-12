@@ -114,7 +114,7 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
       case "Entregado":
         return { color: "bg-slate-600", text: "Entregado" };
       case "Entrega inmediata":
-        return { color: "bg-blue-600", text: "Entrega inmediata" };
+        return { color: "bg-blue-600", text: "Entregado" };
       case "Próximo lanzamiento":
         return { color: "bg-purple-600", text: "Próximo lanzamiento" };
       default:

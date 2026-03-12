@@ -48,7 +48,7 @@ export default function ProjectCard({
       case "Entrega inmediata":
         return {
           color: "bg-blue-600",
-          text: "Entrega inmediata",
+          text: "Entregado",
           urgency: "¡Múdate ya!"
         };
       case "Próximo lanzamiento":

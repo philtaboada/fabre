@@ -8,7 +8,7 @@ import { Star, ChevronLeft, ChevronRight, Quote, TrendingUp, CheckCircle } from 
 const testimonials = [
   {
     id: 1,
-    role: "Propietario piso 4",
+    role: "Propietario",
     content: "La calidad de los acabados superó mis expectativas. El proceso de compra fue transparente y el equipo de Fabre siempre estuvo dispuesto a ayudar.",
     rating: 5,
     image: "/testimonio/test-1.webp",
@@ -16,7 +16,7 @@ const testimonials = [
   },
   {
     id: 2,
-    role: "Propietario piso 2",
+    role: "Propietario",
     content: "He comprado dos departamentos con Fabre para inversión. La puntualidad en la entrega y la valorización de las zonas donde construyen es increíble.",
     rating: 5,
     image: "/testimonio/DSC05079.webp",
@@ -24,7 +24,7 @@ const testimonials = [
   },
   {
     id: 3,
-    role: "Propietario piso 5",
+    role: "Propietario",
     content: "Lo que más valoro es la atención post-venta. Tuvieron un detalle con una grifería y lo solucionaron en 24 horas. Muy recomendados.",
     rating: 5,
     image: "/testimonio/DSC06684.webp",
@@ -103,7 +103,7 @@ export default function TestimonialsSection() {
             transition={{ delay: 0.2 }}
             className="text-secondary text-lg lg:text-xl leading-relaxed"
           >
-            Más de 500 familias ya disfrutan de su nuevo hogar con la garantía de calidad Fabre.
+            Más de 25 familias ya disfrutan de su nuevo hogar con la garantía de calidad Fabre.
           </motion.p>
         </div>
 

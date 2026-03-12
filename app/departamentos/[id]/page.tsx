@@ -108,7 +108,7 @@ export default function ApartmentDetailPage({ params }: { params: Promise<{ id: 
                                 {apartment.available && (
                                     <span className="px-4 py-1.5 bg-emerald-500/90 backdrop-blur-md text-white text-sm font-semibold rounded-full flex items-center gap-2">
                                         <LucideIcons.CheckCircle2 size={14} />
-                                        Entrega Inmediata
+                                        Entregado
                                     </span>
                                 )}
                             </motion.div>
