@@ -55,11 +55,67 @@ export default function ContactForm({ defaultProjectId = "" }: ContactFormProps)
     setIsSubmitting(true);
     setErrors({});
 
+<<<<<<< HEAD
     // Simular envío
     await new Promise(resolve => setTimeout(resolve, 2000));
 
     setIsSubmitting(false);
     setSubmitSuccess(true);
+=======
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: formData.name,
+          lastname: formData.lastname,
+          email: formData.email,
+          phone: formData.phone,
+          project: formData.project || undefined,
+          bedrooms: formData.bedrooms || undefined,
+          message: formData.message || undefined,
+          marketing: formData.marketing,
+          shareData: formData.shareData,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error ?? "Error al enviar el formulario");
+      }
+
+      setSubmitSuccess(true);
+
+      setTimeout(() => {
+        setFormData({
+          name: "",
+          lastname: "",
+          email: "",
+          phone: "",
+          project: "",
+          bedrooms: "",
+          message: "",
+          privacy: false,
+          marketing: false,
+          shareData: false,
+        });
+        setTouched({});
+        setErrors({});
+        setSubmitSuccess(false);
+      }, 3000);
+    } catch (error) {
+      console.error("Error al enviar formulario:", error);
+      setErrors({
+        general:
+          error instanceof Error
+            ? error.message
+            : "Error al enviar el formulario. Inténtalo de nuevo.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+>>>>>>> 7e7c563 (Implement form submission logic in ContactForm component with error handling and API integration)
   };
 
   const inputClasses = (field: string) => `
