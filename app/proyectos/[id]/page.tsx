@@ -115,8 +115,8 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
         return { color: "bg-slate-600", text: "Entregado" };
       case "Entrega inmediata":
         return { color: "bg-blue-600", text: "Entregado" };
-      case "Próximo lanzamiento":
-        return { color: "bg-purple-600", text: "Próximo lanzamiento" };
+      case "Pre venta":
+        return { color: "bg-purple-600", text: "Pre venta" };
       default:
         return { color: "bg-gray-500", text: status };
     }
@@ -274,93 +274,70 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      {buildingData.apartments.map((apt) => (
+                      {buildingData.apartments.map((apt) => {
+                        const cardImage = apt.type === 1 ? "/Brindizi/TIPO 1.webp" : apt.type === 2 ? "/Brindizi/TIPO 5.webp" : apt.images[0];
+                        return (
                         <motion.div
                           key={apt.id}
                           whileHover={{ y: -5 }}
-                          className="bg-white rounded-3xl border border-neutral-100 shadow-soft hover:shadow-strong transition-all duration-300 p-6"
+                          className="bg-white rounded-2xl border border-neutral-100 shadow-soft hover:shadow-strong transition-all duration-300 overflow-hidden"
                         >
-                          <div className="flex justify-between items-start mb-6">
-                            <div>
-                              <h4 className="text-lg font-bold text-primary">Piso {apt.floor}</h4>
-                              <p className="text-sm text-secondary">ID: {apt.id}</p>
-                            </div>
-                            <div className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase ${apt.available ? 'bg-emerald-100 text-emerald-600' : 'bg-red-100 text-red-600'}`}>
+                          {/* Header: título, ID y badge */}
+                          <div className="p-6 pb-4 flex justify-between items-start">
+                            <h4 className="text-xl font-bold text-primary">{apt.type ? `Tipo ${apt.type}` : `Piso ${apt.floor}`}</h4>
+                            <span className={`px-4 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-wide ${apt.available ? 'bg-emerald-500 text-white' : 'bg-red-500 text-white'}`}>
                               {apt.available ? 'Disponible' : 'Vendido'}
-                            </div>
+                            </span>
                           </div>
 
-                          <div className="grid grid-cols-2 gap-4 mb-6">
-                            <div className="flex items-center gap-2 text-secondary">
-                              <LucideIcons.Maximize2 size={16} className="text-accent" />
-                              <span className="text-sm font-medium">{apt.area} m²</span>
-                            </div>
-                            <div className="flex items-center gap-2 text-secondary">
-                              <LucideIcons.BedDouble size={16} className="text-accent" />
-                              <span className="text-sm font-medium">{apt.bedrooms} Dorm.</span>
-                            </div>
-                            <div className="flex items-center gap-2 text-secondary">
-                              <LucideIcons.Bath size={16} className="text-accent" />
-                              <span className="text-sm font-medium">{apt.bathrooms} Baños</span>
-                            </div>
+                          {/* Imagen del plano */}
+                          <div className="relative w-full aspect-[4/3] bg-neutral-50 px-4">
+                            <Image
+                              src={cardImage}
+                              alt={apt.type ? `Tipo ${apt.type} - Brindizi` : `Piso ${apt.floor}`}
+                              fill
+                              className="object-contain"
+                              sizes="(max-width: 768px) 100vw, 50vw"
+                            />
                           </div>
 
-                          <div className="flex items-center justify-between pt-5 border-t border-neutral-50">
-                            {!apt.available && (
-                              <p className="text-sm text-secondary font-medium">Vendido</p>
-                            )}
-                            <Link
-                              href={`/departamentos/${apt.id}`}
-                              className="px-5 py-2.5 bg-sand hover:bg-accent hover:text-white text-primary rounded-xl text-xs font-bold transition-all ml-auto"
-                            >
-                              Ver Detalles
-                            </Link>
+                          {/* Especificaciones */}
+                          <div className="p-6 pt-4">
+                            <div className="flex flex-wrap gap-6 mb-5">
+                              <div className="flex items-center gap-2 text-secondary">
+                                <LucideIcons.Maximize2 size={18} className="text-accent" />
+                                <span className="text-sm font-medium">{apt.area} m²</span>
+                              </div>
+                              <div className="flex items-center gap-2 text-secondary">
+                                <LucideIcons.BedDouble size={18} className="text-accent" />
+                                <span className="text-sm font-medium">{apt.bedrooms} Dorm.</span>
+                              </div>
+                              <div className="flex items-center gap-2 text-secondary">
+                                <LucideIcons.Bath size={18} className="text-accent" />
+                                <span className="text-sm font-medium">{apt.bathrooms} Baños</span>
+                              </div>
+                            </div>
+
+                            <div className="flex items-center justify-between pt-4 border-t border-neutral-100">
+                              <p className="text-sm text-secondary font-medium">
+                                {apt.available ? 'Disponible' : 'Vendido'}
+                              </p>
+                              <Link
+                                href={`/departamentos/${apt.id}`}
+                                className="px-5 py-2.5 bg-neutral-100 hover:bg-accent hover:text-white text-primary rounded-xl text-sm font-medium transition-all"
+                              >
+                                Ver Detalles
+                              </Link>
+                            </div>
                           </div>
                         </motion.div>
-                      ))}
+                      );})}
                     </div>
                   </motion.div>
                 )}
 
-                {/* Tipos de departamento (Brindizi) o Galería general */}
-                {resolvedParams.id === "brindizi" ? (
-                  <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    className="space-y-8"
-                  >
-                    <div>
-                      <h3 className="text-2xl font-bold text-primary mb-4 flex items-center gap-2">
-                        <LucideIcons.LayoutGrid className="text-accent" />
-                        Tipos de departamento
-                      </h3>
-                      <p className="text-secondary text-lg leading-relaxed max-w-2xl">
-                        Conoce los distintos tipos de departamento disponibles en Brindizi. Diseños pensados para tu comodidad y estilo de vida.
-                      </p>
-                    </div>
-                    <div className="space-y-12">
-                      <div className="relative w-full aspect-[4/3] max-w-4xl mx-auto bg-neutral-50">
-                        <Image
-                          src="/Brindizi/TIPO 1.webp"
-                          alt="Tipo de departamento 1 - Brindizi"
-                          fill
-                          className="object-contain"
-                          sizes="100vw"
-                        />
-                      </div>
-                      <div className="relative w-full aspect-[4/3] max-w-4xl mx-auto bg-neutral-50">
-                        <Image
-                          src="/Brindizi/TIPO 5.webp"
-                          alt="Tipo de departamento 5 - Brindizi"
-                          fill
-                          className="object-contain"
-                          sizes="100vw"
-                        />
-                      </div>
-                    </div>
-                  </motion.div>
-                ) : (
+                {/* Galería general (solo para proyectos que no son Brindizi) */}
+                {resolvedParams.id !== "brindizi" && (
                   <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}

@@ -71,7 +71,7 @@ export default function ApartmentDetailPage({ params }: { params: Promise<{ id: 
             <section className="relative h-[70vh] lg:h-[80vh] w-full overflow-hidden">
                 <Image
                     src={apartment.images[0]}
-                    alt={`Departamento Piso ${apartment.floor}`}
+                    alt={`Departamento ${apartment.type ? `Tipo ${apartment.type}` : `Piso ${apartment.floor}`}`}
                     fill
                     className="object-cover"
                     priority
@@ -103,7 +103,7 @@ export default function ApartmentDetailPage({ params }: { params: Promise<{ id: 
                                     {building.name}
                                 </span>
                                 <span className="px-4 py-1.5 bg-accent/90 backdrop-blur-md text-white text-sm font-semibold rounded-full shadow-lg shadow-accent/20">
-                                    Piso {apartment.floor}
+                                    {apartment.type ? `Tipo ${apartment.type}` : `Piso ${apartment.floor}`}
                                 </span>
                                 {apartment.available && (
                                     <span className="px-4 py-1.5 bg-emerald-500/90 backdrop-blur-md text-white text-sm font-semibold rounded-full flex items-center gap-2">
@@ -308,7 +308,7 @@ export default function ApartmentDetailPage({ params }: { params: Promise<{ id: 
                                 >
                                     <div className="space-y-3 mb-6">
                                         <a
-                                            href={`https://wa.me/51964247545?text=Hola,%20estoy%20interesado%20en%20el%20departamento%20del%20Piso%20${apartment.floor}%20del%20Edificio%20Brindizi.`}
+                                            href={`https://wa.me/51964247545?text=Hola,%20estoy%20interesado%20en%20el%20departamento%20${apartment.type ? `Tipo%20${apartment.type}` : `Piso%20${apartment.floor}`}%20del%20Edificio%20Brindizi.`}
                                             target="_blank"
                                             className="block w-full py-4 bg-[#25D366] hover:bg-[#128C7E] text-white rounded-2xl font-bold text-center transition-all shadow-lg shadow-green-500/30 flex items-center justify-center gap-2"
                                         >

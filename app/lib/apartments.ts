@@ -3,6 +3,8 @@ import { ProjectStatus } from "./projects";
 export type Apartment = {
     id: string;
     floor: number;
+    /** Tipo de departamento para mostrar (ej: Tipo 1, Tipo 2). Si no existe, se usa "Piso {floor}". */
+    type?: number;
     area: number;
     price: number;
     bedrooms: number;
@@ -137,8 +139,9 @@ export const BRINDIZI_BUILDING: Building = {
     ],
     apartments: [
         {
-            id: "brindizi-piso-5",
+            id: "brindizi-tipo-1",
             floor: 5,
+            type: 1,
             area: 77.84,
             price: 285000,
             bedrooms: 3,
@@ -159,8 +162,9 @@ export const BRINDIZI_BUILDING: Building = {
             available: false
         },
         {
-            id: "brindizi-piso-6",
+            id: "brindizi-tipo-2",
             floor: 6,
+            type: 2,
             area: 77.84,
             price: 290000,
             bedrooms: 2,
@@ -191,17 +195,17 @@ export const BRINDIZI_BUILDING: Building = {
 export const LUMEN_PARK_BUILDING: Building = {
     id: "lumen-park",
     name: "Edificio Lumen Park",
-    address: "Por definir",
+    address: "Paseo Las Retamas MZ B, Lote 11 ",
     district: "Lumen Park",
     description: "Proyecto Lumen Park.",
     about: "",
-    status: "Próximo lanzamiento",
+    status: "Pre venta",
     floors: 0,
     totalUnits: 0,
     commonAreas: [],
     buildingFeatures: [],
     location: {
-        address: "Por definir",
+        address: "Paseo Las Retamas MZ B, Lote 11 ",
         coordinates: { lat: 0, lng: 0 },
         nearbyPlaces: []
     },

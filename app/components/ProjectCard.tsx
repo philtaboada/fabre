@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-type Status = "Pre-venta" | "En construcción" | "Entregado" | "Entrega inmediata" | "Próximo lanzamiento";
+type Status = "Pre-venta" | "En construcción" | "Entregado" | "Entrega inmediata" | "Pre venta";
 
 export default function ProjectCard({
   id,
@@ -51,10 +51,10 @@ export default function ProjectCard({
           text: "Entregado",
           urgency: "¡Múdate ya!"
         };
-      case "Próximo lanzamiento":
+      case "Pre venta":
         return {
           color: "bg-purple-600",
-          text: "Próximo lanzamiento",
+          text: "Pre venta",
           urgency: "Sé el primero"
         };
       default:

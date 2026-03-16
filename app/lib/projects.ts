@@ -1,4 +1,4 @@
-export type ProjectStatus = "Pre-venta" | "En construcción" | "Entregado" | "Entrega inmediata" | "Próximo lanzamiento";
+export type ProjectStatus = "Pre-venta" | "En construcción" | "Entregado" | "Entrega inmediata" | "Pre venta";
 
 export type Project = {
   id: string;

@@ -135,7 +135,7 @@ export default function ApartmentCatalog() {
                 >
                     {filteredBuildings.map((building) => {
                         const isDelivered = building.status === 'Entregado';
-                        const isComingSoon = building.status === 'Próximo lanzamiento';
+                        const isComingSoon = building.status === 'Pre venta';
                         const cardContent = (
                             <>
                                 <Image
@@ -149,7 +149,7 @@ export default function ApartmentCatalog() {
                                     <div className={`inline-block px-4 py-1 rounded text-[11px] font-black uppercase tracking-[0.2em] text-white shadow-lg w-fit
                                         ${building.status === 'Entregado' ? 'bg-[#98CB00]' :
                                             building.status === 'Entrega inmediata' ? 'bg-[#98CB00]' :
-                                                building.status === 'Próximo lanzamiento' ? 'bg-[#FF3B30]' : 'bg-orange-500'}`}
+                                                building.status === 'Pre venta' ? 'bg-[#FF3B30]' : 'bg-orange-500'}`}
                                     >
                                         {(building.status === 'Entrega inmediata' ? 'Entregado' : building.status).toUpperCase()}
                                     </div>
@@ -305,7 +305,7 @@ export default function ApartmentCatalog() {
                     </div>
                 </motion.div>
 
-                {/* Modal Próximo lanzamiento */}
+                {/* Modal Pre venta */}
                 {comingSoonModalOpen && (
                     <div
                         className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"

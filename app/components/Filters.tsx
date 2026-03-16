@@ -57,7 +57,7 @@ export default function Filters({
             <option value="En construcción">En construcción</option>
             <option value="Entregado">Entregado</option>
             <option value="Entrega inmediata">Entregado</option>
-            <option value="Próximo lanzamiento">Próximo lanzamiento</option>
+            <option value="Pre venta">Pre venta</option>
           </select>
           <div className="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none text-neutral-400">
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
