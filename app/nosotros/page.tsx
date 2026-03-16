@@ -9,7 +9,6 @@ import {
     Hammer,
     Utensils,
     Pause,
-    Play,
     Volume2,
     VolumeX,
     ArrowRight,
@@ -357,7 +356,7 @@ export default function NosotrosPage() {
                 <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[120px] translate-y-1/2 -translate-x-1/2 pointer-events-none" />
 
                 <div className="container-page relative z-10">
-                    <div className="grid lg:grid-cols-2 gap-16 items-center">
+                    <div className="grid lg:grid-cols-2 gap-16 items-start">
                         {/* Text Content */}
                         <motion.div
                             initial={{ opacity: 0, x: -30 }}
@@ -365,13 +364,16 @@ export default function NosotrosPage() {
                             viewport={{ once: true }}
                             className="text-left"
                         >
-                            <motion.div
-                                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-accent font-semibold text-sm mb-8"
-                            >
-                                <Play size={16} fill="currentColor" />
-                                <span>Impacto en video</span>
-                            </motion.div>
-
+                            <div className="mb-10">
+                                <Image
+                                    src="/logo-fundacion-fabre.png"
+                                    alt="Fundación Fabre"
+                                    width={516}
+                                    height={230}
+                                    className="object-contain object-left w-auto h-16 sm:h-20 md:h-24 lg:h-28"
+                                    priority
+                                />
+                            </div>
                             <h2 className="text-4xl lg:text-6xl font-bold leading-tight text-white mb-8">
                                 Transformando vidas, <br />
                                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-emerald-400">Una historia a la vez</span>
@@ -408,7 +410,7 @@ export default function NosotrosPage() {
                             className="relative flex justify-center w-full"
                         >
                             {/* Smartphone frame effect - Increased size to show more video */}
-                            <div className="relative w-full max-w-[450px] aspect-[9/16] bg-neutral-800 rounded-[3rem] p-3 border-[8px] border-neutral-800 shadow-[0_0_50px_-12px_rgba(0,0,0,0.5)] overflow-hidden">
+                            <div className="relative w-full max-w-[320px] aspect-[9/16] bg-neutral-800 rounded-[3rem] p-3 border-[8px] border-neutral-800 shadow-[0_0_50px_-12px_rgba(0,0,0,0.5)] overflow-hidden">
                                 {/* Video Container */}
                                 <div className="relative w-full h-full rounded-[2rem] overflow-hidden bg-black group">
                                     <iframe

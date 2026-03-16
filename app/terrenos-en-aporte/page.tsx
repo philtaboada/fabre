@@ -131,12 +131,23 @@ export default function TerrenosEnAportePage() {
             animate={{ opacity: 1, y: 0 }}
             className="text-center mb-12"
           >
+            <span className="inline-block px-4 py-2 bg-accent/10 text-accent text-sm font-bold rounded-full mb-4">
+              Buscamos terrenos en aporte
+            </span>
             <h1 className="text-3xl lg:text-5xl font-bold text-primary mb-4">
               Terrenos en aporte
             </h1>
-            <p className="text-secondary mb-6">
-              Ofrece tu terreno en aporte y forma parte de nuestros proyectos inmobiliarios.
-            </p>
+            <div className="text-secondary mb-6 space-y-3 max-w-2xl mx-auto">
+              <p className="text-lg">
+                Si tienes un terreno bien ubicado, puedes obtener mucho más que solo el valor de tu terreno.
+              </p>
+              <p className="text-lg">
+                Desarrollamos el proyecto y el propietario recibe el precio de su terreno más su rentabilidad.
+              </p>
+              <p className="font-medium text-primary">
+                Registra tus datos para evaluar tu terreno y recibir más información.
+              </p>
+            </div>
             <div className="flex flex-wrap justify-center gap-6 text-sm">
               <a
                 href="tel:+51964247545"
