@@ -96,7 +96,7 @@ export default function NosotrosPage() {
             description: "Establecemos alianzas estratégicas con instituciones públicas y privadas para brindar mayores beneficios, facilidades y respaldo a nuestros clientes.",
             color: "bg-emerald-500",
             lightColor: "bg-emerald-50",
-            logo: "/LOGO-HORIZONTAL.png"
+            logo: "/cahyo.png"
         }
     ];
 

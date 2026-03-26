@@ -434,7 +434,7 @@ export default function TerrenosEnAportePage() {
                       <button
                         type="submit"
                         disabled={isSubmitting}
-                        className="w-full sm:w-auto px-12 py-4 bg-orange-500 hover:bg-orange-600 text-white font-bold rounded-xl transition-all shadow-lg shadow-orange-500/20 active:scale-[0.98] disabled:opacity-50 flex items-center justify-center gap-2"
+                        className="w-full sm:w-auto px-12 py-4 bg-[#ff6e61] hover:bg-[#ff6e61]/70 text-white font-bold rounded-xl transition-all shadow-lg shadow-orange-500/20 active:scale-[0.98] disabled:opacity-50 flex items-center justify-center gap-2"
                       >
                         {isSubmitting ? (
                           <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
