@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { formatNumber } from "../lib/utils";
+import { withUtm } from "../lib/utm";
 
 export default function FinancingSection() {
   const [loanAmount, setLoanAmount] = useState(200000);
@@ -155,7 +156,7 @@ export default function FinancingSection() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
-                href="#contacto"
+                href={withUtm("#contacto")}
                 className="btn-primary text-lg px-8 py-4"
               >
                 Solicitar asesoría financiera

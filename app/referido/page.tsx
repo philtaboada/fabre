@@ -15,6 +15,7 @@ import {
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { ALL_PROJECTS, Project } from "../lib/projects";
+import { withUtm } from "../lib/utm";
 
 export default function ReferidoPage() {
   const [formData, setFormData] = useState({
@@ -312,7 +313,7 @@ export default function ReferidoPage() {
                           onChange={e => setFormData({...formData, terms: e.target.checked})}
                         />
                         <span className="text-xs text-secondary leading-tight group-hover:text-primary transition-colors">
-                          He leído y acepto los <Link href="/terms" className="text-accent hover:underline font-bold">Términos y condiciones</Link> de Inmobiliaria Fabre
+                          He leído y acepto los <Link href={withUtm("/terms")} className="text-accent hover:underline font-bold">Términos y condiciones</Link> de Inmobiliaria Fabre
                         </span>
                       </label>
                       <label className="flex items-start gap-3 cursor-pointer group">
@@ -323,7 +324,7 @@ export default function ReferidoPage() {
                           onChange={e => setFormData({...formData, privacy: e.target.checked})}
                         />
                         <span className="text-xs text-secondary leading-tight group-hover:text-primary transition-colors">
-                          Autorizo a Inmobiliaria Fabre para que realice las actividades de prospección comercial y marketing descritas en la <Link href="/privacy" className="text-accent hover:underline font-bold">Política de Privacidad</Link>
+                          Autorizo a Inmobiliaria Fabre para que realice las actividades de prospección comercial y marketing descritas en la <Link href={withUtm("/privacy")} className="text-accent hover:underline font-bold">Política de Privacidad</Link>
                         </span>
                       </label>
                     </div>

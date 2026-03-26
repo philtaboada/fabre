@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { withUtm } from "../lib/utm";
 
 type Status = "Pre-venta" | "En construcción" | "Entregado" | "Entrega inmediata" | "Pre venta";
 
@@ -70,7 +71,7 @@ export default function ProjectCard({
 
   return (
     <article className={`card overflow-hidden group hover-lift animate-fade-in-up relative ${featured ? 'lg:col-span-2' : ''}`}>
-      <Link href={`/proyectos/${id}`} className="block">
+      <Link href={withUtm(`/proyectos/${id}`)} className="block">
         <div className={`relative ${featured ? 'aspect-[21/9] lg:aspect-[16/7]' : 'aspect-[4/3]'} overflow-hidden`}>
           <Image
             src={image}
@@ -160,7 +161,7 @@ export default function ProjectCard({
         {/* Botones de acción */}
         <div className={`flex gap-2 ${featured ? 'lg:flex-row lg:gap-4' : ''}`}>
           <Link
-            href={`/proyectos/${id}`}
+            href={withUtm(`/proyectos/${id}`)}
             className={`flex-1 btn-primary text-center justify-center ${featured ? 'text-base py-3 lg:py-4' : 'text-sm py-2.5'}`}
           >
             Ver detalles
@@ -169,7 +170,7 @@ export default function ProjectCard({
             </svg>
           </Link>
           <Link
-            href="#contacto"
+            href={withUtm("#contacto")}
             className={`${featured ? 'px-6 py-3 lg:py-4' : 'px-3 py-2.5'} border-2 border-accent text-accent rounded-lg hover:bg-accent hover:text-white transition-all duration-300 font-medium flex items-center justify-center`}
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

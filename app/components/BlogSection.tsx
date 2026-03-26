@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight, Clock, Calendar } from "lucide-react";
+import { withUtm } from "../lib/utm";
 
 const blogPosts = [
   {
@@ -79,7 +80,7 @@ export default function BlogSection() {
             viewport={{ once: true }}
           >
             <Link
-              href="#blog"
+              href={withUtm("#blog")}
               className="group inline-flex items-center gap-2 text-accent font-bold hover:text-accent-dark transition-colors text-lg"
             >
               Ver todos los artículos

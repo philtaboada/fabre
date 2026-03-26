@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Gift, ArrowRight, Share2 } from "lucide-react";
 import { usePathname } from "next/navigation";
+import { buildWhatsAppHref } from "../lib/utm";
 
 export default function FloatingCTA() {
   const pathname = usePathname();
@@ -68,8 +69,12 @@ export default function FloatingCTA() {
 
                 <div className="space-y-3">
                   <a
-                    href="https://wa.me/51964247545?text=Hola!%20Quiero%20informaci%C3%B3n%20sobre%20el%20programa%20de%20referidos%20de%20Fabre."
+                    href={buildWhatsAppHref(
+                      "51964247545",
+                      "Hola! Quiero información sobre el programa de referidos de Fabre.",
+                    )}
                     target="_blank"
+                    rel="noopener noreferrer"
                     className="flex items-center justify-center gap-2 bg-primary text-white w-full py-4 rounded-2xl font-bold text-sm hover:bg-primary/95 transition-all shadow-xl hover:shadow-primary/20 active:scale-[0.98] group/btn"
                   >
                     Quiero referir

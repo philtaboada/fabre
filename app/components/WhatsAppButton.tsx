@@ -3,12 +3,14 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
+import { buildWhatsAppHref } from "../lib/utm";
 
 export default function WhatsAppButton() {
   const [isVisible, setIsVisible] = useState(false);
-  const phone = "+51964247545";
-  const message = encodeURIComponent("Hola, estoy interesado en sus proyectos inmobiliarios. ¿Podrían darme más información?");
-  const href = `https://wa.me/${phone}?text=${message}`;
+  const href = buildWhatsAppHref(
+    "51964247545",
+    "Hola, estoy interesado en sus proyectos inmobiliarios. ¿Podrían darme más información?",
+  );
 
   useEffect(() => {
     const handleScroll = () => {

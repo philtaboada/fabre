@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft, ArrowRight, ChevronDown } from "lucide-react";
+import { withUtm } from "../lib/utm";
 
 const heroSlides = [
   {
@@ -168,7 +169,7 @@ export default function HeroCarousel() {
 
             <motion.div variants={textVariants}>
               <Link
-                href={heroSlides[currentSlide].ctaLink}
+                href={withUtm(heroSlides[currentSlide].ctaLink)}
                 className="group relative inline-flex items-center gap-3 px-8 py-4 bg-accent text-white rounded-full font-bold overflow-hidden transition-all hover:pr-10"
               >
                 <span className="relative z-10">{heroSlides[currentSlide].cta}</span>

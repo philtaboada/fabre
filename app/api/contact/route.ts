@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { UTM_MEDIUM_WEB, UTM_SOURCE_ORGANICO } from "../../lib/utm";
 
 const SPERANT_API_BASE =
   process.env.SPERANT_API_BASE_URL ?? "https://demo.eterniasoft.com/v3";
@@ -70,6 +71,24 @@ async function fetchFirstUserId(token: string): Promise<number | null> {
   return typeof id === "number" && !Number.isNaN(id) ? id : null;
 }
 
+/**
+ * Obtiene el ID del primer proyecto en Sperant.
+ * Usado cuando el formulario no envía proyecto pero la API lo exige.
+ * @see https://sperant.gitbook.io/apiv3/proyecto/listar-proyectos
+ */
+async function fetchFirstProjectId(token: string): Promise<number | null> {
+  const response = await fetch(`${SPERANT_API_BASE}/projects`, {
+    headers: { Authorization: token },
+  });
+  if (!response.ok) return null;
+  const data = (await response.json()) as {
+    data?: Array<{ id?: string; attributes?: { id?: number } }>;
+  };
+  const first = data?.data?.[0];
+  const id = first?.attributes?.id ?? (first?.id ? parseInt(first.id, 10) : NaN);
+  return typeof id === "number" && !Number.isNaN(id) ? id : null;
+}
+
 interface CreateClientPayload {
   fname: string;
   lname?: string;
@@ -97,6 +116,9 @@ interface ContactRequestBody {
   message?: string;
   marketing?: boolean;
   shareData?: boolean;
+  utmSource?: string;
+  utmMedium?: string;
+  utmCampaign?: string;
 }
 
 /**
@@ -223,6 +245,11 @@ export async function POST(request: NextRequest) {
     const extraFields: Record<string, string> = {};
     if (body.bedrooms) extraFields.dormitorios = body.bedrooms;
     if (body.project) extraFields.proyecto_interes = body.project;
+    extraFields.utm_source = (body.utmSource ?? UTM_SOURCE_ORGANICO).trim();
+    extraFields.utm_medium = (body.utmMedium ?? UTM_MEDIUM_WEB).trim();
+    if (body.utmCampaign?.trim()) {
+      extraFields.utm_campaign = body.utmCampaign.trim();
+    }
 
     const projectId = body.projectId
       ? body.projectId
@@ -230,6 +257,40 @@ export async function POST(request: NextRequest) {
         ? parseInt(body.project, 10)
         : undefined;
     const validProjectId = projectId && !Number.isNaN(projectId) ? projectId : undefined;
+    let resolvedProjectId: number | undefined = validProjectId;
+    /**
+     * Sin projectId en el body (formularios sin selector: financiamiento, terrenos, etc.):
+     * 1) SPERANT_DEFAULT_PROJECT_ID en .env
+     * 2) primer proyecto listado en Sperant
+     */
+    if (!resolvedProjectId) {
+      const envProjectId = parseInt(
+        process.env.SPERANT_DEFAULT_PROJECT_ID ??
+          process.env.SPERANT_CONTACT_DEFAULT_PROJECT_ID ??
+          "",
+        10,
+      );
+      if (!Number.isNaN(envProjectId)) {
+        resolvedProjectId = envProjectId;
+        console.log("[Contact] project_id desde env (SPERANT_DEFAULT_PROJECT_ID):", envProjectId);
+      }
+    }
+    if (!resolvedProjectId && token) {
+      const firstProjectId = await fetchFirstProjectId(token);
+      if (firstProjectId !== null) {
+        resolvedProjectId = firstProjectId;
+        console.log("[Contact] project_id por defecto (primer proyecto en Sperant):", firstProjectId);
+      }
+    }
+    if (!resolvedProjectId) {
+      return NextResponse.json(
+        {
+          error:
+            "No se pudo asignar un proyecto. Define SPERANT_DEFAULT_PROJECT_ID en .env o verifica la lista de proyectos en Sperant.",
+        },
+        { status: 500 }
+      );
+    }
 
     const payload: CreateClientPayload = {
       fname: body.name.trim(),
@@ -242,7 +303,7 @@ export async function POST(request: NextRequest) {
       ...(typeof agentId === "number" && { agent_id: agentId }),
       publicity_consent: body.marketing ?? false,
       email_consent: body.shareData ?? false,
-      project_id: validProjectId,
+      project_id: resolvedProjectId,
       observation: body.message?.trim() ?? undefined,
       extra_fields: Object.keys(extraFields).length > 0 ? extraFields : undefined,
     };

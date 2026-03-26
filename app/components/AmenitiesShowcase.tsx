@@ -1,3 +1,5 @@
+import { withUtm } from "../lib/utm";
+
 export default function AmenitiesShowcase() {
   const amenities = [
     {
@@ -115,7 +117,7 @@ export default function AmenitiesShowcase() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
-                href="#contacto"
+                href={withUtm("#contacto")}
                 className="btn-primary text-lg px-8 py-4"
               >
                 Agendar visita guiada
@@ -124,7 +126,7 @@ export default function AmenitiesShowcase() {
                 </svg>
               </a>
               <a
-                href="#proyectos"
+                href={withUtm("#proyectos")}
                 className="btn-secondary text-lg px-8 py-4"
               >
                 Ver proyectos disponibles

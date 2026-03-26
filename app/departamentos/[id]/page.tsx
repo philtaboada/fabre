@@ -14,6 +14,7 @@ import FloatingCTA from "../../components/FloatingCTA";
 import MarketingBonus from "../../components/MarketingBonus";
 import { getApartmentById, BUILDINGS } from "../../lib/apartments";
 import ImageGallery from "../../components/ImageGallery";
+import { buildWhatsAppHref, withUtm } from "../../lib/utm";
 
 // Helper for dynamic icons
 const Icon = ({ name, className }: { name: string; className?: string }) => {
@@ -81,7 +82,7 @@ export default function ApartmentDetailPage({ params }: { params: Promise<{ id: 
                 <div className="absolute inset-0 flex items-end pb-12 lg:pb-20">
                     <div className="container-page">
                         <Link
-                            href="/#departamentos"
+                            href={withUtm("/#departamentos")}
                             className="absolute top-24 lg:top-28 left-4 lg:left-8 z-20 hover:opacity-80 transition-all flex items-center gap-3 text-white/90 font-medium group"
                         >
                             <div className="p-2.5 bg-white/10 backdrop-blur-md rounded-full border border-white/20 transition-all group-hover:bg-white/20">
@@ -308,22 +309,26 @@ export default function ApartmentDetailPage({ params }: { params: Promise<{ id: 
                                 >
                                     <div className="space-y-3 mb-6">
                                         <a
-                                            href={`https://wa.me/51964247545?text=Hola,%20estoy%20interesado%20en%20el%20departamento%20${apartment.type ? `Tipo%20${apartment.type}` : `Piso%20${apartment.floor}`}%20del%20Edificio%20Brindizi.`}
+                                            href={buildWhatsAppHref(
+                                                "51964247545",
+                                                `Hola, estoy interesado en el departamento ${apartment.type ? `Tipo ${apartment.type}` : `Piso ${apartment.floor}`} del Edificio Brindizi.`,
+                                            )}
                                             target="_blank"
+                                            rel="noopener noreferrer"
                                             className="block w-full py-4 bg-[#25D366] hover:bg-[#128C7E] text-white rounded-2xl font-bold text-center transition-all shadow-lg shadow-green-500/30 flex items-center justify-center gap-2"
                                         >
                                             <LucideIcons.MessageCircle size={20} />
                                             WhatsApp Directo
                                         </a>
                                         <a
-                                            href="#contacto"
+                                            href={withUtm("#contacto")}
                                             className="block w-full py-4 bg-primary hover:bg-primary/90 text-white rounded-2xl font-bold text-center transition-all flex items-center justify-center gap-2"
                                         >
                                             <LucideIcons.Mail size={20} />
                                             Agendar Visita
                                         </a>
                                         <Link
-                                            href="/financiamiento"
+                                            href={withUtm("/financiamiento")}
                                             className="block w-full py-4 bg-sand hover:bg-sand-dark text-primary rounded-2xl font-bold text-center transition-colors flex items-center justify-center gap-2"
                                         >
                                             <LucideIcons.Calculator size={20} />

@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { X, Ticket, ArrowRight, MessageCircle, Sparkles, Clock } from "lucide-react";
+import { buildWhatsAppHref, withUtm } from "../lib/utm";
 
 export default function MarketingBonus() {
     const [isOpen, setIsOpen] = useState(false);
@@ -90,8 +91,12 @@ export default function MarketingBonus() {
 
                             <div className="space-y-4">
                                 <a
-                                    href="https://wa.me/51964247545?text=Hola!%20Acabo%20de%20ganar%20el%20BONO%20DE%20DESCUENTO%20en%20la%20web.%20%C2%BFC%C3%B3mo%20puedo%20canjearlo?"
+                                    href={buildWhatsAppHref(
+                                      "51964247545",
+                                      "Hola! Acabo de ganar el BONO DE DESCUENTO en la web. ¿Cómo puedo canjearlo?",
+                                    )}
                                     target="_blank"
+                                    rel="noopener noreferrer"
                                     className="flex items-center justify-center gap-3 bg-[#00A884] text-white w-full py-4 rounded-2xl font-black text-sm transition-all hover:bg-[#008F70] shadow-lg shadow-green-500/20 active:scale-95 uppercase"
                                 >
                                     <MessageCircle size={18} />
@@ -106,7 +111,7 @@ export default function MarketingBonus() {
                                     >
                                         NO DESEO EL BONO, GRACIAS
                                     </button>
-                                    <Link href="/terms" className="text-secondary text-[10px] font-medium border-b border-secondary/20 hover:text-accent transition-colors">
+                                    <Link href={withUtm("/terms")} className="text-secondary text-[10px] font-medium border-b border-secondary/20 hover:text-accent transition-colors">
                                         * términos y condiciones
                                     </Link>
                                 </div>

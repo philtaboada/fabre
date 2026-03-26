@@ -1,3 +1,5 @@
+import { withUtm } from "../lib/utm";
+
 export default function AboutSection() {
   const stats = [
     {
@@ -56,10 +58,10 @@ export default function AboutSection() {
               para asegurar que cada detalle supere las expectativas.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <a href="#proyectos" className="btn-primary">
+              <a href={withUtm("#proyectos")} className="btn-primary">
                 Nuestros proyectos
               </a>
-              <a href="#contacto" className="btn-secondary">
+              <a href={withUtm("#contacto")} className="btn-secondary">
                 Conoce más
               </a>
             </div>

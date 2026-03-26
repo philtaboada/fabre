@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { ArrowRight, Sparkles, Phone } from "lucide-react";
+import { withUtm } from "../lib/utm";
 
 export default function UrgencyBanner() {
   return (
@@ -51,14 +52,14 @@ export default function UrgencyBanner() {
             className="flex flex-col sm:flex-row gap-4 w-full lg:w-auto"
           >
             <a
-              href="#departamentos"
+              href={withUtm("#departamentos")}
               className="group bg-white text-[#0a4d3c] px-8 py-4 rounded-xl font-bold hover:bg-emerald-50 transition-all duration-300 shadow-lg shadow-emerald-900/20 flex items-center justify-center gap-3 w-full sm:w-auto"
             >
               Ver Proyectos
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </a>
             <a
-              href="#contacto"
+              href={withUtm("#contacto")}
               className="group border border-emerald-400/30 text-white px-8 py-4 rounded-xl font-bold hover:bg-emerald-800/30 transition-all duration-300 flex items-center justify-center gap-3 w-full sm:w-auto backdrop-blur-sm"
             >
               <Phone className="w-5 h-5" />

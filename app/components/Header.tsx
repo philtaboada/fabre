@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import { withUtm } from "../lib/utm";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -32,7 +33,7 @@ export default function Header() {
       }`}>
       <div className="container-page flex items-center justify-between h-16 lg:h-20">
         {/* Logo */}
-        <Link href="/" className="relative block group">
+        <Link href={withUtm("/")} className="relative block group">
           <Image
             src={useSolidStyle ? "/LOGO-LETRAS-NEGRAS.png" : "/LOGO - LETRAS BLANCAS (1).png"}
             alt="Fabre"
@@ -45,16 +46,16 @@ export default function Header() {
 
         {/* Desktop Navigation */}
         <nav className="hidden lg:flex items-center gap-8">
-          <Link href={isHome ? "#inicio" : "/"} className={`text-base font-medium hover:text-accent transition-colors ${useSolidStyle ? "text-primary" : "text-white"}`}>Inicio</Link>
-          <Link href="/#departamentos" className={`text-base font-medium hover:text-accent transition-colors ${useSolidStyle ? "text-primary" : "text-white"}`}>Departamentos</Link>
-          <Link href="/nosotros" className={`text-base font-medium hover:text-accent transition-colors ${useSolidStyle ? "text-primary" : "text-white"}`}>Nosotros</Link>
-          <Link href="/financiamiento" className={`text-base font-medium hover:text-accent transition-colors ${useSolidStyle ? "text-primary" : "text-white"}`}>Financiamiento</Link>
-          <Link href="#contacto" className={`text-base font-medium hover:text-accent transition-colors ${useSolidStyle ? "text-primary" : "text-white"}`}>Contacto</Link>
+          <Link href={isHome ? withUtm("#inicio") : withUtm("/")} className={`text-base font-medium hover:text-accent transition-colors ${useSolidStyle ? "text-primary" : "text-white"}`}>Inicio</Link>
+          <Link href={withUtm("/#departamentos")} className={`text-base font-medium hover:text-accent transition-colors ${useSolidStyle ? "text-primary" : "text-white"}`}>Departamentos</Link>
+          <Link href={withUtm("/nosotros")} className={`text-base font-medium hover:text-accent transition-colors ${useSolidStyle ? "text-primary" : "text-white"}`}>Nosotros</Link>
+          <Link href={withUtm("/financiamiento")} className={`text-base font-medium hover:text-accent transition-colors ${useSolidStyle ? "text-primary" : "text-white"}`}>Financiamiento</Link>
+          <Link href={withUtm("#contacto")} className={`text-base font-medium hover:text-accent transition-colors ${useSolidStyle ? "text-primary" : "text-white"}`}>Contacto</Link>
         </nav>
 
         {/* CTA Button */}
         <div className="hidden lg:flex items-center gap-4">
-          <Link href="#contacto" className="btn-primary">
+          <Link href={withUtm("#contacto")} className="btn-primary">
             Cotizar ahora
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -82,13 +83,13 @@ export default function Header() {
       {isMenuOpen && (
         <div className="lg:hidden absolute top-full left-0 right-0 border-t border-neutral-200/50 bg-white shadow-xl animate-fade-in-up">
           <div className="container-page py-6 space-y-4">
-            <Link href={isHome ? "#inicio" : "/"} onClick={() => setIsMenuOpen(false)} className="block py-3 px-4 text-base font-medium text-primary hover:bg-accent/5 hover:text-accent rounded-lg transition-colors">Inicio</Link>
-            <Link href="/#departamentos" onClick={() => setIsMenuOpen(false)} className="block py-3 px-4 text-base font-medium text-primary hover:bg-accent/5 hover:text-accent rounded-lg transition-colors">Departamentos</Link>
-            <Link href="/nosotros" onClick={() => setIsMenuOpen(false)} className="block py-3 px-4 text-base font-medium text-primary hover:bg-accent/5 hover:text-accent rounded-lg transition-colors">Nosotros</Link>
-            <Link href="/financiamiento" onClick={() => setIsMenuOpen(false)} className="block py-3 px-4 text-base font-medium text-primary hover:bg-accent/5 hover:text-accent rounded-lg transition-colors">Financiamiento</Link>
-            <Link href="#contacto" onClick={() => setIsMenuOpen(false)} className="block py-3 px-4 text-base font-medium text-primary hover:bg-accent/5 hover:text-accent rounded-lg transition-colors">Contacto</Link>
+            <Link href={isHome ? withUtm("#inicio") : withUtm("/")} onClick={() => setIsMenuOpen(false)} className="block py-3 px-4 text-base font-medium text-primary hover:bg-accent/5 hover:text-accent rounded-lg transition-colors">Inicio</Link>
+            <Link href={withUtm("/#departamentos")} onClick={() => setIsMenuOpen(false)} className="block py-3 px-4 text-base font-medium text-primary hover:bg-accent/5 hover:text-accent rounded-lg transition-colors">Departamentos</Link>
+            <Link href={withUtm("/nosotros")} onClick={() => setIsMenuOpen(false)} className="block py-3 px-4 text-base font-medium text-primary hover:bg-accent/5 hover:text-accent rounded-lg transition-colors">Nosotros</Link>
+            <Link href={withUtm("/financiamiento")} onClick={() => setIsMenuOpen(false)} className="block py-3 px-4 text-base font-medium text-primary hover:bg-accent/5 hover:text-accent rounded-lg transition-colors">Financiamiento</Link>
+            <Link href={withUtm("#contacto")} onClick={() => setIsMenuOpen(false)} className="block py-3 px-4 text-base font-medium text-primary hover:bg-accent/5 hover:text-accent rounded-lg transition-colors">Contacto</Link>
             <div className="pt-4 border-t border-neutral-100">
-              <Link href="#contacto" onClick={() => setIsMenuOpen(false)} className="btn-primary w-full justify-center">
+              <Link href={withUtm("#contacto")} onClick={() => setIsMenuOpen(false)} className="btn-primary w-full justify-center">
                 Cotizar ahora
               </Link>
             </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { buildWhatsAppHref, withUtm } from "../lib/utm";
 import {
   Facebook,
   Instagram,
@@ -39,19 +40,34 @@ export default function Footer() {
   ];
 
   const quickLinks = [
-    { name: "Departamentos", href: "/#departamentos" },
-    { name: "Financiamiento", href: "/financiamiento" },
-    { name: "Fundación", href: "/nosotros#fundacion" },
-    { name: "Contacto", href: "#contacto" },
+    { name: "Departamentos", href: withUtm("/#departamentos") },
+    { name: "Financiamiento", href: withUtm("/financiamiento") },
+    { name: "Fundación", href: withUtm("/nosotros#fundacion") },
+    { name: "Contacto", href: withUtm("#contacto") },
   ];
 
-  const services = [
-    { name: "Venta de Proyectos", href: "/#departamentos" },
-    { name: "Asesoría Financiera", href: "#contacto" },
-    { name: "Post-venta Expert", href: "https://wa.me/51964247545?text=Adquir%C3%AD%20un%20inmueble%20con%20FABRE%20y%20deseo%20comunicarme%20con%20el%20%C3%A1rea%20de%20postventa%20para%20realizar%20una%20consulta.%20Gracias." },
-    { name: "Atención 24/7", href: "https://wa.me/51964247545" },
-    { name: "TEAM FABRE", href: "/referido" },
-    { name: "Terrenos en aporte", href: "/terrenos-en-aporte" },
+  const services: Array<{
+    name: string;
+    href: string;
+    external?: boolean;
+  }> = [
+    { name: "Venta de Proyectos", href: withUtm("/#departamentos") },
+    { name: "Asesoría Financiera", href: withUtm("#contacto") },
+    {
+      name: "Post-venta Expert",
+      href: buildWhatsAppHref(
+        "51964247545",
+        "Adquirí un inmueble con FABRE y deseo comunicarme con el área de postventa para realizar una consulta. Gracias.",
+      ),
+      external: true,
+    },
+    {
+      name: "Atención 24/7",
+      href: buildWhatsAppHref("51964247545", "Hola, deseo información sobre sus servicios."),
+      external: true,
+    },
+    { name: "TEAM FABRE", href: withUtm("/referido") },
+    { name: "Terrenos en aporte", href: withUtm("/terrenos-en-aporte") },
   ];
 
   return (
@@ -60,7 +76,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-16">
           {/* Brand and Description */}
           <div className="space-y-6 text-center md:text-left">
-            <Link href="/" className="inline-block">
+            <Link href={withUtm("/")} className="inline-block">
               <span className="text-3xl font-black tracking-tighter text-accent-light">FABRE</span>
             </Link>
             <div className="flex gap-4 justify-center md:justify-start">
@@ -109,13 +125,25 @@ export default function Footer() {
             <ul className="space-y-4">
               {services.map((service) => (
                 <li key={service.name}>
-                  <Link
-                    href={service.href}
-                    className="text-blue-100/70 hover:text-accent transition-colors flex items-center justify-center md:justify-start gap-2 group"
-                  >
-                    <span className="w-1.5 h-1.5 bg-accent/30 rounded-full group-hover:bg-accent transition-colors"></span>
-                    {service.name}
-                  </Link>
+                  {service.external ? (
+                    <a
+                      href={service.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-100/70 hover:text-accent transition-colors flex items-center justify-center md:justify-start gap-2 group"
+                    >
+                      <span className="w-1.5 h-1.5 bg-accent/30 rounded-full group-hover:bg-accent transition-colors"></span>
+                      {service.name}
+                    </a>
+                  ) : (
+                    <Link
+                      href={service.href}
+                      className="text-blue-100/70 hover:text-accent transition-colors flex items-center justify-center md:justify-start gap-2 group"
+                    >
+                      <span className="w-1.5 h-1.5 bg-accent/30 rounded-full group-hover:bg-accent transition-colors"></span>
+                      {service.name}
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>
@@ -171,8 +199,8 @@ export default function Footer() {
         <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-6 text-blue-100/40 text-sm">
           <p>© {currentYear} Fabre Inmobiliaria. Todos los derechos reservados.</p>
           <div className="flex gap-8">
-            <Link href="#" className="hover:text-accent transition-colors">Política de Privacidad</Link>
-            <Link href="#" className="hover:text-accent transition-colors">Términos y condiciones</Link>
+            <Link href={withUtm("/privacy")} className="hover:text-accent transition-colors">Política de Privacidad</Link>
+            <Link href={withUtm("/terms")} className="hover:text-accent transition-colors">Términos y condiciones</Link>
             <Link href="#" className="hover:text-accent transition-colors">Libro de Reclamaciones</Link>
           </div>
           <div className="flex items-center gap-2">

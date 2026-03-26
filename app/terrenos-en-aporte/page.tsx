@@ -6,11 +6,11 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Phone, Mail, CheckCircle2 } from "lucide-react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import { buildWhatsAppHref, getClientUtmForApi, withUtm } from "../lib/utm";
 
 const WHATSAPP_PHONE = "51964247545";
-const WHATSAPP_MESSAGE = encodeURIComponent(
-  "Hola, tengo un terreno que me gustaría ofrecer en aporte. ¿Podrían darme más información?"
-);
+const WHATSAPP_MESSAGE =
+  "Hola, tengo un terreno que me gustaría ofrecer en aporte. ¿Podrían darme más información?";
 
 function WhatsAppIcon({ className }: { className?: string }) {
   return (
@@ -71,6 +71,7 @@ export default function TerrenosEnAportePage() {
     setErrors({});
 
     try {
+      const utm = getClientUtmForApi();
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -82,6 +83,9 @@ export default function TerrenosEnAportePage() {
           message: `[Terrenos en aporte]\nDirección: ${formData.direccionTerreno}\nMetraje: ${formData.metrajeTerreno}\n\n${formData.mensaje}`,
           marketing: formData.autorizacionMarketing,
           shareData: formData.politicaPrivacidad,
+          utmSource: utm.utmSource,
+          utmMedium: utm.utmMedium,
+          ...(utm.utmCampaign && { utmCampaign: utm.utmCampaign }),
         }),
       });
 
@@ -379,7 +383,7 @@ export default function TerrenosEnAportePage() {
                         <span className="text-xs text-secondary leading-tight group-hover:text-primary transition-colors">
                           He leído la{" "}
                           <Link
-                            href="/terms"
+                            href={withUtm("/terms")}
                             className="text-accent hover:underline font-bold"
                           >
                             Política de Privacidad
@@ -407,7 +411,7 @@ export default function TerrenosEnAportePage() {
                         <span className="text-xs text-secondary leading-tight group-hover:text-primary transition-colors">
                           Autorizo a{" "}
                           <Link
-                            href="/terms"
+                            href={withUtm("/terms")}
                             className="text-accent hover:underline font-bold"
                           >
                             Fabre
@@ -415,7 +419,7 @@ export default function TerrenosEnAportePage() {
                           para que realice las actividades de prospección comercial y
                           marketing descritas en la{" "}
                           <Link
-                            href="/terms"
+                            href={withUtm("/terms")}
                             className="text-accent hover:underline font-bold"
                           >
                             Política de Privacidad
@@ -431,20 +435,8 @@ export default function TerrenosEnAportePage() {
                     </div>
 
                     <div className="flex flex-col sm:flex-row gap-4 items-center pt-4">
-                      <button
-                        type="submit"
-                        disabled={isSubmitting}
-                        className="w-full sm:w-auto px-12 py-4 bg-[#ff6e61] hover:bg-[#ff6e61]/70 text-white font-bold rounded-xl transition-all shadow-lg shadow-orange-500/20 active:scale-[0.98] disabled:opacity-50 flex items-center justify-center gap-2"
-                      >
-                        {isSubmitting ? (
-                          <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                        ) : (
-                          "ENVIAR"
-                        )}
-                      </button>
-                      <span className="text-secondary text-sm">o</span>
                       <a
-                        href={`https://wa.me/${WHATSAPP_PHONE}?text=${WHATSAPP_MESSAGE}`}
+                        href={buildWhatsAppHref(WHATSAPP_PHONE, WHATSAPP_MESSAGE)}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="flex items-center gap-2 px-6 py-3 bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold rounded-xl transition-all shadow-lg hover:shadow-xl active:scale-[0.98]"

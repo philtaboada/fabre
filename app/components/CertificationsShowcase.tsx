@@ -1,3 +1,5 @@
+import { withUtm } from "../lib/utm";
+
 export default function CertificationsShowcase() {
   const certifications = [
     {
@@ -206,7 +208,7 @@ export default function CertificationsShowcase() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
-              href="#contacto"
+              href={withUtm("#contacto")}
               className="btn-primary text-lg px-8 py-4"
             >
               Solicitar información detallada

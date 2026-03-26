@@ -27,6 +27,7 @@ import {
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import WhatsAppButton from "../components/WhatsAppButton";
+import { buildWhatsAppHref, withUtm } from "../lib/utm";
 import Link from "next/link";
 import FloatingCTA from "../components/FloatingCTA";
 import Script from "next/script";
@@ -177,10 +178,10 @@ export default function NosotrosPage() {
                             </p>
 
                             <div className="flex flex-col sm:flex-row gap-4">
-                                <Link href="/#proyectos" className="btn-primary">
+                                <Link href={withUtm("/#proyectos")} className="btn-primary">
                                     Nuestros proyectos
                                 </Link>
-                                <a href="#impacto" className="btn-secondary">
+                                <a href={withUtm("#impacto")} className="btn-secondary">
                                     Nuestro Impacto Social
                                 </a>
                             </div>
@@ -449,7 +450,15 @@ export default function NosotrosPage() {
                         Estamos abiertos a colaboraciones y voluntariado. Si compartes nuestra visión de un mundo más solidario, contáctanos.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-6 justify-center">
-                        <Link href="https://wa.me/+51964247545?text=Hola%2C%20estoy%20interesado%20en%20ser%20voluntario%20o%20colaborar%20con%20su%20fundaci%C3%B3n.%20%C2%BFPodr%C3%ADan%20darme%20m%C3%A1s%20informaci%C3%B3n%3F" className="btn-primary text-lg px-10 py-4 shadow-lg shadow-accent/20">
+                        <Link
+                          href={buildWhatsAppHref(
+                            "51964247545",
+                            "Hola, estoy interesado en ser voluntario o colaborar con su fundación. ¿Podrían darme más información?",
+                          )}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="btn-primary text-lg px-10 py-4 shadow-lg shadow-accent/20"
+                        >
                             Contáctanos Ahora
                             <ArrowRight size={20} />
                         </Link>

@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Phone, Mail, Clock } from "lucide-react";
 import { motion } from "framer-motion";
 import { formatNumber } from "../lib/utils";
+import { getClientUtmForApi } from "../lib/utm";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import WhatsAppButton from "../components/WhatsAppButton";
@@ -23,6 +24,7 @@ export default function FinanciamientoPage() {
     });
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitSuccess, setSubmitSuccess] = useState(false);
+    const [submitError, setSubmitError] = useState<string | null>(null);
 
     // Calculations
     const downPayment = (propertyPrice * downPaymentPercent) / 100;
@@ -41,12 +43,43 @@ export default function FinanciamientoPage() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        setSubmitError(null);
         setIsSubmitting(true);
-        // Simulate form submission
-        await new Promise(resolve => setTimeout(resolve, 1500));
-        setIsSubmitting(false);
-        setSubmitSuccess(true);
-        setFormData({ name: "", email: "", phone: "", message: "" });
+        try {
+            const trimmedName = formData.name.trim();
+            const parts = trimmedName.split(/\s+/).filter(Boolean);
+            const firstName = parts[0] ?? "";
+            const lastName = parts.slice(1).join(" ");
+            const utm = getClientUtmForApi();
+            const response = await fetch("/api/contact", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    name: firstName,
+                    lastname: lastName,
+                    email: formData.email.trim(),
+                    phone: formData.phone.trim(),
+                    message: formData.message.trim() || undefined,
+                    marketing: false,
+                    shareData: false,
+                    utmSource: utm.utmSource,
+                    utmMedium: utm.utmMedium,
+                    ...(utm.utmCampaign && { utmCampaign: utm.utmCampaign }),
+                }),
+            });
+            const result = (await response.json()) as { error?: string };
+            if (!response.ok) {
+                throw new Error(result.error ?? "No se pudo enviar el formulario");
+            }
+            setSubmitSuccess(true);
+            setFormData({ name: "", email: "", phone: "", message: "" });
+        } catch (err) {
+            setSubmitError(
+                err instanceof Error ? err.message : "Error al enviar. Inténtalo de nuevo.",
+            );
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     return (
@@ -232,6 +265,14 @@ export default function FinanciamientoPage() {
                                     </div>
                                 ) : (
                                     <form onSubmit={handleSubmit} className="space-y-4">
+                                        {submitError && (
+                                            <div
+                                                className="p-3 rounded-lg bg-red-50 border border-red-200 text-red-800 text-sm"
+                                                role="alert"
+                                            >
+                                                {submitError}
+                                            </div>
+                                        )}
                                         <div>
                                             <label htmlFor="name" className="block text-sm font-medium text-primary mb-1">
                                                 Nombre completo

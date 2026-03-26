@@ -16,6 +16,7 @@ import {
   Clock,
   Award
 } from "lucide-react";
+import { getClientUtmForApi } from "../lib/utm";
 
 interface Project {
   id: number;
@@ -26,9 +27,14 @@ interface Project {
 
 interface ContactFormProps {
   defaultProjectId?: string;
+  /** Si es true, no se muestra el selector de proyecto; el servidor usa el primer proyecto de Sperant. */
+  hideProjectField?: boolean;
 }
 
-export default function ContactForm({ defaultProjectId = "" }: ContactFormProps) {
+export default function ContactForm({
+  defaultProjectId = "",
+  hideProjectField = false,
+}: ContactFormProps) {
   const [projects, setProjects] = useState<Project[]>([]);
   const [formData, setFormData] = useState({
     name: "",
@@ -59,7 +65,9 @@ export default function ContactForm({ defaultProjectId = "" }: ContactFormProps)
     if (!formData.email) newErrors.email = "Correo electrónico requerido";
     else if (!/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = "Email inválido";
     if (!formData.phone) newErrors.phone = "Número de celular requerido";
-    if (projects.length > 0 && !formData.project) newErrors.project = "Selecciona un proyecto";
+    if (!hideProjectField && projects.length > 0 && !formData.project) {
+      newErrors.project = "Selecciona un proyecto";
+    }
     return newErrors;
   };
 
@@ -75,6 +83,7 @@ export default function ContactForm({ defaultProjectId = "" }: ContactFormProps)
     setErrors({});
 
     try {
+      const utm = getClientUtmForApi();
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -83,11 +92,18 @@ export default function ContactForm({ defaultProjectId = "" }: ContactFormProps)
           lastname: "",
           email: formData.email,
           phone: formData.phone,
-          projectId: formData.project ? parseInt(formData.project, 10) : undefined,
-          project: formData.project || undefined,
+          ...(hideProjectField
+            ? {}
+            : {
+                projectId: formData.project ? parseInt(formData.project, 10) : undefined,
+                project: formData.project || undefined,
+              }),
           message: formData.message || undefined,
           marketing: false,
           shareData: false,
+          utmSource: utm.utmSource,
+          utmMedium: utm.utmMedium,
+          ...(utm.utmCampaign && { utmCampaign: utm.utmCampaign }),
         }),
       });
 
@@ -275,7 +291,11 @@ export default function ContactForm({ defaultProjectId = "" }: ContactFormProps)
                       </div>
                     </div>
 
-                    <div className="grid md:grid-cols-2 gap-6">
+                    <div
+                      className={
+                        hideProjectField ? "space-y-2" : "grid md:grid-cols-2 gap-6"
+                      }
+                    >
                       <div className="space-y-2">
                         <label className="text-sm font-bold text-primary flex items-center gap-2">
                           <Phone className="w-4 h-4 text-accent" /> Celular
@@ -289,25 +309,27 @@ export default function ContactForm({ defaultProjectId = "" }: ContactFormProps)
                         />
                         {errors.phone && <p className="text-red-500 text-xs font-bold pl-2">{errors.phone}</p>}
                       </div>
-                      <div className="space-y-2 relative">
-                        <label className="text-sm font-bold text-primary flex items-center gap-2">
-                          <Zap className="w-4 h-4 text-accent" /> Proyecto
-                        </label>
-                        <select
-                          className={`${inputClasses('project')} appearance-none cursor-pointer`}
-                          onChange={(e) => setFormData({ ...formData, project: e.target.value })}
-                          value={formData.project}
-                        >
-                          <option value="">Selecciona proyecto</option>
-                          {projects.map((p) => (
-                            <option key={p.id} value={p.id}>
-                              {p.name}
-                            </option>
-                          ))}
-                        </select>
-                        <ChevronDown className="absolute right-6 bottom-5 w-5 h-5 text-secondary pointer-events-none" />
-                        {errors.project && <p className="text-red-500 text-xs font-bold pl-2">{errors.project}</p>}
-                      </div>
+                      {!hideProjectField && (
+                        <div className="space-y-2 relative">
+                          <label className="text-sm font-bold text-primary flex items-center gap-2">
+                            <Zap className="w-4 h-4 text-accent" /> Proyecto
+                          </label>
+                          <select
+                            className={`${inputClasses('project')} appearance-none cursor-pointer`}
+                            onChange={(e) => setFormData({ ...formData, project: e.target.value })}
+                            value={formData.project}
+                          >
+                            <option value="">Selecciona proyecto</option>
+                            {projects.map((p) => (
+                              <option key={p.id} value={p.id}>
+                                {p.name}
+                              </option>
+                            ))}
+                          </select>
+                          <ChevronDown className="absolute right-6 bottom-5 w-5 h-5 text-secondary pointer-events-none" />
+                          {errors.project && <p className="text-red-500 text-xs font-bold pl-2">{errors.project}</p>}
+                        </div>
+                      )}
                     </div>
 
                     <div className="space-y-2">

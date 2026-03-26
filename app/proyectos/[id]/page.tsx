@@ -15,7 +15,7 @@ import MarketingBonus from "../../components/MarketingBonus";
 import { getProjectById, getOtherProjects } from "../../lib/projects";
 import { getBuildingById } from "../../lib/apartments";
 import ImageGallery from "../../components/ImageGallery";
-import ContactForm from "../../components/ContactForm";
+import { buildWhatsAppHref, withUtm } from "../../lib/utm";
 import ProjectCard from "../../components/ProjectCard";
 
 // Helper for dynamic icons
@@ -142,7 +142,7 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
         <div className="absolute inset-0 flex items-end pb-12 lg:pb-20">
           <div className="container-page">
             <Link
-              href="/#proyectos"
+              href={withUtm("/#proyectos")}
               className="absolute top-24 lg:top-28 left-4 lg:left-8 z-20 hover:opacity-80 transition-all flex items-center gap-3 text-white/90 font-medium group"
             >
               <div className="p-2.5 bg-white/10 backdrop-blur-md rounded-full border border-white/20 transition-all group-hover:bg-white/20">
@@ -323,7 +323,7 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
                                 {apt.available ? 'Disponible' : 'Vendido'}
                               </p>
                               <Link
-                                href={`/departamentos/${apt.id}`}
+                                href={withUtm(`/departamentos/${apt.id}`)}
                                 className="px-5 py-2.5 bg-neutral-100 hover:bg-accent hover:text-white text-primary rounded-xl text-sm font-medium transition-all"
                               >
                                 Ver Detalles
@@ -474,22 +474,26 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
 
                   <div className="space-y-3">
                     <a
-                      href={`https://wa.me/51964247545?text=Hola,%20estoy%20interesado%20en%20el%20proyecto%20${project.title}.`}
+                      href={buildWhatsAppHref(
+                        "51964247545",
+                        `Hola, estoy interesado en el proyecto ${project.title}.`,
+                      )}
                       target="_blank"
+                      rel="noopener noreferrer"
                       className="block w-full py-4 bg-[#25D366] hover:bg-[#128C7E] text-white rounded-2xl font-bold text-center transition-all shadow-lg shadow-green-500/30 flex items-center justify-center gap-2"
                     >
                       <LucideIcons.MessageCircle size={20} />
                       WhatsApp Directo
                     </a>
                     <a
-                      href="#contactanos"
+                      href={withUtm("#contactanos")}
                       className="block w-full py-4 bg-primary hover:bg-primary/90 text-white rounded-2xl font-bold text-center transition-all flex items-center justify-center gap-2"
                     >
                       <LucideIcons.Mail size={20} />
                       Más Información
                     </a>
                     <Link
-                      href="/financiamiento"
+                      href={withUtm("/financiamiento")}
                       className="block w-full py-4 bg-sand hover:bg-sand-dark text-primary rounded-2xl font-bold text-center transition-colors flex items-center justify-center gap-2"
                     >
                       <LucideIcons.Calculator size={20} />

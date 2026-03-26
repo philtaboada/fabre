@@ -6,6 +6,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import * as LucideIcons from "lucide-react";
 import FiltersComponent, { FiltersValues } from "./Filters";
+import { withUtm } from "../lib/utm";
 
 // Dynamic Icon Component
 const Icon = ({ name, className }: { name: string; className?: string }) => {
@@ -215,7 +216,7 @@ export default function ApartmentCatalog() {
                                         {cardContent}
                                     </button>
                                 ) : (
-                                    <Link href={`/proyectos/${building.id}`} className="block relative aspect-[4/5] overflow-hidden cursor-pointer">
+                                    <Link href={withUtm(`/proyectos/${building.id}`)} className="block relative aspect-[4/5] overflow-hidden cursor-pointer">
                                         {cardContent}
                                     </Link>
                                 )}
@@ -246,7 +247,7 @@ export default function ApartmentCatalog() {
                                         </button>
                                     ) : (
                                         <Link
-                                            href={`/proyectos/${building.id}`}
+                                            href={withUtm(`/proyectos/${building.id}`)}
                                             className="group/btn inline-flex items-center gap-4 text-primary font-black text-xs uppercase tracking-[0.2em] transition-all hover:text-accent"
                                         >
                                             <span className="inline-block py-2 border-b-2 border-primary/20 group-hover/btn:border-accent transition-all">
@@ -296,7 +297,7 @@ export default function ApartmentCatalog() {
                                 Agenda una visita privada y descubre por qué Fabre es la mejor elección para tu futuro. Nuestros asesores especializados están listos para guiarte.
                             </p>
                             <div className="flex flex-col sm:flex-row gap-6 justify-center">
-                                <a href="#contacto" className="px-10 py-5 bg-accent text-white font-bold rounded-2xl hover:bg-accent/90 transition-all duration-300 shadow-xl shadow-accent/20 hover:shadow-accent/40 hover:-translate-y-1 flex items-center justify-center gap-3 group/visit">
+                                <a href={withUtm("#contacto")} className="px-10 py-5 bg-accent text-white font-bold rounded-2xl hover:bg-accent/90 transition-all duration-300 shadow-xl shadow-accent/20 hover:shadow-accent/40 hover:-translate-y-1 flex items-center justify-center gap-3 group/visit">
                                     <LucideIcons.Calendar className="w-5 h-5 group-hover:rotate-12 transition-transform" />
                                     Agendar visita
                                 </a>
@@ -337,7 +338,7 @@ export default function ApartmentCatalog() {
                                 </p>
                                 <div className="flex flex-col sm:flex-row gap-3 justify-center">
                                     <a
-                                        href="#contacto"
+                                        href={withUtm("#contacto")}
                                         onClick={() => setComingSoonModalOpen(false)}
                                         className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-accent text-white font-bold rounded-xl hover:bg-accent/90 transition-all"
                                     >
