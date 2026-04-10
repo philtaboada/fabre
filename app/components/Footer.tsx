@@ -177,7 +177,7 @@ export default function Footer() {
                 <div className="w-10 h-10 bg-white/5 rounded-xl flex items-center justify-center group-hover:bg-accent/10 mt-1">
                   <MapPin className="w-5 h-5 text-accent" />
                 </div>
-                <span className="text-sm text-left">San Judas Tadeo 421,<br />Huancayo</span>
+                <span className="text-sm text-left">Jr Libertad 129,<br />Huancayo</span>
               </a>
               <div className="flex items-start justify-center md:justify-start gap-3 text-blue-100/70 group">
                 <div className="w-10 h-10 bg-white/5 rounded-xl flex items-center justify-center group-hover:bg-accent/10 mt-1">

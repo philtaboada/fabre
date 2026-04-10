@@ -63,7 +63,7 @@ export const WABI_SABI_BUILDING: Building = {
     commonAreas: ["Lobby", "Gimnasio", "Terraza"],
     buildingFeatures: [{ name: "Seguridad 24/7", iconName: "Shield" }],
     location: {
-        address: "Calle Edmundo Mezger 248, San Carlos",
+        address: "Calle Edmundo Mezger 164, San Carlos",
         coordinates: { lat: -12.1121, lng: -77.0152 },
         nearbyPlaces: []
     },

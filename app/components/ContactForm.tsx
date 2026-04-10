@@ -192,7 +192,7 @@ export default function ContactForm({
                 </div>
                 <div>
                   <h4 className="font-bold text-primary">Oficina</h4>
-                  <p className="text-blue-600 font-medium">San Judas Tadeo 421, Huancayo</p>
+                  <p className="text-blue-600 font-medium">Jr Libertad 129, Huancayo</p>
                 </div>
               </div>
 

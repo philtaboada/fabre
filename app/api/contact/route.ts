@@ -116,8 +116,7 @@ interface ContactRequestBody {
   message?: string;
   marketing?: boolean;
   shareData?: boolean;
-  utmSource?: string;
-  utmMedium?: string;
+  utm_source?: string;
   utmCampaign?: string;
 }
 
@@ -141,6 +140,7 @@ async function createSperantClient(payload: CreateClientPayload): Promise<Respon
     interest_type_id: payload.interest_type_id,
     publicity_consent: payload.publicity_consent ?? false,
     email_consent: payload.email_consent ?? true,
+    utm_source: "organico",
     ...(payload.project_id && { project_id: payload.project_id }),
     ...(payload.observation && { observation: payload.observation }),
     ...(payload.extra_fields && Object.keys(payload.extra_fields).length > 0 && {
@@ -245,8 +245,6 @@ export async function POST(request: NextRequest) {
     const extraFields: Record<string, string> = {};
     if (body.bedrooms) extraFields.dormitorios = body.bedrooms;
     if (body.project) extraFields.proyecto_interes = body.project;
-    extraFields.utm_source = (body.utmSource ?? UTM_SOURCE_ORGANICO).trim();
-    extraFields.utm_medium = (body.utmMedium ?? UTM_MEDIUM_WEB).trim();
     if (body.utmCampaign?.trim()) {
       extraFields.utm_campaign = body.utmCampaign.trim();
     }

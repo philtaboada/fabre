@@ -51,7 +51,7 @@ export const ALL_PROJECTS: Project[] = [
     commonAreas: ["Lobby", "Gimnasio", "Terraza"],
     gallery: ["/wasi-wavi/wasi_wabi.webp"],
     location: {
-      address: "Calle Edmundo Mezger 248, San Carlos",
+      address: "Calle Edmundo Mezger 164, San Carlos",
       coordinates: { lat: -12.1121, lng: -77.0152 },
       nearbyPlaces: []
     },
