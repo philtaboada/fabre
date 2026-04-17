@@ -335,7 +335,7 @@ export default function NosotrosPage() {
                                 <div className="relative z-10">
                                     <div className={`rounded-2xl flex items-center justify-center p-2 mb-8 transform group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-lg overflow-hidden ${item.logo ? "w-32 h-14 bg-white border border-neutral-100" : `w-16 h-16 ${item.color}`}`}>
                                         {"logo" in item && item.logo ? (
-                                            <Image src={item.logo} alt="Colegio de Abogados de Lima" width={128} height={56} className="object-contain" />
+                                            <Image src={item.logo} alt="Colegio de Abogados de Huancayo" width={128} height={56} className="object-contain" />
                                         ) : (
                                             <item.icon size={32} className="text-white" />
                                         )}
