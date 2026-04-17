@@ -53,7 +53,7 @@ export type Building = {
 export const WABI_SABI_BUILDING: Building = {
     id: "wabi-sabi",
     name: "Residencial Wabi Sabi",
-    address: "Calle Edmundo Mezger 248",
+    address: "Calle Edmundo Mezger 164",
     district: "San Carlos",
     description: "Diseño minimalista y funcional en el corazón de San Carlos.",
     about: "Wabi Sabi es un proyecto entregado que destaca por su diseño arquitectónico moderno y su integración con el entorno urbano.",
