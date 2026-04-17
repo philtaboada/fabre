@@ -204,7 +204,7 @@ export default function CertificationsShowcase() {
             </div>
           </div>
           <p className="text-secondary mb-6">
-            Únete a la familia Fabre y asegura tu futuro con la inmobiliaria más confiable de Lima.
+            Únete a la familia Fabre y asegura tu futuro con la inmobiliaria más confiable de Huancayo.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a

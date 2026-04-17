@@ -9,7 +9,7 @@ import { withUtm } from "../lib/utm";
 const blogPosts = [
   {
     id: 1,
-    title: "5 Consejos para comprar tu primer departamento en Lima",
+    title: "5 Consejos para comprar tu primer departamento en Huancayo",
     excerpt: "Descubre todo lo que necesitas saber antes de dar el gran paso hacia tu nuevo hogar.",
     category: "Guía de Compra",
     date: "15 Oct, 2023",

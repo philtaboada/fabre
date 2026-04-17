@@ -49,7 +49,7 @@ export default function Catalog() {
             Nuestros Proyectos
           </h2>
           <p className="text-secondary text-lg max-w-3xl mx-auto leading-relaxed">
-            Descubre nuestros proyectos inmobiliarios en las mejores ubicaciones de Lima.
+            Descubre nuestros proyectos inmobiliarios en Huancayo y la región Junín.
             Cada uno diseñado pensando en tu comodidad y estilo de vida.
           </p>
         </div>

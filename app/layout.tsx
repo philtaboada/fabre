@@ -10,22 +10,49 @@ const kanit = Kanit({
   variable: "--font-kanit",
 });
 
+const localBusinessJsonLd: Record<string, unknown> = {
+  "@context": "https://schema.org",
+  "@type": "RealEstateAgent",
+  name: "Fabre Inmobiliaria",
+  description:
+    "Inmobiliaria en Huancayo, Junín. Proyectos y departamentos en venta. Oficina en Jr. Libertad 129, Huancayo.",
+  url: "https://www.fabre.pe",
+  telephone: "+51-964-247545",
+  email: "gerencia@inmobiliariafabre.com",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "Jr. Libertad 129",
+    addressLocality: "Huancayo",
+    addressRegion: "Junín",
+    addressCountry: "PE",
+  },
+  areaServed: {
+    "@type": "City",
+    name: "Huancayo",
+    containedInPlace: {
+      "@type": "AdministrativeArea",
+      name: "Junín",
+    },
+  },
+};
+
 export const metadata: Metadata = {
 
   title: {
-    default: "Fabre Inmobiliaria — Proyectos en Lima | Departamentos en Venta",
+    default: "Fabre Inmobiliaria — Inmobiliaria en Huancayo | Departamentos en venta",
     template: "%s | Fabre Inmobiliaria",
   },
   description:
-    "Proyectos inmobiliarios en Lima: pre-venta, en construcción y entregados. Viviendas de calidad en Miraflores, San Isidro, Surco y más distritos. Cotiza tu departamento ideal.",
+    "Inmobiliaria en Huancayo (Junín): proyectos inmobiliarios, departamentos en venta y preventa. Visítanos en Jr. Libertad 129, Huancayo. Más de 15 años construyendo confianza.",
   keywords: [
-    "departamentos lima",
-    "proyectos inmobiliarios",
-    "casas venta lima",
-    "pre-venta departamentos",
-    "viviendas miraflores",
-    "inmobiliaria lima",
-    "compra casa lima"
+    "inmobiliaria huancayo",
+    "departamentos huancayo",
+    "proyectos inmobiliarios huancayo",
+    "casas venta huancayo",
+    "inmobiliaria junín",
+    "preventa departamentos huancayo",
+    "compra departamento huancayo",
+    "Fabre Inmobiliaria Huancayo",
   ],
   authors: [{ name: "Fabre Inmobiliaria" }],
   creator: "Fabre Inmobiliaria",
@@ -35,9 +62,9 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   openGraph: {
-    title: "Fabre Inmobiliaria — Proyectos en Lima",
+    title: "Fabre Inmobiliaria — Inmobiliaria en Huancayo",
     description:
-      "Descubre nuestros proyectos inmobiliarios en las mejores ubicaciones de Lima. Más de 15 años de experiencia y +1,200 familias satisfechas.",
+      "Proyectos y departamentos en Huancayo, Junín. Calidad, confianza y asesoría cercana. Oficina en Jr. Libertad 129, Huancayo.",
     url: "https://www.fabre.pe",
     siteName: "Fabre Inmobiliaria",
     images: [
@@ -45,7 +72,7 @@ export const metadata: Metadata = {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Fabre Inmobiliaria - Proyectos en Lima",
+        alt: "Fabre Inmobiliaria — proyectos en Huancayo",
       },
     ],
     locale: "es_PE",
@@ -53,8 +80,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Fabre Inmobiliaria — Proyectos en Lima",
-    description: "Proyectos inmobiliarios en Lima con enfoque en calidad y confianza.",
+    title: "Fabre Inmobiliaria — Inmobiliaria en Huancayo",
+    description:
+      "Departamentos y proyectos inmobiliarios en Huancayo. Calidad y confianza en Junín.",
     images: ["/og-image.jpg"],
   },
   robots: {
@@ -97,6 +125,12 @@ export default function RootLayout({
         <meta name="mobile-web-app-capable" content="yes" />
       </head>
       <body className={`${kanit.variable} min-h-screen bg-sand text-neutral-900 antialiased font-sans`}>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(localBusinessJsonLd),
+          }}
+        />
         {children}
       </body>
     </html>
