@@ -204,7 +204,16 @@ export default function Footer() {
             <Link href="#" className="hover:text-accent transition-colors">Libro de Reclamaciones</Link>
           </div>
           <div className="flex items-center gap-2">
-            Hecho con <span className="text-accent text-lg">♥</span> en Perú
+            Hecho con <span className="text-accent text-lg">♥</span> por{" "}
+            <a
+              href="https://software.wavys-technologies.com/presencia-digital"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-medium text-blue-100/60 hover:text-accent transition-colors"
+            >
+              wavys
+            </a>{" "}
+            en Perú
           </div>
         </div>
       </div>
