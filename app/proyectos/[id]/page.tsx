@@ -15,6 +15,8 @@ import MarketingBonus from "../../components/MarketingBonus";
 import { getProjectById, getOtherProjects } from "../../lib/projects";
 import { getBuildingById } from "../../lib/apartments";
 import ImageGallery from "../../components/ImageGallery";
+import ProjectSpaces from "../../components/ProjectSpaces";
+import TypologiesSection from "../../components/TypologiesSection";
 import { buildWhatsAppHref, withUtm } from "../../lib/utm";
 import ProjectCard from "../../components/ProjectCard";
 
@@ -43,6 +45,7 @@ const getItemIcon = (name: string, iconKey?: string) => {
   if (n.includes("seguridad") && n.includes("smart")) return LucideIcons.ShieldCheck;
   if (n.includes("ascensor") || n.includes("elevator") || n.includes("arrowupcircle")) return LucideIcons.ArrowUpCircle;
   if (n.includes("sismo") || n.includes("estructura") || n.includes("building")) return LucideIcons.Building2;
+  if (n.includes("sensor") || n.includes("lightbulb")) return LucideIcons.Lightbulb;
   if (n.includes("led") || n.includes("luz") || n.includes("iluminación") || n.includes("sun")) return LucideIcons.Sun;
   if (n.includes("ubicación") || n.includes("estratégica") || n.includes("mappin")) return LucideIcons.MapPin;
   if (n.includes("estacionamiento") || n.includes("car") || n.includes("cochera")) return LucideIcons.Car;
@@ -117,12 +120,21 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
         return { color: "bg-blue-600", text: "Entregado" };
       case "Pre venta":
         return { color: "bg-purple-600", text: "Pre venta" };
+      case "En Acabados":
+        return { color: "bg-orange-500", text: "En Acabados" };
       default:
         return { color: "bg-gray-500", text: status };
     }
   };
 
   const statusConfig = getStatusConfig(project.status);
+  const isLumen = resolvedParams.id === "lumen-park";
+  const mapsHref =
+    project.location.mapsUrl ||
+    buildingData?.location.mapsUrl ||
+    `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(project.location.address)}`;
+  const primaryWhatsApp =
+    buildingData?.salesPhones?.[0]?.whatsapp || "51964247545";
 
   return (
     <main className="min-h-screen bg-sand/30 font-sans text-primary">
@@ -180,7 +192,7 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
               <motion.div variants={fadeIn} className="flex items-center gap-4 text-white/80 text-lg lg:text-xl">
                 <LucideIcons.MapPin className="text-accent" />
                 <a
-                  href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(project.location.address)}`}
+                  href={mapsHref}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-accent transition-colors underline underline-offset-4"
@@ -254,6 +266,15 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
                     </p>
                   </div>
                 </motion.div>
+
+                {/* Tipologías Lumen Park */}
+                {buildingData?.typologies && buildingData.typologies.length > 0 && (
+                  <TypologiesSection
+                    typologies={buildingData.typologies}
+                    projectTitle={project.title}
+                    whatsappPhone={primaryWhatsApp}
+                  />
+                )}
 
                 {/* Available Apartments Section - Prioritized Position */}
                 {buildingData && buildingData.apartments.length > 0 && (
@@ -336,8 +357,22 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
                   </motion.div>
                 )}
 
-                {/* Galería general (solo para proyectos que no son Brindizi) */}
-                {resolvedParams.id !== "brindizi" && (
+                {/* Espacios Lumen: Áreas Comunes, Tour Virtual, Departamento Piloto */}
+                {buildingData?.spaceGalleries && buildingData.spaceGalleries.length > 0 && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                  >
+                    <ProjectSpaces
+                      galleries={buildingData.spaceGalleries}
+                      disclaimer={buildingData.galleryDisclaimer}
+                    />
+                  </motion.div>
+                )}
+
+                {/* Galería general (solo para proyectos que no son Brindizi ni Lumen) */}
+                {resolvedParams.id !== "brindizi" && resolvedParams.id !== "lumen-park" && (
                   <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -358,11 +393,11 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
                   <div className="flex items-center justify-between">
                     <h3 className="text-2xl font-bold text-primary flex items-center gap-2">
                       <LucideIcons.Sparkles className="text-accent" />
-                      Servicios y Amenidades
+                      {isLumen ? "Nuestras amenidades" : "Servicios y Amenidades"}
                     </h3>
                   </div>
 
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  <div className={isLumen ? "grid grid-cols-1 sm:grid-cols-2 gap-3" : "grid grid-cols-2 md:grid-cols-4 gap-4"}>
                     {([
                       ...(project.features || []).map(f => ({ name: f.name, icon: f.icon, type: 'feature' })),
                       ...(project.commonAreas || []).map(a => ({ name: a, icon: undefined, type: 'amenity' })),
@@ -376,12 +411,21 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
                           <motion.div
                             key={idx}
                             variants={fadeIn}
-                            className="bg-white p-6 rounded-[2rem] border border-neutral-100 flex flex-col items-center text-center gap-3 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group"
+                            className={isLumen
+                              ? "bg-white px-4 py-3 rounded-2xl border border-neutral-100 flex items-center gap-3 shadow-sm hover:shadow-md transition-all duration-300"
+                              : "bg-white p-6 rounded-[2rem] border border-neutral-100 flex flex-col items-center text-center gap-3 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group"
+                            }
                           >
-                            <div className="w-12 h-12 bg-sand rounded-2xl flex items-center justify-center group-hover:bg-accent group-hover:text-white transition-colors duration-300 shadow-inner">
-                              {ItemIcon && <ItemIcon size={20} className="text-secondary group-hover:text-white" />}
+                            <div className={isLumen
+                              ? "w-8 h-8 bg-sand rounded-xl flex items-center justify-center shrink-0"
+                              : "w-12 h-12 bg-sand rounded-2xl flex items-center justify-center group-hover:bg-accent group-hover:text-white transition-colors duration-300 shadow-inner"
+                            }>
+                              {ItemIcon && <ItemIcon size={isLumen ? 16 : 20} className={isLumen ? "text-accent" : "text-secondary group-hover:text-white"} />}
                             </div>
-                            <span className="text-[10px] font-bold uppercase tracking-widest text-primary leading-tight px-1">
+                            <span className={isLumen
+                              ? "text-sm font-semibold text-primary leading-snug"
+                              : "text-[10px] font-bold uppercase tracking-widest text-primary leading-tight px-1"
+                            }>
                               {item.name}
                             </span>
                           </motion.div>
@@ -415,12 +459,26 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
                       </div>
                       <div>
                         <h4 className="font-bold text-primary mb-1">Dirección</h4>
-                        <p className="text-secondary">{project.location.address}</p>
+                        <a
+                          href={mapsHref}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-secondary hover:text-accent transition-colors"
+                        >
+                          {project.location.address}
+                        </a>
                       </div>
                     </div>
 
                     <div className="grid grid-cols-1 gap-4">
-                      {project.location.nearbyPlaces.map((place, index) => {
+                      {(project.location.nearbyPlaces.length > 0
+                        ? project.location.nearbyPlaces
+                        : (buildingData?.location.nearbyPlaces ?? []).map((p) => ({
+                            name: p.name,
+                            distance: p.distance,
+                            icon: p.iconName,
+                          }))
+                      ).map((place, index) => {
                         const PlaceIcon = getFeatureIcon(place.icon);
                         return (
                           <div key={index} className="flex items-center gap-4 p-4 bg-white rounded-2xl border border-neutral-100 shadow-sm">
@@ -475,7 +533,7 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
                   <div className="space-y-3">
                     <a
                       href={buildWhatsAppHref(
-                        "51964247545",
+                        primaryWhatsApp,
                         `Hola, estoy interesado en el proyecto ${project.title}.`,
                       )}
                       target="_blank"
@@ -485,6 +543,20 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
                       <LucideIcons.MessageCircle size={20} />
                       WhatsApp Directo
                     </a>
+                    {buildingData?.salesPhones?.[1] && (
+                      <a
+                        href={buildWhatsAppHref(
+                          buildingData.salesPhones[1].whatsapp,
+                          `Hola, estoy interesado en el proyecto ${project.title}.`,
+                        )}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="block w-full py-4 bg-[#25D366]/90 hover:bg-[#128C7E] text-white rounded-2xl font-bold text-center transition-all flex items-center justify-center gap-2"
+                      >
+                        <LucideIcons.MessageCircle size={20} />
+                        WhatsApp Ventas 2
+                      </a>
+                    )}
                     <a
                       href={withUtm("#contactanos")}
                       className="block w-full py-4 bg-primary hover:bg-primary/90 text-white rounded-2xl font-bold text-center transition-all flex items-center justify-center gap-2"
@@ -492,6 +564,17 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
                       <LucideIcons.Mail size={20} />
                       Más Información
                     </a>
+                    {project.brochureUrl && (
+                      <a
+                        href={project.brochureUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="block w-full py-4 bg-white border-2 border-primary/10 hover:border-accent text-primary rounded-2xl font-bold text-center transition-all flex items-center justify-center gap-2"
+                      >
+                        <LucideIcons.Download size={20} />
+                        Descargar brochure
+                      </a>
+                    )}
                     <Link
                       href={withUtm("/financiamiento")}
                       className="block w-full py-4 bg-sand hover:bg-sand-dark text-primary rounded-2xl font-bold text-center transition-colors flex items-center justify-center gap-2"
@@ -503,9 +586,22 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
 
                   <div className="mt-8 pt-8 border-t border-neutral-100 text-center">
                     <p className="text-sm text-secondary mb-4">¿Deseas una presentación guiada?</p>
-                    <div className="flex items-center justify-center gap-2 text-accent font-bold">
-                      <LucideIcons.PhoneCall size={18} />
-                      +51 964 247 545
+                    <div className="space-y-2">
+                      {(buildingData?.salesPhones ?? [
+                        { label: "Ventas", display: "+51 964 247 545", tel: "+51964247545", whatsapp: "51964247545" },
+                      ]).map((phone) => (
+                        <a
+                          key={phone.tel}
+                          href={`tel:${phone.tel}`}
+                          className="flex items-center justify-center gap-2 text-accent font-bold hover:underline"
+                        >
+                          <LucideIcons.PhoneCall size={18} />
+                          {phone.display}
+                          {buildingData?.salesPhones && buildingData.salesPhones.length > 1 && (
+                            <span className="text-secondary font-medium text-xs">{phone.label}</span>
+                          )}
+                        </a>
+                      ))}
                     </div>
                   </div>
                 </motion.div>

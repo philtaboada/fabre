@@ -124,7 +124,7 @@ export default function ApartmentDetailPage({ params }: { params: Promise<{ id: 
                             <motion.div variants={fadeIn} className="flex items-center gap-4 text-white/80 text-lg lg:text-xl">
                                 <LucideIcons.MapPin className="text-accent" />
                                 <a
-                                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(building.address)}`}
+                                    href={building.location.mapsUrl || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(building.address)}`}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="hover:text-accent transition-colors underline underline-offset-4"

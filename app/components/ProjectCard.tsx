@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { withUtm } from "../lib/utm";
 
-type Status = "Pre-venta" | "En construcción" | "Entregado" | "Entrega inmediata" | "Pre venta";
+type Status = "Pre-venta" | "En construcción" | "Entregado" | "Entrega inmediata" | "Pre venta" | "En Acabados";
 
 export default function ProjectCard({
   id,
@@ -57,6 +57,12 @@ export default function ProjectCard({
           color: "bg-purple-600",
           text: "Pre venta",
           urgency: "Sé el primero"
+        };
+      case "En Acabados":
+        return {
+          color: "bg-orange-500",
+          text: "En Acabados",
+          urgency: "Entrega Marzo 2027"
         };
       default:
         return {

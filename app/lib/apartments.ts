@@ -35,6 +35,7 @@ export type Building = {
     }[];
     location: {
         address: string;
+        mapsUrl?: string;
         coordinates: {
             lat: number;
             lng: number;
@@ -47,6 +48,23 @@ export type Building = {
     };
     gallery: string[];
     apartments: Apartment[];
+    brochureUrl?: string;
+    salesPhones?: { label: string; display: string; tel: string; whatsapp: string }[];
+    galleryDisclaimer?: string;
+    spaceGalleries?: {
+        id: string;
+        title: string;
+        subtitle?: string;
+        kind?: "gallery" | "tour";
+        images: { src: string; alt: string; fit?: "cover" | "contain" }[];
+    }[];
+    typologies?: {
+        id: string;
+        name: string;
+        image: string;
+        area?: number;
+        available: boolean;
+    }[];
 };
 
 // Edificio Wabi Sabi
@@ -75,7 +93,7 @@ export const WABI_SABI_BUILDING: Building = {
 export const BRINDIZI_BUILDING: Building = {
     id: "brindizi",
     name: "Edificio Brindizi",
-    address: "Calle Lorenzo de Brindizi 166, San Carlos",
+    address: "Lorenzo de Brindisi N°166, San Carlos",
     district: "San Carlos, Huancayo",
     description: "Departamentos exclusivos en ubicación estratégica en San Carlos, cerca de la Universidad Continental y el Parque de la Identidad Wanka.",
     about: "El Edificio Brindizi ofrece una ubicación privilegiada a solo 3 cuadras de la Universidad Continental, cerca de la UPLA, Universidad Roosevelt, clínicas y centros comerciales como MAKRO. Destaca por su tecnología de seguridad avanzada con cerraduras inteligentes (huella, clave, tarjeta) y servicios modernos incluidos.",
@@ -106,10 +124,11 @@ export const BRINDIZI_BUILDING: Building = {
         { name: "Lavadero Multifuncional", iconName: "Droplets" }
     ],
     location: {
-        address: "Calle Lorenzo de Brindizi 166, San Carlos",
+        address: "Lorenzo de Brindisi N°166, San Carlos",
+        mapsUrl: "https://maps.app.goo.gl/tbTAdPSKpNDmUJ8z6",
         coordinates: {
-            lat: -12.0560,
-            lng: -75.2150
+            lat: -12.0462075,
+            lng: -75.1997707
         },
         nearbyPlaces: [
             { name: "Univ. Continental", distance: "3 cuadras", iconName: "GraduationCap" },
@@ -191,32 +210,98 @@ export const BRINDIZI_BUILDING: Building = {
     ]
 };
 
+const LUMEN_GALLERY_DISCLAIMER =
+    "Las áreas mostradas están sujetas a cambios durante el desarrollo del proyecto final. La decoración, accesorios, muebles y equipamiento del departamento no están incluidos.";
+
 // Edificio Lumen Park
 export const LUMEN_PARK_BUILDING: Building = {
     id: "lumen-park",
     name: "Edificio Lumen Park",
-    address: "Paseo Las Retamas MZ B, Lote 11 ",
-    district: "Lumen Park",
-    description: "Proyecto Lumen Park.",
-    about: "",
-    status: "Pre venta",
-    floors: 0,
-    totalUnits: 0,
+    address: "Paseo Las Retamas Mz. B Lote 11",
+    district: "Huancayo",
+    description: "Vive frente al parque, cerca de todo lo que necesitas.",
+    about: "Lumen Park es un proyecto residencial ubicado estratégicamente frente a un parque en Huancayo, pensado para quienes buscan tranquilidad, comodidad y una excelente conexión con la ciudad. Su ubicación permite estar a pocos minutos de colegios, universidades, tiendas y servicios esenciales, convirtiéndolo en una excelente alternativa tanto para vivir como para invertir. El proyecto ofrece departamentos y dúplex con distribuciones funcionales, diseño exclusivo y acabados de primera, creando espacios modernos y confortables para disfrutar en familia. Equipado con muebles altos y bajos, lavadero multifuncional, cerradura inteligente y vanitorio.",
+    status: "En Acabados",
+    deliveryDate: "Marzo 2027",
+    floors: 7,
+    totalUnits: 9,
     commonAreas: [],
-    buildingFeatures: [],
+    buildingFeatures: [
+        { name: "Edificio Sismorresistente", iconName: "Building2" },
+        { name: "Cámaras de seguridad", iconName: "Camera" },
+        { name: "Cerco eléctrico", iconName: "Zap" },
+        { name: "Luces con sensor", iconName: "Lightbulb" },
+        { name: "Luces LED en fachada", iconName: "Sun" },
+        { name: "Ascensor", iconName: "ArrowUpCircle" }
+    ],
     location: {
-        address: "Paseo Las Retamas MZ B, Lote 11 ",
-        coordinates: { lat: 0, lng: 0 },
-        nearbyPlaces: []
+        address: "Paseo Las Retamas Mz. B Lote 11, Huancayo",
+        mapsUrl: "https://maps.app.goo.gl/PFwAtLgpWFwJCHNU7",
+        coordinates: { lat: -12.038552, lng: -75.189278 },
+        nearbyPlaces: [
+            { name: "Innova Schools", distance: "Cerca", iconName: "School" },
+            { name: "UPLA", distance: "Cerca", iconName: "GraduationCap" },
+            { name: "Parque", distance: "Frente al proyecto", iconName: "Trees" }
+        ]
     },
     gallery: ["/lumen/Espectativa.webp"],
-    apartments: []
+    apartments: [],
+    brochureUrl: "/lumen/docs/brochure-lumen-park.pdf",
+    salesPhones: [
+        { label: "Ventas 1", display: "+51 964 247 545", tel: "+51964247545", whatsapp: "51964247545" },
+        { label: "Ventas 2", display: "+51 933 262 614", tel: "+51933262614", whatsapp: "51933262614" }
+    ],
+    galleryDisclaimer: LUMEN_GALLERY_DISCLAIMER,
+    spaceGalleries: [
+        {
+            id: "areas-comunes",
+            title: "Áreas Comunes",
+            images: [
+                { src: "/lumen/areas-comunes/01-zona-de-parrillas.jpg", alt: "Zona de parrillas" },
+                { src: "/lumen/areas-comunes/02-sala-de-usos-multiples.jpg", alt: "Sala de usos múltiples" },
+                { src: "/lumen/areas-comunes/03-estacionamiento-bicicletas.jpg", alt: "Estacionamiento de bicicletas" },
+                { src: "/lumen/areas-comunes/04-lavanderia-tendales.jpg", alt: "Lavandería y tendales" },
+                { src: "/lumen/areas-comunes/05-ascensor.jpg", alt: "Ascensor" }
+            ]
+        },
+        {
+            id: "tour-virtual",
+            title: "Tour Virtual Piloto",
+            subtitle: "Tipo 1 · 53 m²",
+            kind: "tour",
+            images: [
+                { src: "/lumen/tour/t1-360-sala.jpg", alt: "Tour 360 — Sala", fit: "contain" },
+                { src: "/lumen/tour/t1-360-dorm-1.jpg", alt: "Tour 360 — Dormitorio 1", fit: "contain" },
+                { src: "/lumen/tour/t1-360-dorm-2.jpg", alt: "Tour 360 — Dormitorio 2", fit: "contain" }
+            ]
+        },
+        {
+            id: "departamento-piloto",
+            title: "Departamento Piloto",
+            images: [
+                { src: "/lumen/piloto/01-sala.jpg", alt: "Sala" },
+                { src: "/lumen/piloto/02-sala-comedor.jpg", alt: "Sala-comedor" },
+                { src: "/lumen/piloto/03-cocina.jpg", alt: "Cocina" },
+                { src: "/lumen/piloto/04-dormitorio-1.jpg", alt: "Dormitorio 1" },
+                { src: "/lumen/piloto/05-dormitorio-2.jpg", alt: "Dormitorio 2" },
+                { src: "/lumen/piloto/06-lavanderia.jpg", alt: "Lavandería" },
+                { src: "/lumen/piloto/07-bano.jpg", alt: "Baño" }
+            ]
+        }
+    ],
+    typologies: [
+        { id: "tipo-1", name: "Tipo 1", image: "/lumen/tipos/tipo-1.jpg", area: 53, available: true },
+        { id: "tipo-2", name: "Tipo 2", image: "/lumen/tipos/tipo-2.jpg", available: true },
+        { id: "tipo-3", name: "Tipo 3", image: "/lumen/tipos/tipo-3.jpg", available: true },
+        { id: "tipo-1-duplex", name: "Tipo 1 Dúplex", image: "/lumen/tipos/tipo-1-duplex.jpg", available: true },
+        { id: "tipo-2-duplex", name: "Tipo 2 Dúplex", image: "/lumen/tipos/tipo-2-duplex.jpg", available: false }
+    ]
 };
 
 export const BUILDINGS: Building[] = [
-    WABI_SABI_BUILDING,
+    LUMEN_PARK_BUILDING,
     BRINDIZI_BUILDING,
-    LUMEN_PARK_BUILDING
+    WABI_SABI_BUILDING
 ];
 
 export function getAllBuildings(): Building[] {

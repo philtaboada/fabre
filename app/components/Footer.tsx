@@ -162,6 +162,12 @@ export default function Footer() {
                 </div>
                 <span>+51 964 247 545</span>
               </a>
+              <a href="tel:+51933262614" className="flex items-center justify-center md:justify-start gap-3 text-blue-100/70 hover:text-accent transition-colors group">
+                <div className="w-10 h-10 bg-white/5 rounded-xl flex items-center justify-center group-hover:bg-accent/10">
+                  <Phone className="w-5 h-5 text-accent" />
+                </div>
+                <span>+51 933 262 614</span>
+              </a>
               <a href="mailto:gerencia@inmobiliariafabre.com" className="flex items-center justify-center md:justify-start gap-3 text-blue-100/70 hover:text-accent transition-colors group">
                 <div className="w-10 h-10 bg-white/5 rounded-xl flex items-center justify-center group-hover:bg-accent/10">
                   <Mail className="w-5 h-5 text-accent" />

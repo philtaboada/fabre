@@ -150,6 +150,7 @@ export default function ApartmentCatalog() {
                                     <div className={`inline-block px-4 py-1 rounded text-[11px] font-black uppercase tracking-[0.2em] text-white shadow-lg w-fit
                                         ${building.status === 'Entregado' ? 'bg-[#98CB00]' :
                                             building.status === 'Entrega inmediata' ? 'bg-[#98CB00]' :
+                                                building.status === 'En Acabados' ? 'bg-orange-500' :
                                                 building.status === 'Pre venta' ? 'bg-[#FF3B30]' : 'bg-orange-500'}`}
                                     >
                                         {(building.status === 'Entrega inmediata' ? 'Entregado' : building.status).toUpperCase()}

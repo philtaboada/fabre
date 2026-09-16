@@ -231,3 +231,11 @@ html {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-accent);
 }
+
+.virtual-tour .psv-container {
+  background: #1a1a1a;
+}
+
+.virtual-tour .psv-virtual-tour-arrow {
+  color: rgba(255, 255, 255, 0.92);
+}
