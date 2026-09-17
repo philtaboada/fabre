@@ -141,7 +141,7 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
       <Header />
 
       {/* Immersive Hero Section */}
-      <section className="relative h-[70vh] lg:h-[80vh] w-full overflow-hidden">
+      <section className="relative h-[min(70dvh,40rem)] lg:h-[80vh] w-full overflow-hidden">
         <Image
           src={project.image}
           alt={project.title}
@@ -151,17 +151,17 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/30" />
 
-        <div className="absolute inset-0 flex items-end pb-12 lg:pb-20">
-          <div className="container-page">
-            <Link
-              href={withUtm("/#proyectos")}
-              className="absolute top-24 lg:top-28 left-4 lg:left-8 z-20 hover:opacity-80 transition-all flex items-center gap-3 text-white/90 font-medium group"
+        <div className="absolute inset-0 flex items-end pb-10 sm:pb-12 lg:pb-20">
+          <Link
+              href={withUtm("/#departamentos")}
+              className="absolute top-20 left-4 z-20 inline-flex items-center gap-2 sm:gap-3 text-white/90 font-medium group sm:top-24 lg:top-28 lg:left-8 hover:opacity-80 transition-all"
             >
               <div className="p-2.5 bg-white/10 backdrop-blur-md rounded-full border border-white/20 transition-all group-hover:bg-white/20">
                 <LucideIcons.ArrowLeft size={20} />
               </div>
-              <span className="text-shadow-sm">Volver a proyectos</span>
+              <span className="text-shadow-sm text-sm sm:text-base">Volver a proyectos</span>
             </Link>
+          <div className="container-page w-full pt-16">
 
             <motion.div
               initial="hidden"
@@ -182,20 +182,20 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
                 )}
               </motion.div>
 
-              <motion.h1 variants={fadeIn} className="text-4xl lg:text-7xl font-bold text-white mb-4 leading-tight">
+              <motion.h1 variants={fadeIn} className="text-3xl sm:text-4xl lg:text-7xl font-bold text-white mb-4 leading-tight text-balance">
                 {project.title} <br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent-light to-white">
                   en {project.district}
                 </span>
               </motion.h1>
 
-              <motion.div variants={fadeIn} className="flex items-center gap-4 text-white/80 text-lg lg:text-xl">
-                <LucideIcons.MapPin className="text-accent" />
+              <motion.div variants={fadeIn} className="flex items-start gap-3 text-white/80 text-base sm:text-lg lg:text-xl">
+                <LucideIcons.MapPin className="text-accent shrink-0 mt-1" />
                 <a
                   href={mapsHref}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-accent transition-colors underline underline-offset-4"
+                  className="hover:text-accent transition-colors underline underline-offset-4 break-words"
                 >
                   {project.location.address}
                 </a>
@@ -257,8 +257,8 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
                   className="prose prose-lg max-w-none"
                 >
                   <h2 className="text-3xl font-bold text-primary mb-6">Sobre el Proyecto</h2>
-                  <div className="space-y-4 bg-white p-8 rounded-[2rem] shadow-sm border border-neutral-100">
-                    <p className="text-xl text-primary font-medium leading-relaxed">
+                  <div className="space-y-4 bg-white p-5 sm:p-8 rounded-3xl sm:rounded-[2rem] shadow-sm border border-neutral-100">
+                    <p className="text-lg sm:text-xl text-primary font-medium leading-relaxed">
                       {project.description}
                     </p>
                     <p className="text-secondary text-lg leading-relaxed">
@@ -284,12 +284,12 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
                     viewport={{ once: true }}
                     className="space-y-8 py-4"
                   >
-                    <div className="flex items-center justify-between">
-                      <h3 className="text-2xl font-bold text-primary flex items-center gap-2">
-                        <LucideIcons.LayoutGrid className="text-accent" />
+                    <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                      <h3 className="text-xl sm:text-2xl font-bold text-primary flex items-center gap-2">
+                        <LucideIcons.LayoutGrid className="text-accent shrink-0" />
                         Departamentos Disponibles
                       </h3>
-                      <span className="px-4 py-1 bg-accent/10 text-accent rounded-full text-xs font-bold uppercase">
+                      <span className="px-4 py-1 bg-accent/10 text-accent rounded-full text-xs font-bold uppercase w-fit">
                         {buildingData.apartments.filter(a => a.available).length} unidades disponibles
                       </span>
                     </div>

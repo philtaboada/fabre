@@ -79,7 +79,7 @@ export default function ProjectSpaces({
       {active.kind === "tour" ? (
         <VirtualTour subtitle={active.subtitle} />
       ) : (
-      <div className={`grid gap-4 ${images.length <= 3 ? "grid-cols-1 md:grid-cols-3 h-auto md:h-[320px]" : "grid-cols-2 md:grid-cols-4 h-[400px] md:h-[500px]"}`}>
+      <div className={`grid gap-2 sm:gap-4 ${images.length <= 3 ? "grid-cols-1 md:grid-cols-3 h-auto md:h-[320px]" : "grid-cols-2 md:grid-cols-4 h-[260px] sm:h-[380px] md:h-[500px]"}`}>
         {preview.map((img, i) => (
           <div
             key={img.src}

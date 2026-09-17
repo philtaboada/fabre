@@ -69,7 +69,7 @@ export default function ApartmentDetailPage({ params }: { params: Promise<{ id: 
             <Header />
 
             {/* Immersive Hero Section */}
-            <section className="relative h-[70vh] lg:h-[80vh] w-full overflow-hidden">
+            <section className="relative h-[min(70dvh,40rem)] lg:h-[80vh] w-full overflow-hidden">
                 <Image
                     src={apartment.images[0]}
                     alt={`Departamento ${apartment.type ? `Tipo ${apartment.type}` : `Piso ${apartment.floor}`}`}
@@ -79,18 +79,17 @@ export default function ApartmentDetailPage({ params }: { params: Promise<{ id: 
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/30" />
 
-                <div className="absolute inset-0 flex items-end pb-12 lg:pb-20">
-                    <div className="container-page">
-                        <Link
+                <div className="absolute inset-0 flex items-end pb-10 sm:pb-12 lg:pb-20">
+                    <Link
                             href={withUtm("/#departamentos")}
-                            className="absolute top-24 lg:top-28 left-4 lg:left-8 z-20 hover:opacity-80 transition-all flex items-center gap-3 text-white/90 font-medium group"
+                            className="absolute top-20 left-4 z-20 inline-flex items-center gap-2 sm:gap-3 text-white/90 font-medium group sm:top-24 lg:top-28 lg:left-8 hover:opacity-80 transition-all"
                         >
                             <div className="p-2.5 bg-white/10 backdrop-blur-md rounded-full border border-white/20 transition-all group-hover:bg-white/20">
                                 <LucideIcons.ArrowLeft size={20} />
                             </div>
-                            <span className="text-shadow-sm">Volver al catálogo</span>
+                            <span className="text-shadow-sm text-sm sm:text-base">Volver al catálogo</span>
                         </Link>
-
+                    <div className="container-page w-full pt-16">
                         <motion.div
                             initial="hidden"
                             animate="visible"
@@ -114,15 +113,15 @@ export default function ApartmentDetailPage({ params }: { params: Promise<{ id: 
                                 )}
                             </motion.div>
 
-                            <motion.h1 variants={fadeIn} className="text-4xl lg:text-7xl font-bold text-white mb-4 leading-tight">
+                            <motion.h1 variants={fadeIn} className="text-3xl sm:text-4xl lg:text-7xl font-bold text-white mb-4 leading-tight text-balance">
                                 Tu Nuevo Hogar <br />
                                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent-light to-white">
                                     en {building.district}
                                 </span>
                             </motion.h1>
 
-                            <motion.div variants={fadeIn} className="flex items-center gap-4 text-white/80 text-lg lg:text-xl">
-                                <LucideIcons.MapPin className="text-accent" />
+                            <motion.div variants={fadeIn} className="flex items-start gap-3 text-white/80 text-base sm:text-lg lg:text-xl">
+                                <LucideIcons.MapPin className="text-accent shrink-0 mt-1" />
                                 <a
                                     href={building.location.mapsUrl || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(building.address)}`}
                                     target="_blank"

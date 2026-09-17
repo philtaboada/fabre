@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Star, ChevronLeft, ChevronRight, Quote, TrendingUp, CheckCircle } from "lucide-react";
@@ -35,9 +35,20 @@ const testimonials = [
 export default function TestimonialsSection() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(0);
+  const [perView, setPerView] = useState(1);
 
-  const testimonialsPerView = 2;
-  const maxIndex = Math.ceil(testimonials.length / testimonialsPerView) - 1;
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 768px)");
+    const apply = () => {
+      setPerView(mq.matches ? 2 : 1);
+      setCurrentIndex(0);
+    };
+    apply();
+    mq.addEventListener("change", apply);
+    return () => mq.removeEventListener("change", apply);
+  }, []);
+
+  const maxIndex = Math.max(0, Math.ceil(testimonials.length / perView) - 1);
 
   const next = () => {
     setDirection(1);
@@ -66,11 +77,9 @@ export default function TestimonialsSection() {
     })
   };
 
-  // En versión móvil o tablets pequeñas mostramos solo 1
-  // Para simplificar esta demo, usaremos slice básico
   const currentTestimonials = testimonials.slice(
-    currentIndex * testimonialsPerView,
-    (currentIndex + 1) * testimonialsPerView
+    currentIndex * perView,
+    (currentIndex + 1) * perView
   );
 
   return (
@@ -91,7 +100,7 @@ export default function TestimonialsSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-4xl lg:text-6xl font-bold text-primary mb-6"
+            className="text-3xl sm:text-4xl lg:text-6xl font-bold text-primary mb-6"
           >
             Confianza que <br />
             <span className="text-accent underline decoration-accent-light underline-offset-8">construye hogares</span>
@@ -107,18 +116,20 @@ export default function TestimonialsSection() {
           </motion.p>
         </div>
 
-        <div className="relative max-w-7xl mx-auto px-4 lg:px-12">
+        <div className="relative max-w-7xl mx-auto">
           {/* Navegación */}
-          <div className="absolute top-1/2 -translate-y-1/2 left-0 right-0 flex justify-between pointer-events-none z-20">
+          <div className="flex justify-center gap-3 mb-6 md:mb-0 md:absolute md:top-1/2 md:-translate-y-1/2 md:left-0 md:right-0 md:justify-between md:pointer-events-none z-20">
             <button
               onClick={prev}
-              className="pointer-events-auto bg-white hover:bg-accent hover:text-white text-accent w-12 h-12 rounded-full shadow-xl flex items-center justify-center transition-all duration-300 transform -translate-x-1/2 focus:outline-none"
+              className="pointer-events-auto bg-white hover:bg-accent hover:text-white text-accent w-11 h-11 md:w-12 md:h-12 rounded-full shadow-xl flex items-center justify-center transition-all duration-300 md:-translate-x-1/2 focus:outline-none"
+              aria-label="Testimonio anterior"
             >
               <ChevronLeft className="w-6 h-6" />
             </button>
             <button
               onClick={next}
-              className="pointer-events-auto bg-white hover:bg-accent hover:text-white text-accent w-12 h-12 rounded-full shadow-xl flex items-center justify-center transition-all duration-300 transform translate-x-1/2 focus:outline-none"
+              className="pointer-events-auto bg-white hover:bg-accent hover:text-white text-accent w-11 h-11 md:w-12 md:h-12 rounded-full shadow-xl flex items-center justify-center transition-all duration-300 md:translate-x-1/2 focus:outline-none"
+              aria-label="Testimonio siguiente"
             >
               <ChevronRight className="w-6 h-6" />
             </button>

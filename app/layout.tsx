@@ -103,6 +103,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
+  viewportFit: "cover",
 };
 
 export default function RootLayout({
@@ -124,7 +125,7 @@ export default function RootLayout({
         <meta name="format-detection" content="telephone=no" />
         <meta name="mobile-web-app-capable" content="yes" />
       </head>
-      <body className={`${kanit.variable} min-h-screen bg-sand text-neutral-900 antialiased font-sans`}>
+      <body className={`${kanit.variable} min-h-dvh bg-sand text-neutral-900 antialiased font-sans`}>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

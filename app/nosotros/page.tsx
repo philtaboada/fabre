@@ -161,7 +161,7 @@ export default function NosotrosPage() {
                                 <span>Sobre Fabre Inmobiliaria</span>
                             </motion.div>
 
-                            <h1 className="text-4xl lg:text-6xl font-bold text-primary mb-8 leading-[1.1]">
+                            <h1 className="text-3xl sm:text-4xl lg:text-6xl font-bold text-primary mb-6 sm:mb-8 leading-[1.1]">
                                 <span className="text-primary">Construyendo sueños de calidad</span>
                             </h1>
 
@@ -305,7 +305,7 @@ export default function NosotrosPage() {
                             <span>Compromiso Fabre</span>
                         </motion.div>
 
-                        <h2 className="text-4xl lg:text-6xl font-bold mb-8 leading-tight text-primary">
+                        <h2 className="text-3xl sm:text-4xl lg:text-6xl font-bold mb-6 sm:mb-8 leading-tight text-primary">
                             Creando valor más allá del <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-emerald-500">Ladrillo y Cemento</span>
                         </h2>
 
@@ -375,7 +375,7 @@ export default function NosotrosPage() {
                                     priority
                                 />
                             </div>
-                            <h2 className="text-4xl lg:text-6xl font-bold leading-tight text-white mb-8">
+                            <h2 className="text-3xl sm:text-4xl lg:text-6xl font-bold leading-tight text-white mb-6 sm:mb-8">
                                 Transformando vidas, <br />
                                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-emerald-400">Una historia a la vez</span>
                             </h2>

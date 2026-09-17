@@ -111,7 +111,7 @@ export default function HeroCarousel() {
 
   return (
     <section id="inicio"
-      className="relative min-h-screen overflow-hidden bg-black"
+      className="relative min-h-dvh overflow-hidden bg-black"
       onMouseEnter={() => setIsAutoPlaying(false)}
       onMouseLeave={() => setIsAutoPlaying(true)}
     >
@@ -138,8 +138,8 @@ export default function HeroCarousel() {
       </AnimatePresence>
 
       {/* Content Overlay */}
-      <div className="absolute inset-0 z-20 flex items-center">
-        <div className="container-page">
+      <div className="absolute inset-0 z-20 flex items-end sm:items-center pt-24 pb-36 sm:pb-32">
+        <div className="container-page w-full">
           <motion.div
             key={`text-${currentSlide}`}
             variants={containerVariants}
@@ -148,21 +148,21 @@ export default function HeroCarousel() {
             className="max-w-4xl"
           >
             <motion.div variants={textVariants}>
-              <span className="inline-block px-4 py-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-white/90 text-sm font-semibold tracking-wider uppercase mb-6">
+              <span className="inline-block max-w-full px-3 py-1.5 sm:px-4 sm:py-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-white/90 text-[11px] sm:text-sm font-semibold tracking-wide sm:tracking-wider uppercase mb-4 sm:mb-6">
                 {heroSlides[currentSlide].subtitle}
               </span>
             </motion.div>
 
             <motion.h1
               variants={textVariants}
-              className="text-5xl lg:text-8xl font-bold text-white mb-8 leading-tight tracking-tight drop-shadow-2xl"
+              className="text-[1.85rem] sm:text-4xl md:text-5xl lg:text-7xl xl:text-8xl font-bold text-white mb-4 sm:mb-8 leading-[1.15] tracking-tight drop-shadow-2xl text-balance"
             >
               {heroSlides[currentSlide].title}
             </motion.h1>
 
             <motion.p
               variants={textVariants}
-              className="text-lg lg:text-2xl text-white/80 mb-10 max-w-2xl leading-relaxed font-light"
+              className="text-base sm:text-lg lg:text-2xl text-white/80 mb-6 sm:mb-10 max-w-2xl leading-relaxed font-light"
             >
               {heroSlides[currentSlide].description}
             </motion.p>
@@ -170,7 +170,7 @@ export default function HeroCarousel() {
             <motion.div variants={textVariants}>
               <Link
                 href={withUtm(heroSlides[currentSlide].ctaLink)}
-                className="group relative inline-flex items-center gap-3 px-8 py-4 bg-accent text-white rounded-full font-bold overflow-hidden transition-all hover:pr-10"
+                className="group relative inline-flex min-h-11 items-center gap-3 px-6 py-3 sm:px-8 sm:py-4 bg-accent text-white rounded-full font-bold overflow-hidden transition-all hover:pr-10"
               >
                 <span className="relative z-10">{heroSlides[currentSlide].cta}</span>
                 <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
@@ -182,17 +182,17 @@ export default function HeroCarousel() {
       </div>
 
       {/* Controls & Indicators */}
-      <div className="absolute bottom-12 left-0 w-full z-30">
-        <div className="container-page flex items-end justify-between">
+      <div className="absolute bottom-5 sm:bottom-10 left-0 w-full z-30 pb-[env(safe-area-inset-bottom)]">
+        <div className="container-page flex items-center justify-between gap-3">
 
           {/* Indicators & Progress */}
-          <div className="flex items-center gap-6">
-            <div className="flex gap-3">
+          <div className="flex items-center gap-3 sm:gap-6 min-w-0">
+            <div className="flex gap-2 sm:gap-3">
               {heroSlides.map((_, index) => (
                 <button
                   key={index}
                   onClick={() => goToSlide(index)}
-                  className={`relative h-1 transition-all duration-300 rounded-full overflow-hidden ${index === currentSlide ? "w-16 bg-white/30" : "w-8 bg-white/20 hover:bg-white/40"
+                  className={`relative h-1.5 sm:h-1 transition-all duration-300 rounded-full overflow-hidden ${index === currentSlide ? "w-10 sm:w-16 bg-white/30" : "w-6 sm:w-8 bg-white/20 hover:bg-white/40"
                     }`}
                 >
                   {index === currentSlide && isAutoPlaying && (
@@ -210,26 +210,26 @@ export default function HeroCarousel() {
                 </button>
               ))}
             </div>
-            <span className="text-white/50 text-sm font-mono tracking-widest">
+            <span className="text-white/50 text-xs sm:text-sm font-mono tracking-widest shrink-0">
               0{currentSlide + 1} / 0{heroSlides.length}
             </span>
           </div>
 
           {/* Navigation Arrows */}
-          <div className="flex gap-4">
+          <div className="hidden sm:flex gap-2 sm:gap-4 shrink-0">
             <button
               onClick={prevSlide}
-              className="w-14 h-14 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-white hover:text-primary transition-all duration-300 group"
+              className="w-11 h-11 sm:w-14 sm:h-14 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-white hover:text-primary transition-all duration-300 group"
               aria-label="Anterior"
             >
-              <ArrowLeft className="w-6 h-6 group-hover:-translate-x-1 transition-transform" />
+              <ArrowLeft className="w-5 h-5 sm:w-6 sm:h-6 group-hover:-translate-x-1 transition-transform" />
             </button>
             <button
               onClick={nextSlide}
-              className="w-14 h-14 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-white hover:text-primary transition-all duration-300 group"
+              className="w-11 h-11 sm:w-14 sm:h-14 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-white hover:text-primary transition-all duration-300 group"
               aria-label="Siguiente"
             >
-              <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6 group-hover:translate-x-1 transition-transform" />
             </button>
           </div>
         </div>

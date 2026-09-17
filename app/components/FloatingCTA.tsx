@@ -36,7 +36,7 @@ export default function FloatingCTA() {
           initial={{ x: -100, opacity: 0, scale: 0.8 }}
           animate={{ x: 0, opacity: 1, scale: 1 }}
           exit={{ x: -100, opacity: 0, scale: 0.8 }}
-          className="fixed bottom-8 left-8 z-50 w-full max-w-[340px]"
+          className="fixed bottom-8 left-8 z-50 hidden w-full max-w-[340px] md:block"
         >
           <div className="bg-white rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.15)] p-1 border border-neutral-100 relative overflow-hidden group">
             {/* Background Decoration */}

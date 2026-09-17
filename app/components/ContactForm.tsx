@@ -148,20 +148,20 @@ export default function ContactForm({
   return (
     <section id="contacto" className="py-16 lg:py-24 bg-neutral-50 overflow-hidden">
       <div className="container-page">
-        <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-start">
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-24 items-start">
 
           {/* Info Side */}
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             className="order-2 lg:order-1"
           >
-            <h2 className="text-3xl lg:text-5xl font-bold text-primary mb-8">
+            <h2 className="text-3xl lg:text-5xl font-bold text-primary mb-6 sm:mb-8">
               Tu futuro hogar <br />
               <span className="text-accent underline decoration-accent-light underline-offset-8">comienza aquí</span>
             </h2>
-            <p className="text-secondary text-lg mb-12 leading-relaxed max-w-lg">
+            <p className="text-secondary text-base sm:text-lg mb-10 sm:mb-12 leading-relaxed max-w-lg">
               Solicita asesoría personalizada y descubre cómo facilitamos el camino hacia tu nuevo departamento.
             </p>
 
@@ -182,7 +182,7 @@ export default function ContactForm({
                 </div>
                 <div>
                   <h4 className="font-bold text-primary">Correo</h4>
-                  <p className="text-blue-600 font-medium">gerencia@inmobiliariafabre.com</p>
+                  <p className="text-blue-600 font-medium break-all">gerencia@inmobiliariafabre.com</p>
                 </div>
               </div>
 
@@ -207,7 +207,7 @@ export default function ContactForm({
               </div>
             </div>
 
-            <div className="mt-16 pt-8 border-t border-neutral-200 grid grid-cols-2 gap-8">
+            <div className="mt-10 sm:mt-16 pt-8 border-t border-neutral-200 grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8">
               <div className="flex items-center gap-3">
                 <ShieldCheck className="w-8 h-8 text-green-500" />
                 <span className="text-sm font-bold text-primary">Transacción 100% Segura</span>
@@ -226,7 +226,7 @@ export default function ContactForm({
             viewport={{ once: true }}
             className="order-1 lg:order-2"
           >
-            <div className="bg-white p-8 lg:p-12 rounded-[3rem] shadow-xl border border-neutral-100 relative">
+            <div className="bg-white p-5 sm:p-8 lg:p-12 rounded-3xl lg:rounded-[3rem] shadow-xl border border-neutral-100 relative overflow-hidden">
               <div className="absolute -top-6 -right-6 w-24 h-24 bg-accent/5 rounded-full blur-2xl"></div>
 
               <AnimatePresence mode="wait">
@@ -371,7 +371,7 @@ export default function ContactForm({
               </AnimatePresence>
             </div>
 
-            <div className="mt-8 flex items-center justify-center gap-8">
+            <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8">
               <div className="flex items-center gap-2">
                 <Clock className="w-5 h-5 text-accent" />
                 <span className="text-xs font-bold text-secondary">Respuesta en {'<'} 15 min</span>

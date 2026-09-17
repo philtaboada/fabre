@@ -92,7 +92,7 @@ export default function ApartmentCatalog() {
     }, [filters]);
 
     return (
-        <section id="departamentos" className="py-20 lg:py-32 bg-[#FDFDFD] overflow-hidden">
+        <section id="departamentos" className="py-14 sm:py-20 lg:py-32 bg-[#FDFDFD] overflow-hidden">
             <div className="container-page">
                 {/* Header */}
                 <motion.div
@@ -107,7 +107,7 @@ export default function ApartmentCatalog() {
                             Propiedades Exclusivas
                         </span>
                     </motion.div>
-                    <motion.h2 variants={itemVariants} className="text-4xl lg:text-6xl font-bold text-primary mb-6 tracking-tight">
+                    <motion.h2 variants={itemVariants} className="text-3xl sm:text-4xl lg:text-6xl font-bold text-primary mb-6 tracking-tight">
                         Nuestros Proyectos
                     </motion.h2>
                     <motion.p variants={itemVariants} className="text-secondary text-lg lg:text-xl max-w-2xl mx-auto leading-relaxed font-light">
@@ -286,12 +286,12 @@ export default function ApartmentCatalog() {
                     viewport={{ once: true }}
                     className="mt-20 lg:mt-32 text-center"
                 >
-                    <div className="bg-primary rounded-[3rem] p-12 lg:p-24 relative overflow-hidden group">
+                    <div className="bg-primary rounded-3xl lg:rounded-[3rem] p-8 sm:p-12 lg:p-24 relative overflow-hidden group">
                         <div className="absolute top-0 right-0 w-96 h-96 bg-accent/20 rounded-full blur-[100px] -mr-48 -mt-48 group-hover:bg-accent/30 transition-colors duration-1000"></div>
                         <div className="absolute bottom-0 left-0 w-96 h-96 bg-accent/10 rounded-full blur-[100px] -ml-48 -mb-48 group-hover:bg-accent/20 transition-colors duration-1000"></div>
 
                         <div className="relative z-10 max-w-3xl mx-auto">
-                            <h3 className="text-4xl lg:text-5xl font-bold text-white mb-8 tracking-tight">
+                            <h3 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6 sm:mb-8 tracking-tight">
                                 Tu próxima historia comienza aquí
                             </h3>
                             <p className="text-neutral-400 text-lg lg:text-xl mb-12 font-light leading-relaxed">

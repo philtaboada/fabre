@@ -21,7 +21,7 @@ export default function ImageGallery({ images }: ImageGalleryProps) {
         <div className="w-full">
             <h3 className="text-xl font-bold text-primary mb-6">Galería de Imágenes</h3>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 h-[400px] md:h-[500px]">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-4 h-[260px] sm:h-[380px] md:h-[500px]">
                 {/* Main Large Image */}
                 <div
                     className="col-span-2 row-span-2 relative rounded-2xl overflow-hidden cursor-pointer group"

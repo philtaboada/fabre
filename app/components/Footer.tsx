@@ -168,11 +168,11 @@ export default function Footer() {
                 </div>
                 <span>+51 933 262 614</span>
               </a>
-              <a href="mailto:gerencia@inmobiliariafabre.com" className="flex items-center justify-center md:justify-start gap-3 text-blue-100/70 hover:text-accent transition-colors group">
-                <div className="w-10 h-10 bg-white/5 rounded-xl flex items-center justify-center group-hover:bg-accent/10">
+              <a href="mailto:gerencia@inmobiliariafabre.com" className="flex items-center justify-center md:justify-start gap-3 text-blue-100/70 hover:text-accent transition-colors group min-w-0">
+                <div className="w-10 h-10 bg-white/5 rounded-xl flex items-center justify-center group-hover:bg-accent/10 shrink-0">
                   <Mail className="w-5 h-5 text-accent" />
                 </div>
-                <span>gerencia@inmobiliariafabre.com</span>
+                <span className="break-all text-sm">gerencia@inmobiliariafabre.com</span>
               </a>
               <a
                 href="https://www.google.com/maps/search/?api=1&query=San+Judas+Tadeo+421+Huancayo"
@@ -203,8 +203,8 @@ export default function Footer() {
 
         {/* Footer Bottom */}
         <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-6 text-blue-100/40 text-sm">
-          <p>© {currentYear} Fabre Inmobiliaria. Todos los derechos reservados.</p>
-          <div className="flex gap-8">
+          <p className="text-center">© {currentYear} Fabre Inmobiliaria. Todos los derechos reservados.</p>
+          <div className="flex flex-wrap justify-center gap-x-6 gap-y-2">
             <Link href={withUtm("/privacy")} className="hover:text-accent transition-colors">Política de Privacidad</Link>
             <Link href={withUtm("/terms")} className="hover:text-accent transition-colors">Términos y condiciones</Link>
             <Link href="#" className="hover:text-accent transition-colors">Libro de Reclamaciones</Link>
